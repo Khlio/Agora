@@ -6,6 +6,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
         <property name="java-output-path" value="/Agora/target/classes"/>
-        <property name="context-root" value="Agora"/>
+        <property name="context-root" value="agora"/>
     </wb-module>
 </project-modules>
