@@ -1,19 +1,21 @@
 package fr.epsi.agora.web.ressource.utilisateur;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.assertions.MapAssert.entry;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.restlet.data.Form;
+import org.restlet.data.MediaType;
+import org.restlet.ext.jackson.JacksonRepresentation;
+import org.restlet.representation.Representation;
 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
@@ -23,7 +25,6 @@ import fr.epsi.agora.commande.Message;
 import fr.epsi.agora.commande.utilisateur.CreationUtilisateurMessage;
 import fr.epsi.agora.requete.utilisateur.DetailsUtilisateur;
 import fr.epsi.agora.requete.utilisateur.RechercheUtilisateurs;
-import fr.epsi.agora.web.representation.ModeleEtVue;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class UtilisateursRessourceTest {
@@ -38,31 +39,24 @@ public class UtilisateursRessourceTest {
 	}
 	
 	@Test
-	public void peutAfficherTousLesUtilisateurs() {
+	public void peutAfficherTousLesUtilisateurs() throws IOException {
 		List<DetailsUtilisateur> utilisateurs = Lists.newArrayList();
 		DetailsUtilisateur details = new DetailsUtilisateur();
 		details.setId(UUID.randomUUID().toString());
 		utilisateurs.add(details);
 		when(recherche.tous()).thenReturn(utilisateurs);
 		
-		ModeleEtVue represente = ressource.represente();
+		Representation represente = ressource.represente();
 		
-		assertThat(represente.getTexte()).contains(utilisateurs.get(0).getId());
-		assertThat(represente.getData()).includes(entry("utilisateurs", utilisateurs));
+		assertThat(represente).isNotNull();
+		assertThat(represente.getText()).contains(utilisateurs.get(0).getId());
 	}
 	
 	@Test
-	public void peutCreerUnUtilisateur() {
-		//TODO Teste à refaire
-		Form formulaire = new Form();
-		formulaire.add("nom", "Levacher");
-		formulaire.add("prenom", "Vincent");
-		formulaire.add("email", "a@a.com");
-		formulaire.add("motDePasse", "pass");
-		formulaire.add("adresse", "1 rue Test");
-		formulaire.add("telephone", "0607080910");
+	public void peutCreerUnUtilisateur() throws IOException {
+		JacksonRepresentation<DetailsUtilisateur> json = new JacksonRepresentation<DetailsUtilisateur>(MediaType.APPLICATION_JSON, unUtilisateur());
 		
-		ressource.cree(formulaire);
+		ressource.cree(json);
 		
 		ArgumentCaptor<CreationUtilisateurMessage> capteur = ArgumentCaptor.forClass(CreationUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
@@ -73,6 +67,17 @@ public class UtilisateursRessourceTest {
 		assertThat(commande.motDePasse).isEqualTo("pass");
 		assertThat(commande.adresse).isEqualTo("1 rue Test");
 		assertThat(commande.telephone).isEqualTo("0607080910");
+	}
+	
+	private DetailsUtilisateur unUtilisateur() {
+		DetailsUtilisateur details = new DetailsUtilisateur();
+		details.setNom("Levacher");
+		details.setPrenom("Vincent");
+		details.setEmail("a@a.com");
+		details.setMotDePasse("pass");
+		details.setAdresse("1 rue Test");
+		details.setTelephone("0607080910");
+		return details;
 	}
 	
 	private BusCommande busCommande;

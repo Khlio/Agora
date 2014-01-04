@@ -107,13 +107,13 @@
 	</dependencies>
 	
 	<repositories>
-	  <repository>
-	    <id>MongoLink</id>
-	    <url>http://repository-mongolink.forge.cloudbees.com/release/</url>
-	  </repository>
-	  <repository>
-	  	<id>maven-restlet</id>
-	  	<url>http://maven.restlet.org</url>
-	  </repository>
+		<repository>
+			<id>MongoLink</id>
+			<url>http://repository-mongolink.forge.cloudbees.com/release/</url>
+		</repository>
+		<repository>
+			<id>maven-restlet</id>
+			<url>http://maven.restlet.org</url>
+		</repository>
 	</repositories>
 </project>

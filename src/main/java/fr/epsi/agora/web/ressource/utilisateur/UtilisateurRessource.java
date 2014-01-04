@@ -2,6 +2,8 @@ package fr.epsi.agora.web.ressource.utilisateur;
 
 import java.util.UUID;
 
+import org.restlet.ext.jackson.JacksonRepresentation;
+import org.restlet.representation.Representation;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.ResourceException;
@@ -13,7 +15,6 @@ import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.utilisateur.SuppressionUtilisateurMessage;
 import fr.epsi.agora.requete.utilisateur.DetailsUtilisateur;
 import fr.epsi.agora.requete.utilisateur.RechercheUtilisateurs;
-import fr.epsi.agora.web.representation.ModeleEtVue;
 
 public class UtilisateurRessource extends ServerResource {
 
@@ -30,8 +31,8 @@ public class UtilisateurRessource extends ServerResource {
 	}
 	
 	@Get("json")
-	public ModeleEtVue represente() {
-		return ModeleEtVue.cree().avec("utilisateur", utilisateur);
+	public Representation represente() {
+		return new JacksonRepresentation<>(utilisateur);
 	}
 	
 	@Delete

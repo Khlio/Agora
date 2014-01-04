@@ -1,22 +1,23 @@
 package fr.epsi.agora.web.ressource.utilisateur;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.assertions.MapAssert.entry;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.restlet.data.MediaType;
+import org.restlet.representation.Representation;
 
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.utilisateur.SuppressionUtilisateurMessage;
 import fr.epsi.agora.requete.utilisateur.DetailsUtilisateur;
 import fr.epsi.agora.requete.utilisateur.RechercheUtilisateurs;
-import fr.epsi.agora.web.representation.ModeleEtVue;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class UtilisateurRessourceTest {
@@ -29,15 +30,15 @@ public class UtilisateurRessourceTest {
 	}
 	
 	@Test
-	public void peutAfficherLUtilisateur() {
+	public void peutAfficherLUtilisateur() throws IOException {
 		DetailsUtilisateur details = laRechercheRetourne();
 		initialiseRessource(details);
 		
-		ModeleEtVue modeleEtVue = ressource.represente();
+		Representation represente = ressource.represente();
 		
-		assertThat(modeleEtVue).isNotNull();
-		assertThat(modeleEtVue.getTexte()).contains(details.getId());
-		assertThat(modeleEtVue.getData()).includes(entry("utilisateur", details));
+		assertThat(represente).isNotNull();
+		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
+		assertThat(represente.getText()).contains(details.getId());
 	}
 	
 	@Test
@@ -51,7 +52,6 @@ public class UtilisateurRessourceTest {
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionUtilisateurMessage commande = capteur.getValue();
 		assertThat(commande.idUtilisateur).isEqualTo(UUID.fromString(details.getId()));
-		//TODO vérifier que l'utilisateur n'est plus dans l'entrepôt
 	}
 	
 	private DetailsUtilisateur laRechercheRetourne() {
