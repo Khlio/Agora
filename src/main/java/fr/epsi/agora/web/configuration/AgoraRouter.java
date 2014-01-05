@@ -7,6 +7,8 @@ import org.restlet.routing.Router;
 
 import com.google.inject.Injector;
 
+import fr.epsi.agora.web.ressource.utilisateur.ConnexionUtilisateurRessource;
+import fr.epsi.agora.web.ressource.utilisateur.DeconnexionUtilisateurRessource;
 import fr.epsi.agora.web.ressource.utilisateur.UtilisateurRessource;
 import fr.epsi.agora.web.ressource.utilisateur.UtilisateursRessource;
 import fr.epsi.agora.web.restlet.GuiceFinder;
@@ -22,6 +24,8 @@ public class AgoraRouter extends Router {
 	private void attacheRoutes() {
 		attach("/utilisateurs", UtilisateursRessource.class);
 		attach("/utilisateurs/{id}", UtilisateurRessource.class);
+		attach("/utilisateurs/{id}/connexion", ConnexionUtilisateurRessource.class);
+		attach("/utilisateurs/{id}/deconnexion", DeconnexionUtilisateurRessource.class);
 	}
 	
 	@Override

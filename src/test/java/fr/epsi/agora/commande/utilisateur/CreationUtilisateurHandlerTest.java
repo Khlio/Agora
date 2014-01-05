@@ -23,7 +23,6 @@ public class CreationUtilisateurHandlerTest {
 		UUID idUtilisateur = new CreationUtilisateurHandler().execute(commande);
 		
 		assertThat(idUtilisateur).isNotNull();
-		assertThat(Entrepots.utilisateurs().get(idUtilisateur)).isNotNull();
 		Utilisateur utilisateur = Entrepots.utilisateurs().get(idUtilisateur).orNull();
 		assertThat(utilisateur).isNotNull();
 		assertThat(utilisateur.getNom()).isEqualTo("Levacher");

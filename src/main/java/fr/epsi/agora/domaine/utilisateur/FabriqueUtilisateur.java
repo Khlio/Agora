@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.UUID;
 
-public class FabriqueUtlisateur {
+public class FabriqueUtilisateur {
 
 	public Utilisateur nouveau(String nom, String prenom, String email, String motDePasse) {
 		return nouveau(nom, prenom, email, motDePasse, "", "");

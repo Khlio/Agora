@@ -25,6 +25,12 @@ public class FakeEntrepotUtilisateurs implements EntrepotUtilisateurs {
 		utilisateurs.add(aggregat);
 		return aggregat;
 	}
+	
+	@Override
+	public void modifie(Utilisateur aggregat) {
+		supprime(get(aggregat.getId()).get());
+		utilisateurs.add(aggregat);
+	}
 
 	@Override
 	public void supprime(Utilisateur aggregat) {

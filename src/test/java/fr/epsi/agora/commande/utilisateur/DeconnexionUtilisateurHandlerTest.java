@@ -10,19 +10,23 @@ import fr.epsi.agora.domaine.utilisateur.FabriqueUtilisateur;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 import fr.epsi.agora.persistance.fake.AvecEntrepots;
 
-public class SuppressionUtilisateurHandlerTest {
+public class DeconnexionUtilisateurHandlerTest {
 
 	@Rule
 	public AvecEntrepots entrepots = new AvecEntrepots();
 	
 	@Test
-	public void peutSupprimerUtilisateur() {
+	public void peutDeconnecterUtilisateur() {
 		Utilisateur utilisateur = Entrepots.utilisateurs().ajoute(new FabriqueUtilisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass"));
-		SuppressionUtilisateurMessage commande = new SuppressionUtilisateurMessage(utilisateur.getId());
+		utilisateur.setConnecte(true);
+		assertThat(utilisateur.isConnecte()).isTrue();
+		DeconnexionUtilisateurMessage commande = new DeconnexionUtilisateurMessage(utilisateur.getId());
 		
-		new SuppressionUtilisateurHandler().execute(commande);
+		new DeconnexionUtilisateurHandler().execute(commande);
 		
-		assertThat(Entrepots.utilisateurs().get(utilisateur.getId()).orNull()).isNull();
+		Utilisateur utilisateurConnecte = Entrepots.utilisateurs().get(utilisateur.getId()).orNull();
+		assertThat(utilisateurConnecte).isNotNull();
+		assertThat(utilisateurConnecte.isConnecte()).isFalse();
 	}
 	
 }

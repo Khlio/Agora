@@ -12,9 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.MediaType;
+import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 
 import fr.epsi.agora.commande.BusCommande;
+import fr.epsi.agora.commande.utilisateur.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.utilisateur.SuppressionUtilisateurMessage;
 import fr.epsi.agora.requete.utilisateur.DetailsUtilisateur;
 import fr.epsi.agora.requete.utilisateur.RechercheUtilisateurs;
@@ -42,6 +44,22 @@ public class UtilisateurRessourceTest {
 	}
 	
 	@Test
+	public void peutModifierLUtilisateur() throws IOException {
+		DetailsUtilisateur details = laRechercheRetourne();
+		initialiseRessource(details);
+		details.setEmail("b@b.com");
+		JacksonRepresentation<DetailsUtilisateur> json = new JacksonRepresentation<DetailsUtilisateur>(MediaType.APPLICATION_JSON, details);
+		
+		ressource.modifie(json);
+		
+		ArgumentCaptor<ModificationUtilisateurMessage> capteur = ArgumentCaptor.forClass(ModificationUtilisateurMessage.class);
+		verify(busCommande).envoie(capteur.capture());
+		ModificationUtilisateurMessage commande = capteur.getValue();
+		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
+		assertThat(commande.email).isEqualTo("b@b.com");
+	}
+	
+	@Test
 	public void peutSupprimerLUtilisateur() {
 		DetailsUtilisateur details = laRechercheRetourne();
 		initialiseRessource(details);
@@ -51,7 +69,7 @@ public class UtilisateurRessourceTest {
 		ArgumentCaptor<SuppressionUtilisateurMessage> capteur = ArgumentCaptor.forClass(SuppressionUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionUtilisateurMessage commande = capteur.getValue();
-		assertThat(commande.idUtilisateur).isEqualTo(UUID.fromString(details.getId()));
+		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 	}
 	
 	private DetailsUtilisateur laRechercheRetourne() {
@@ -62,8 +80,8 @@ public class UtilisateurRessourceTest {
 		return details;
 	}
 	
-	private void initialiseRessource(DetailsUtilisateur detailsUtilisateur) {
-		RessourceHelper.initialise(ressource).avec("id", detailsUtilisateur.getId());
+	private void initialiseRessource(DetailsUtilisateur details) {
+		RessourceHelper.initialise(ressource).avec("id", details.getId());
 	}
 	
 	private RechercheUtilisateurs recherche;

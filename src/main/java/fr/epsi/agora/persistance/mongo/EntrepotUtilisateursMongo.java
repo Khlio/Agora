@@ -25,6 +25,11 @@ public class EntrepotUtilisateursMongo implements EntrepotUtilisateurs {
 		fournisseur.get().save(aggregat);
 		return aggregat;
 	}
+	
+	@Override
+	public void modifie(Utilisateur aggregat) {
+		fournisseur.get().update(aggregat);
+	}
 
 	@Override
 	public void supprime(Utilisateur aggregat) {

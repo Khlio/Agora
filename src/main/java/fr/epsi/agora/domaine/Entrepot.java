@@ -8,6 +8,8 @@ public interface Entrepot<T extends Aggregat> {
 	
 	T ajoute(T aggregat);
 	
+	void modifie(T aggregat);
+	
 	void supprime(T aggregat);
 	
 }

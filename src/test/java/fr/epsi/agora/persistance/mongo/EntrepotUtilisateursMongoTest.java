@@ -9,7 +9,7 @@ import org.mongolink.MongoSession;
 import org.mongolink.test.MongolinkRule;
 
 import fr.epsi.agora.commande.FournisseurMongoSession;
-import fr.epsi.agora.domaine.utilisateur.FabriqueUtlisateur;
+import fr.epsi.agora.domaine.utilisateur.FabriqueUtilisateur;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
 public class EntrepotUtilisateursMongoTest {
@@ -33,7 +33,7 @@ public class EntrepotUtilisateursMongoTest {
 	
 	@Test
 	public void peutAjouter() {
-		Utilisateur utilisateur = new FabriqueUtlisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass");
+		Utilisateur utilisateur = new FabriqueUtilisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass");
 		
 		entrepot.ajoute(utilisateur);
 		mongolinkRule.cleanSession();
@@ -52,7 +52,7 @@ public class EntrepotUtilisateursMongoTest {
 	
 	@Test
 	public void peutSupprimer() {
-		Utilisateur utilisateur = new FabriqueUtlisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass");
+		Utilisateur utilisateur = new FabriqueUtilisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass");
 		entrepot.ajoute(utilisateur);
 		
 		entrepot.supprime(utilisateur);

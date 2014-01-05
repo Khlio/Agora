@@ -4,9 +4,9 @@ import java.util.UUID;
 
 import fr.epsi.agora.commande.Message;
 
-public class SuppressionUtilisateurMessage implements Message {
+public class DeconnexionUtilisateurMessage implements Message {
 
-	public SuppressionUtilisateurMessage(UUID id) {
+	public DeconnexionUtilisateurMessage(UUID id) {
 		this.id = id;
 	}
 	
