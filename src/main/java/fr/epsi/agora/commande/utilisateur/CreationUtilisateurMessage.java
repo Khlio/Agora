@@ -3,10 +3,6 @@ package fr.epsi.agora.commande.utilisateur;
 import fr.epsi.agora.commande.Message;
 
 public class CreationUtilisateurMessage implements Message {
-
-	public CreationUtilisateurMessage(String nom, String prenom, String email, String motDePasse) {
-		this(nom, prenom, email, motDePasse, "", "");
-	}
 	
 	public CreationUtilisateurMessage(String nom, String prenom, String email, String motDePasse, String adresse, String telephone) {
 		this.nom = nom;

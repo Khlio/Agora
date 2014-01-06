@@ -1,39 +1,19 @@
 package fr.epsi.agora.persistance.mongo;
 
 import static org.fest.assertions.Assertions.assertThat;
-
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.mongolink.MongoSession;
-import org.mongolink.test.MongolinkRule;
-
-import fr.epsi.agora.commande.FournisseurMongoSession;
-import fr.epsi.agora.domaine.utilisateur.FabriqueUtilisateur;
+import fr.epsi.agora.domaine.utilisateur.FakeFabriqueUtilisateur;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
-public class EntrepotUtilisateursMongoTest {
+public class EntrepotUtilisateursMongoTest extends EntrepotAggregatsMongoTest<Utilisateur> {
 
-	@Rule
-	public MongolinkRule mongolinkRule = MongolinkRule.withPackage("fr.epsi.agora.persistance.mongo.mapping");
-	
-	@Before
+	@Override
 	public void setUp() {
-		entrepot = new EntrepotUtilisateursMongo(new FournisseurMongoSession() {
-			@Override
-			public MongoSession get() {
-				return mongolinkRule.getCurrentSession();
-			}
-			
-			@Override
-			public void nettoie() {
-			}
-		});
+		entrepot = new EntrepotUtilisateursMongo(fournisseur);
 	}
 	
-	@Test
+	@Override
 	public void peutAjouter() {
-		Utilisateur utilisateur = new FabriqueUtilisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass");
+		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		
 		entrepot.ajoute(utilisateur);
 		mongolinkRule.cleanSession();
@@ -44,15 +24,29 @@ public class EntrepotUtilisateursMongoTest {
 		assertThat(utilisateurTrouve.getPrenom()).isEqualTo("Vincent");
 		assertThat(utilisateurTrouve.getEmail()).isEqualTo("a@a.com");
 		assertThat(utilisateurTrouve.getMotDePasse()).isEqualTo("pass");
-		assertThat(utilisateurTrouve.getAdresse()).isEmpty();
-		assertThat(utilisateurTrouve.getTelephone()).isEmpty();
+		assertThat(utilisateurTrouve.getAdresse()).isEqualTo("1 rue Test");
+		assertThat(utilisateurTrouve.getTelephone()).isEqualTo("0607080910");
 		assertThat(utilisateurTrouve.getDerniereConnexion()).isNull();
 		assertThat(utilisateurTrouve.isConnecte()).isFalse();
 	}
 	
-	@Test
+	@Override
+	public void peutModifier() {
+		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
+		entrepot.ajoute(utilisateur);
+		utilisateur.setEmail("b@b.com");
+		
+		entrepot.modifie(utilisateur);
+		mongolinkRule.cleanSession();
+		
+		Utilisateur utilisateurTrouve = entrepot.get(utilisateur.getId()).orNull();
+		assertThat(utilisateurTrouve).isNotNull();
+		assertThat(utilisateurTrouve.getEmail()).isEqualTo("b@b.com");
+	}
+	
+	@Override
 	public void peutSupprimer() {
-		Utilisateur utilisateur = new FabriqueUtilisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass");
+		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		entrepot.ajoute(utilisateur);
 		
 		entrepot.supprime(utilisateur);
@@ -60,7 +54,5 @@ public class EntrepotUtilisateursMongoTest {
 		
 		assertThat(entrepot.get(utilisateur.getId()).isPresent()).isFalse();
 	}
-	
-	private EntrepotUtilisateursMongo entrepot;
 	
 }

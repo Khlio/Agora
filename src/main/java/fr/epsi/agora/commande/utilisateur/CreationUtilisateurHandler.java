@@ -11,8 +11,8 @@ public class CreationUtilisateurHandler implements HandlerCommande<CreationUtili
 
 	@Override
 	public UUID execute(CreationUtilisateurMessage commande) {
-		Utilisateur utilisateur = new FabriqueUtilisateur().nouveau(
-				commande.nom, commande.prenom, commande.email, commande.motDePasse, commande.adresse, commande.telephone);
+		Utilisateur utilisateur = FabriqueUtilisateur.nouveau(commande.nom, commande.prenom, commande.email, commande.motDePasse,
+				commande.adresse, commande.telephone);
 		Entrepots.utilisateurs().ajoute(utilisateur);
 		return utilisateur.getId();
 	}

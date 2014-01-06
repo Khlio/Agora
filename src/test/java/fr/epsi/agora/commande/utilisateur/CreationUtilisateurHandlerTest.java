@@ -4,21 +4,17 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.UUID;
 
-import org.junit.Rule;
 import org.junit.Test;
 
+import fr.epsi.agora.commande.HandlerCommandeRegle;
 import fr.epsi.agora.domaine.Entrepots;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
-import fr.epsi.agora.persistance.fake.AvecEntrepots;
 
-public class CreationUtilisateurHandlerTest {
-
-	@Rule
-	public AvecEntrepots entrepots = new AvecEntrepots();
+public class CreationUtilisateurHandlerTest extends HandlerCommandeRegle {
 	
 	@Test
 	public void peutCreerUtilisateur() {
-		CreationUtilisateurMessage commande = new CreationUtilisateurMessage("Levacher", "Vincent", "a@a.com", "pass");
+		CreationUtilisateurMessage commande = new CreationUtilisateurMessage("Levacher", "Vincent", "a@a.com", "pass", "1 rue Test", "0607080910");
 		
 		UUID idUtilisateur = new CreationUtilisateurHandler().execute(commande);
 		
@@ -29,8 +25,8 @@ public class CreationUtilisateurHandlerTest {
 		assertThat(utilisateur.getPrenom()).isEqualTo("Vincent");
 		assertThat(utilisateur.getEmail()).isEqualTo("a@a.com");
 		assertThat(utilisateur.getMotDePasse()).isEqualTo("pass");
-		assertThat(utilisateur.getAdresse()).isEmpty();
-		assertThat(utilisateur.getTelephone()).isEmpty();
+		assertThat(utilisateur.getAdresse()).isEqualTo("1 rue Test");
+		assertThat(utilisateur.getTelephone()).isEqualTo("0607080910");
 		assertThat(utilisateur.getDerniereConnexion()).isNull();
 		assertThat(utilisateur.isConnecte()).isFalse();
 	}

@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 
 import fr.epsi.agora.commande.FournisseurMongoSession;
 import fr.epsi.agora.domaine.Entrepots;
+import fr.epsi.agora.domaine.client.EntrepotClients;
 import fr.epsi.agora.domaine.utilisateur.EntrepotUtilisateurs;
 
 public class EntrepotsMongo extends Entrepots {
@@ -16,6 +17,11 @@ public class EntrepotsMongo extends Entrepots {
 	@Override
 	protected EntrepotUtilisateurs entrepotUtilisateurs() {
 		return new EntrepotUtilisateursMongo(fournisseur);
+	}
+	
+	@Override
+	protected EntrepotClients entrepotClients() {
+		return new EntrepotClientsMongo(fournisseur);
 	}
 	
 	private FournisseurMongoSession fournisseur;

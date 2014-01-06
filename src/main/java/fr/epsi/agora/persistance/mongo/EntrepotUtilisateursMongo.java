@@ -8,10 +8,10 @@ import fr.epsi.agora.commande.FournisseurMongoSession;
 import fr.epsi.agora.domaine.utilisateur.EntrepotUtilisateurs;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
-public class EntrepotUtilisateursMongo implements EntrepotUtilisateurs {
+public class EntrepotUtilisateursMongo extends EntrepotAggregatsMongo<Utilisateur> implements EntrepotUtilisateurs {
 
 	public EntrepotUtilisateursMongo(FournisseurMongoSession fournisseur) {
-		this.fournisseur = fournisseur;
+		super(fournisseur);
 	}
 	
 	@Override
@@ -19,23 +19,5 @@ public class EntrepotUtilisateursMongo implements EntrepotUtilisateurs {
 		MongoSession session = fournisseur.get();
 		return Optional.fromNullable(session.get(id, Utilisateur.class));
 	}
-
-	@Override
-	public Utilisateur ajoute(Utilisateur aggregat) {
-		fournisseur.get().save(aggregat);
-		return aggregat;
-	}
-	
-	@Override
-	public void modifie(Utilisateur aggregat) {
-		fournisseur.get().update(aggregat);
-	}
-
-	@Override
-	public void supprime(Utilisateur aggregat) {
-		fournisseur.get().delete(aggregat);
-	}
-	
-	private FournisseurMongoSession fournisseur;
 	
 }

@@ -2,22 +2,18 @@ package fr.epsi.agora.commande.utilisateur;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import org.junit.Rule;
 import org.junit.Test;
 
+import fr.epsi.agora.commande.HandlerCommandeRegle;
 import fr.epsi.agora.domaine.Entrepots;
-import fr.epsi.agora.domaine.utilisateur.FabriqueUtilisateur;
+import fr.epsi.agora.domaine.utilisateur.FakeFabriqueUtilisateur;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
-import fr.epsi.agora.persistance.fake.AvecEntrepots;
 
-public class SuppressionUtilisateurHandlerTest {
-
-	@Rule
-	public AvecEntrepots entrepots = new AvecEntrepots();
+public class SuppressionUtilisateurHandlerTest extends HandlerCommandeRegle {
 	
 	@Test
 	public void peutSupprimerUtilisateur() {
-		Utilisateur utilisateur = Entrepots.utilisateurs().ajoute(new FabriqueUtilisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass"));
+		Utilisateur utilisateur = Entrepots.utilisateurs().ajoute(FakeFabriqueUtilisateur.nouveau());
 		SuppressionUtilisateurMessage commande = new SuppressionUtilisateurMessage(utilisateur.getId());
 		
 		new SuppressionUtilisateurHandler().execute(commande);

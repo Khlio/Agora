@@ -8,7 +8,7 @@ public class UtilisateurTest {
 
 	@Test
 	public void peutDonnerUnIdentifiant() {
-		Utilisateur utilisateur = unUtilisateur();
+		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		
 		assertThat(utilisateur).isNotNull();
 		assertThat(utilisateur.getId()).isNotNull();
@@ -16,7 +16,7 @@ public class UtilisateurTest {
 	
 	@Test
 	public void peutDonnerCesAttributs() {
-		Utilisateur utilisateur = unUtilisateur();
+		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		
 		assertThat(utilisateur.getNom()).isEqualTo("Levacher");
 		assertThat(utilisateur.getPrenom()).isEqualTo("Vincent");
@@ -26,10 +26,6 @@ public class UtilisateurTest {
 		assertThat(utilisateur.getTelephone()).isEqualTo("0607080910");
 		assertThat(utilisateur.getDerniereConnexion()).isNull();
 		assertThat(utilisateur.isConnecte()).isFalse();
-	}
-	
-	private Utilisateur unUtilisateur() {
-		return new FabriqueUtilisateur().nouveau("Levacher", "Vincent", "a@a.com", "pass", "1 rue Test", "0607080910");
 	}
 	
 }

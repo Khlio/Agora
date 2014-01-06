@@ -16,7 +16,7 @@ public class BusCommandeTest {
 		BusCommande busCommande = new BusCommande(mock(FournisseurMongoSession.class));
 		CreationUtilisateurCommandeHandlerCommande handler = new CreationUtilisateurCommandeHandlerCommande();
 		busCommande.enregistreHandler(handler);
-		CreationUtilisateurMessage commande = new CreationUtilisateurMessage("Levacher", "Vincent", "a@a.com", "pass");
+		CreationUtilisateurMessage commande = new CreationUtilisateurMessage("Levacher", "Vincent", "a@a.com", "pass", "1 rue Test", "0607080910");
 		
 		busCommande.envoie(commande);
 		
