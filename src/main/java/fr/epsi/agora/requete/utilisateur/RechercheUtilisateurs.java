@@ -17,7 +17,8 @@ public class RechercheUtilisateurs {
 	
 	public List<DetailsUtilisateur> tous() {
 		return Lists.newArrayList(jongo.getCollection("utilisateur").find()
-				.projection("{_id: 1, nom: 1, prenom: 1, email: 1, motDePasse: 1, adresse: 1, telephone: 1, derniereConnexion: 1, connecte: 1}").as(DetailsUtilisateur.class));
+				.projection("{_id: 1, nom: 1, prenom: 1, email: 1, motDePasse: 1, adresse: 1, telephone: 1, derniereConnexion: 1, connecte: 1, clients: 1}")
+				.as(DetailsUtilisateur.class));
 	}
 	
 	public DetailsUtilisateur detailsDe(UUID id) {

@@ -21,6 +21,7 @@ public class UtilisateurMapping extends AggregateMap<Utilisateur> {
 		property().onField("telephone");
 		property().onField("derniereConnexion");
 		property().onField("connecte");
+		collection().onField("clients");
 	}
 
 }

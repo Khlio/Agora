@@ -1,8 +1,13 @@
 package fr.epsi.agora.requete.utilisateur;
 
 import java.util.Date;
+import java.util.List;
 
 import org.jongo.marshall.jackson.oid.Id;
+
+import com.google.common.collect.Lists;
+
+import fr.epsi.agora.requete.client.DetailsClient;
 
 public class DetailsUtilisateur {
 	
@@ -78,6 +83,14 @@ public class DetailsUtilisateur {
 		this.connecte = connecte;
 	}
 	
+	public List<DetailsClient> getClients() {
+		return clients;
+	}
+
+	public void setClients(List<DetailsClient> clients) {
+		this.clients = clients;
+	}
+
 	@Id
 	private String id;
 	private String nom;
@@ -88,5 +101,6 @@ public class DetailsUtilisateur {
 	private String telephone;
 	private Date derniereConnexion;
 	private Boolean connecte;
+	private List<DetailsClient> clients = Lists.newArrayList();
 	
 }

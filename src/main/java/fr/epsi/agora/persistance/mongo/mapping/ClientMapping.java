@@ -16,12 +16,13 @@ public class ClientMapping extends AggregateMap<Client> {
 		property().onField("nom");
 		property().onField("prenom");
 		property().onField("email");
-		property().onField("dateNaissance");
-		property().onField("lieuNaissance");
+		property().onField("dateDeNaissance");
+		property().onField("lieuDeNaissance");
 		property().onField("metier");
 		property().onField("nationalite");
 		property().onField("adresse");
 		property().onField("telephone");
+		collection().onField("utilisateurs");
 	}
 
 }

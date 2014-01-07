@@ -23,7 +23,7 @@ public class FabriqueClient {
 		client.setNom(nom);
 		client.setPrenom(prenom);
 		client.setEmail(email);
-		client.setDateNaissance(dateNaissance);
+		client.setDateDeNaissance(dateNaissance);
 		client.setLieuNaissance(lieuNaissance);
 		client.setMetier(metier);
 		client.setNationalite(nationalite);

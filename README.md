@@ -1,4 +1,4 @@
 Agora
 =====
 
-Web application bootstrap/REST java, GED huissier
+Web application Bootstrap/RESTful Java

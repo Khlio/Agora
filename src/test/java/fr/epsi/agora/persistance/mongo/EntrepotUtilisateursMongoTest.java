@@ -1,6 +1,7 @@
 package fr.epsi.agora.persistance.mongo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import fr.epsi.agora.domaine.client.FakeFabriqueClient;
 import fr.epsi.agora.domaine.utilisateur.FakeFabriqueUtilisateur;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
@@ -14,6 +15,7 @@ public class EntrepotUtilisateursMongoTest extends EntrepotAggregatsMongoTest<Ut
 	@Override
 	public void peutAjouter() {
 		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
+		utilisateur.ajouteClient(FakeFabriqueClient.nouveau());
 		
 		entrepot.ajoute(utilisateur);
 		mongolinkRule.cleanSession();
@@ -28,6 +30,7 @@ public class EntrepotUtilisateursMongoTest extends EntrepotAggregatsMongoTest<Ut
 		assertThat(utilisateurTrouve.getTelephone()).isEqualTo("0607080910");
 		assertThat(utilisateurTrouve.getDerniereConnexion()).isNull();
 		assertThat(utilisateurTrouve.isConnecte()).isFalse();
+		assertThat(utilisateurTrouve.getClients()).hasSize(1);
 	}
 	
 	@Override
