@@ -6,8 +6,6 @@ import java.util.UUID;
 import com.google.common.collect.Lists;
 
 import fr.epsi.agora.domaine.Aggregat;
-import fr.epsi.agora.domaine.client.Client;
-import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
 public class Societe implements Aggregat {
 
@@ -48,24 +46,20 @@ public class Societe implements Aggregat {
 	}
 	
 	public Utilisateur ajouteUtilisateur(Utilisateur utilisateur) {
-		utilisateur.setSociete(this);
 		utilisateurs.add(utilisateur);
 		return utilisateur;
 	}
 	
 	public void supprimeUtilisateur(Utilisateur utilisateur) {
-		utilisateur.setSociete(null);
 		utilisateurs.remove(utilisateur);
 	}
 	
 	public Client ajouteClient(Client client) {
-		client.setSociete(this);
 		clients.add(client);
 		return client;
 	}
 	
 	public void supprimeClient(Client client) {
-		client.setSociete(null);
 		clients.remove(client);
 	}
 

@@ -1,9 +1,9 @@
 package fr.epsi.agora.persistance.mongo;
 
 import static org.fest.assertions.Assertions.assertThat;
-import fr.epsi.agora.domaine.client.FakeFabriqueClient;
-import fr.epsi.agora.domaine.utilisateur.FakeFabriqueUtilisateur;
-import fr.epsi.agora.domaine.utilisateur.Utilisateur;
+import fr.epsi.agora.domaine.societe.FakeFabriqueClient;
+import fr.epsi.agora.domaine.societe.FakeFabriqueUtilisateur;
+import fr.epsi.agora.domaine.societe.Utilisateur;
 
 public class EntrepotUtilisateursMongoTest extends EntrepotAggregatsMongoTest<Utilisateur> {
 
@@ -30,7 +30,6 @@ public class EntrepotUtilisateursMongoTest extends EntrepotAggregatsMongoTest<Ut
 		assertThat(utilisateurTrouve.getTelephone()).isEqualTo("0607080910");
 		assertThat(utilisateurTrouve.getDerniereConnexion()).isNull();
 		assertThat(utilisateurTrouve.isConnecte()).isFalse();
-		assertThat(utilisateurTrouve.getSociete()).isNotNull();
 		assertThat(utilisateurTrouve.getClients()).hasSize(1);
 	}
 	

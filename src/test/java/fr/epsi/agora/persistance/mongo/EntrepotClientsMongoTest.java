@@ -1,9 +1,9 @@
 package fr.epsi.agora.persistance.mongo;
 
 import static org.fest.assertions.Assertions.assertThat;
-import fr.epsi.agora.domaine.client.Client;
-import fr.epsi.agora.domaine.client.FakeFabriqueClient;
-import fr.epsi.agora.domaine.utilisateur.FakeFabriqueUtilisateur;
+import fr.epsi.agora.domaine.societe.Client;
+import fr.epsi.agora.domaine.societe.FakeFabriqueClient;
+import fr.epsi.agora.domaine.societe.FakeFabriqueUtilisateur;
 
 public class EntrepotClientsMongoTest extends EntrepotAggregatsMongoTest<Client> {
 	
@@ -31,7 +31,6 @@ public class EntrepotClientsMongoTest extends EntrepotAggregatsMongoTest<Client>
 		assertThat(clientTrouve.getNationalite()).isEqualTo("Française");
 		assertThat(clientTrouve.getAdresse()).isEqualTo("1 rue du Black");
 		assertThat(clientTrouve.getTelephone()).isEqualTo("0706080910");
-		assertThat(clientTrouve.getSociete()).isNotNull();
 		assertThat(clientTrouve.getUtilisateurs()).hasSize(1);
 	}
 	

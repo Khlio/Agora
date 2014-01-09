@@ -7,37 +7,36 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import fr.epsi.agora.commande.utilisateur.CreationUtilisateurMessage;
-import fr.epsi.agora.domaine.societe.FakeFabriqueSociete;
+import fr.epsi.agora.commande.societe.CreationSocieteMessage;
 
 public class BusCommandeTest {
 
 	@Test
 	public void peutEnregistrerUnHandler() {
 		BusCommande busCommande = new BusCommande(mock(FournisseurMongoSession.class));
-		CreationUtilisateurCommandeHandlerCommande handler = new CreationUtilisateurCommandeHandlerCommande();
+		CreationSocieteCommandeHandlerCommande handler = new CreationSocieteCommandeHandlerCommande();
 		busCommande.enregistreHandler(handler);
-		CreationUtilisateurMessage commande = new CreationUtilisateurMessage("Levacher", "Vincent", "a@a.com", "pass", "1 rue Test", "0607080910", FakeFabriqueSociete.nouveau());
+		CreationSocieteMessage commande = new CreationSocieteMessage("552-120-222 00013", "Société générale");
 		
 		busCommande.envoie(commande);
 		
 		assertThat(handler.derniereCommande).isEqualTo(commande);
 	}
 	
-	private static class CreationUtilisateurCommandeHandlerCommande implements HandlerCommande<CreationUtilisateurMessage> {
+	private static class CreationSocieteCommandeHandlerCommande implements HandlerCommande<CreationSocieteMessage> {
 
 		@Override
-		public Object execute(CreationUtilisateurMessage commande) {
+		public Object execute(CreationSocieteMessage commande) {
 			this.derniereCommande = commande;
 			return UUID.randomUUID();
 		}
 
 		@Override
-		public Class<CreationUtilisateurMessage> typeCommande() {
-			return CreationUtilisateurMessage.class;
+		public Class<CreationSocieteMessage> typeCommande() {
+			return CreationSocieteMessage.class;
 		}
 		
-		private CreationUtilisateurMessage derniereCommande;
+		private CreationSocieteMessage derniereCommande;
 		
 	}
 	

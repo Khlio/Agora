@@ -7,12 +7,14 @@ import org.restlet.routing.Router;
 
 import com.google.inject.Injector;
 
-import fr.epsi.agora.web.ressource.client.ClientRessource;
-import fr.epsi.agora.web.ressource.client.ClientsRessource;
-import fr.epsi.agora.web.ressource.utilisateur.ConnexionUtilisateurRessource;
-import fr.epsi.agora.web.ressource.utilisateur.DeconnexionUtilisateurRessource;
-import fr.epsi.agora.web.ressource.utilisateur.UtilisateurRessource;
-import fr.epsi.agora.web.ressource.utilisateur.UtilisateursRessource;
+import fr.epsi.agora.web.ressource.societe.ClientRessource;
+import fr.epsi.agora.web.ressource.societe.ClientsRessource;
+import fr.epsi.agora.web.ressource.societe.ConnexionUtilisateurRessource;
+import fr.epsi.agora.web.ressource.societe.DeconnexionUtilisateurRessource;
+import fr.epsi.agora.web.ressource.societe.SocieteRessource;
+import fr.epsi.agora.web.ressource.societe.SocietesRessource;
+import fr.epsi.agora.web.ressource.societe.UtilisateurRessource;
+import fr.epsi.agora.web.ressource.societe.UtilisateursRessource;
 import fr.epsi.agora.web.restlet.GuiceFinder;
 
 public class AgoraRouter extends Router {
@@ -24,13 +26,15 @@ public class AgoraRouter extends Router {
 	}
 	
 	private void attacheRoutes() {
-		attach("/utilisateurs", UtilisateursRessource.class);
-		attach("/utilisateurs/{id}", UtilisateurRessource.class);
+		attach("/societes", SocietesRessource.class);
+		attach("/societes/{id}", SocieteRessource.class);
+		attach("/societes/{id}/utilisateurs", UtilisateursRessource.class);
+		attach("/societes/{id}/utilisateurs/{idUtilisateur}", UtilisateurRessource.class);
+		attach("/societes/{id}/clients", ClientsRessource.class);
+		attach("/societes/{id}/clients/{idClient}", ClientRessource.class);
+		
 		attach("/utilisateurs/{id}/connexion", ConnexionUtilisateurRessource.class);
 		attach("/utilisateurs/{id}/deconnexion", DeconnexionUtilisateurRessource.class);
-		
-		attach("/clients", ClientsRessource.class);
-		attach("/clients/{id}", ClientRessource.class);
 	}
 	
 	@Override

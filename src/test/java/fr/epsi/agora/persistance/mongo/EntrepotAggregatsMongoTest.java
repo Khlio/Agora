@@ -8,6 +8,7 @@ import org.mongolink.test.MongolinkRule;
 
 import fr.epsi.agora.commande.FournisseurMongoSession;
 import fr.epsi.agora.domaine.Aggregat;
+import fr.epsi.agora.domaine.Entrepot;
 
 public abstract class EntrepotAggregatsMongoTest<T extends Aggregat> {
 
@@ -26,7 +27,7 @@ public abstract class EntrepotAggregatsMongoTest<T extends Aggregat> {
 	@Test
 	public abstract void peutSupprimer();
 	
-	protected EntrepotAggregatsMongo<T> entrepot;
+	protected Entrepot<T> entrepot;
 	protected FournisseurMongoSession fournisseur = new FournisseurMongoSession() {
 		@Override
 		public MongoSession get() {

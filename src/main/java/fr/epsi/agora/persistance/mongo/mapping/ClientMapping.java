@@ -2,7 +2,7 @@ package fr.epsi.agora.persistance.mongo.mapping;
 
 import org.mongolink.domain.mapper.AggregateMap;
 
-import fr.epsi.agora.domaine.client.Client;
+import fr.epsi.agora.domaine.societe.Client;
 
 public class ClientMapping extends AggregateMap<Client> {
 
@@ -22,7 +22,6 @@ public class ClientMapping extends AggregateMap<Client> {
 		property().onField("nationalite");
 		property().onField("adresse");
 		property().onField("telephone");
-		property().onField("societe");
 		collection().onField("utilisateurs");
 	}
 

@@ -5,8 +5,8 @@ import org.mongolink.MongoSession;
 import com.google.common.base.Optional;
 
 import fr.epsi.agora.commande.FournisseurMongoSession;
-import fr.epsi.agora.domaine.client.Client;
-import fr.epsi.agora.domaine.client.EntrepotClients;
+import fr.epsi.agora.domaine.societe.Client;
+import fr.epsi.agora.domaine.societe.EntrepotClients;
 
 public class EntrepotClientsMongo extends EntrepotAggregatsMongo<Client> implements EntrepotClients {
 	

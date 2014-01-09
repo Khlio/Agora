@@ -5,8 +5,8 @@ import org.mongolink.MongoSession;
 import com.google.common.base.Optional;
 
 import fr.epsi.agora.commande.FournisseurMongoSession;
-import fr.epsi.agora.domaine.utilisateur.EntrepotUtilisateurs;
-import fr.epsi.agora.domaine.utilisateur.Utilisateur;
+import fr.epsi.agora.domaine.societe.EntrepotUtilisateurs;
+import fr.epsi.agora.domaine.societe.Utilisateur;
 
 public class EntrepotUtilisateursMongo extends EntrepotAggregatsMongo<Utilisateur> implements EntrepotUtilisateurs {
 

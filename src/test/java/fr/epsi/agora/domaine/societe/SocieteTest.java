@@ -4,11 +4,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
-import fr.epsi.agora.domaine.client.Client;
-import fr.epsi.agora.domaine.client.FakeFabriqueClient;
-import fr.epsi.agora.domaine.utilisateur.FakeFabriqueUtilisateur;
-import fr.epsi.agora.domaine.utilisateur.Utilisateur;
-
 public class SocieteTest {
 
 	@Test
@@ -42,7 +37,6 @@ public class SocieteTest {
 		
 		assertThat(utilisateurAjoute).isNotNull();
 		assertThat(utilisateurAjoute).isEqualTo(utilisateurAjoute);
-		assertThat(utilisateurAjoute.getSociete()).isEqualTo(societe);
 		assertThat(societe.getUtilisateurs()).isNotNull();
 		assertThat(societe.getUtilisateurs()).isNotEmpty();
 		assertThat(societe.getUtilisateurs()).contains(utilisateurAjoute);
@@ -69,7 +63,6 @@ public class SocieteTest {
 		
 		assertThat(clientAjoute).isNotNull();
 		assertThat(clientAjoute).isEqualTo(clientAjoute);
-		assertThat(clientAjoute.getSociete()).isEqualTo(societe);
 		assertThat(societe.getClients()).isNotNull();
 		assertThat(societe.getClients()).isNotEmpty();
 		assertThat(societe.getClients()).contains(clientAjoute);
