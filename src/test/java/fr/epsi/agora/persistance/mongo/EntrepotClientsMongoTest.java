@@ -26,11 +26,12 @@ public class EntrepotClientsMongoTest extends EntrepotAggregatsMongoTest<Client>
 		assertThat(clientTrouve.getPrenom()).isEqualTo("JR");
 		assertThat(clientTrouve.getEmail()).isEqualTo("a@a.com");
 		assertThat(clientTrouve.getDateDeNaissance()).isNotNull();
-		assertThat(clientTrouve.getLieuNaissance()).isEqualTo("Paris");
+		assertThat(clientTrouve.getLieuDeNaissance()).isEqualTo("Paris");
 		assertThat(clientTrouve.getMetier()).isEqualTo("Etudiant");
 		assertThat(clientTrouve.getNationalite()).isEqualTo("Française");
 		assertThat(clientTrouve.getAdresse()).isEqualTo("1 rue du Black");
 		assertThat(clientTrouve.getTelephone()).isEqualTo("0706080910");
+		assertThat(clientTrouve.getSociete()).isNotNull();
 		assertThat(clientTrouve.getUtilisateurs()).hasSize(1);
 	}
 	

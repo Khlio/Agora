@@ -33,7 +33,7 @@ public class UtilisateursRessource extends ServerResource {
 		JacksonRepresentation<DetailsUtilisateur> json = new JacksonRepresentation<DetailsUtilisateur>(representation, DetailsUtilisateur.class);
 		DetailsUtilisateur details = json.getObject();
 		CreationUtilisateurMessage commande = new CreationUtilisateurMessage(details.getNom(), details.getPrenom(), details.getEmail(), details.getMotDePasse(),
-				details.getAdresse(), details.getTelephone());
+				details.getAdresse(), details.getTelephone(), details.getSociete());
 		busCommande.envoie(commande);
 	}
 	

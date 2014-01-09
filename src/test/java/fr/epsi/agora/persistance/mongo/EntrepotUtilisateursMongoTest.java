@@ -30,6 +30,7 @@ public class EntrepotUtilisateursMongoTest extends EntrepotAggregatsMongoTest<Ut
 		assertThat(utilisateurTrouve.getTelephone()).isEqualTo("0607080910");
 		assertThat(utilisateurTrouve.getDerniereConnexion()).isNull();
 		assertThat(utilisateurTrouve.isConnecte()).isFalse();
+		assertThat(utilisateurTrouve.getSociete()).isNotNull();
 		assertThat(utilisateurTrouve.getClients()).hasSize(1);
 	}
 	

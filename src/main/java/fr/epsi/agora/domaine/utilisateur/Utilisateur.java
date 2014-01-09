@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 
 import fr.epsi.agora.domaine.Aggregat;
 import fr.epsi.agora.domaine.client.Client;
+import fr.epsi.agora.domaine.societe.Societe;
 
 public class Utilisateur implements Aggregat {
 
@@ -87,6 +88,14 @@ public class Utilisateur implements Aggregat {
 		this.connecte = connecte;
 	}
 	
+	public Societe getSociete() {
+		return societe;
+	}
+
+	public void setSociete(Societe societe) {
+		this.societe = societe;
+	}
+
 	public List<Client> getClients() {
 		return clients;
 	}
@@ -109,6 +118,7 @@ public class Utilisateur implements Aggregat {
 	private String telephone;
 	private Date derniereConnexion;
 	private Boolean connecte;
+	private Societe societe;
 	private List<Client> clients = Lists.newArrayList();
 
 }

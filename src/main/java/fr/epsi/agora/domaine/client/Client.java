@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.google.common.collect.Lists;
 
 import fr.epsi.agora.domaine.Aggregat;
+import fr.epsi.agora.domaine.societe.Societe;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
 public class Client implements Aggregat {
@@ -55,12 +56,12 @@ public class Client implements Aggregat {
 		this.dateDeNaissance = dateDeNaissance;
 	}
 
-	public String getLieuNaissance() {
+	public String getLieuDeNaissance() {
 		return lieuDeNaissance;
 	}
 
-	public void setLieuNaissance(String lieuNaissance) {
-		this.lieuDeNaissance = lieuNaissance;
+	public void setLieuDeNaissance(String lieuDeNaissance) {
+		this.lieuDeNaissance = lieuDeNaissance;
 	}
 
 	public String getMetier() {
@@ -95,6 +96,14 @@ public class Client implements Aggregat {
 		this.telephone = telephone;
 	}
 	
+	public Societe getSociete() {
+		return societe;
+	}
+
+	public void setSociete(Societe societe) {
+		this.societe = societe;
+	}
+
 	public List<Utilisateur> getUtilisateurs() {
 		return utilisateurs;
 	}
@@ -118,6 +127,7 @@ public class Client implements Aggregat {
 	private String nationalite;
 	private String adresse;
 	private String telephone;
+	private Societe societe;
 	private List<Utilisateur> utilisateurs = Lists.newArrayList();
 
 }

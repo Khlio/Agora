@@ -8,13 +8,14 @@ import org.junit.Test;
 
 import fr.epsi.agora.commande.HandlerCommandeRegle;
 import fr.epsi.agora.domaine.Entrepots;
+import fr.epsi.agora.domaine.societe.FakeFabriqueSociete;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
 public class CreationUtilisateurHandlerTest extends HandlerCommandeRegle {
 	
 	@Test
 	public void peutCreerUtilisateur() {
-		CreationUtilisateurMessage commande = new CreationUtilisateurMessage("Levacher", "Vincent", "a@a.com", "pass", "1 rue Test", "0607080910");
+		CreationUtilisateurMessage commande = new CreationUtilisateurMessage("Levacher", "Vincent", "a@a.com", "pass", "1 rue Test", "0607080910", FakeFabriqueSociete.nouveau());
 		
 		UUID idUtilisateur = new CreationUtilisateurHandler().execute(commande);
 		
@@ -29,6 +30,7 @@ public class CreationUtilisateurHandlerTest extends HandlerCommandeRegle {
 		assertThat(utilisateur.getTelephone()).isEqualTo("0607080910");
 		assertThat(utilisateur.getDerniereConnexion()).isNull();
 		assertThat(utilisateur.isConnecte()).isFalse();
+		assertThat(utilisateur.getSociete()).isNotNull();
 	}
 	
 }

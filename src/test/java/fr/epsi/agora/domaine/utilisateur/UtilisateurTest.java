@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import fr.epsi.agora.domaine.client.Client;
 import fr.epsi.agora.domaine.client.FakeFabriqueClient;
+import fr.epsi.agora.domaine.societe.Societe;
 
 public class UtilisateurTest {
 
@@ -82,6 +83,14 @@ public class UtilisateurTest {
 		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		
 		assertThat(utilisateur.isConnecte()).isFalse();
+	}
+	
+	@Test
+	public void peutDonnerUneSociete() {
+		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
+		
+		assertThat(utilisateur.getSociete()).isNotNull();
+		assertThat(utilisateur.getSociete()).isInstanceOf(Societe.class);
 	}
 	
 	@Test

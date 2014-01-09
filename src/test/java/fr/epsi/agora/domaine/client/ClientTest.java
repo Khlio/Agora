@@ -4,6 +4,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
+import fr.epsi.agora.domaine.societe.Societe;
 import fr.epsi.agora.domaine.utilisateur.FakeFabriqueUtilisateur;
 import fr.epsi.agora.domaine.utilisateur.Utilisateur;
 
@@ -49,7 +50,7 @@ public class ClientTest {
 	public void peutDonnerUnLieuDeNaissance() {
 		Client client = FakeFabriqueClient.nouveau();
 		
-		assertThat(client.getLieuNaissance()).isEqualTo("Paris");
+		assertThat(client.getLieuDeNaissance()).isEqualTo("Paris");
 	}
 	
 	@Test
@@ -78,6 +79,14 @@ public class ClientTest {
 		Client client = FakeFabriqueClient.nouveau();
 		
 		assertThat(client.getTelephone()).isEqualTo("0706080910");
+	}
+	
+	@Test
+	public void peutDonnerUneSociete() {
+		Client client = FakeFabriqueClient.nouveau();
+		
+		assertThat(client.getSociete()).isNotNull();
+		assertThat(client.getSociete()).isInstanceOf(Societe.class);
 	}
 	
 	@Test

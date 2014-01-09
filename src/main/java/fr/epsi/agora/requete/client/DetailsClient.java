@@ -7,6 +7,7 @@ import org.jongo.marshall.jackson.oid.Id;
 
 import com.google.common.collect.Lists;
 
+import fr.epsi.agora.domaine.societe.Societe;
 import fr.epsi.agora.requete.utilisateur.DetailsUtilisateur;
 
 public class DetailsClient {
@@ -91,6 +92,14 @@ public class DetailsClient {
 		this.telephone = telephone;
 	}
 	
+	public Societe getSociete() {
+		return societe;
+	}
+
+	public void setSociete(Societe societe) {
+		this.societe = societe;
+	}
+
 	public List<DetailsUtilisateur> getUtilisateurs() {
 		return utilisateurs;
 	}
@@ -110,6 +119,7 @@ public class DetailsClient {
 	private String nationalite;
 	private String adresse;
 	private String telephone;
+	private Societe societe;
 	private List<DetailsUtilisateur> utilisateurs = Lists.newArrayList();
 	
 }
