@@ -13,11 +13,11 @@ public class MongoSessionManagerProvider implements Provider<MongoSessionManager
 	public MongoSessionManager get() {
 		return MongoSessionManager.create(new ContextBuilder("fr.epsi.agora.persistance.mongo.mapping"),
 				Settings.defaultInstance()
-					/*.withHost("dharma.mongohq.com")
+					.withHost("dharma.mongohq.com")
 					.withPort(10094)
 					.withAuthentication("dev-agora", "dev@gora")
-					.withDbName("l63NezvVkeCikZVvYBmfw")*/
-					.withDbName("agora")
+					.withDbName("l63NezvVkeCikZVvYBmfw")
+					//.withDbName("agora")
 					.withDefaultUpdateStrategy(UpdateStrategies.DIFF));
 	}
 
