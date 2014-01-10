@@ -17,6 +17,10 @@ public class RechercheUtilisateurs {
 		return jongo.getCollection("utilisateur").findOne("{_id: #}", id).as(DetailsUtilisateur.class);
 	}
 	
+	public DetailsUtilisateur detailsDe(String email, String motDePasse) {
+		return jongo.getCollection("utilisateur").findOne("{email: #, motDePasse: #}", email, motDePasse).as(DetailsUtilisateur.class);
+	}
+	
 	private Jongo jongo;
 	
 }

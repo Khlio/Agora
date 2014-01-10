@@ -46,6 +46,18 @@ public class RechercheUtilisateursTest {
 		assertThat(details.getClients()).hasSize(1);
 	}
 	
+	@Test
+	public void peutRecupererUnUtilisateurSelonSesIdentifiants() {
+		jongo.getCollection("utilisateur").insert("{_id: #, email: 'a@a.com', motDePasse: 'pass'}", UUID.randomUUID());
+		RechercheUtilisateurs recherche = new RechercheUtilisateurs(jongo);
+		
+		DetailsUtilisateur details = recherche.detailsDe("a@a.com", "pass");
+		
+		assertThat(details).isNotNull();
+		assertThat(details.getEmail()).isEqualTo("a@a.com");
+		assertThat(details.getMotDePasse()).isEqualTo("pass");
+	}
+	
 	private Fongo fongo;
 	private Jongo jongo;
 	
