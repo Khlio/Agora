@@ -4,8 +4,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
-import fr.epsi.agora.domaine.societe.Utilisateur;
-
 public class ClientTest {
 
 	@Test
@@ -41,7 +39,7 @@ public class ClientTest {
 	public void peutDonnerUneDateDeNaissance() {
 		Client client = FakeFabriqueClient.nouveau();
 		
-		assertThat(client.getDateDeNaissance()).isNotNull();
+		assertThat(client.getDateDeNaissance()).isEqualTo("01/01/1991");
 	}
 	
 	@Test
@@ -77,32 +75,6 @@ public class ClientTest {
 		Client client = FakeFabriqueClient.nouveau();
 		
 		assertThat(client.getTelephone()).isEqualTo("0706080910");
-	}
-	
-	@Test
-	public void peutAjouterUnUtilisateur() {
-		Client client = FakeFabriqueClient.nouveau();
-		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		
-		Utilisateur utilisateurAjoute = client.ajouteUtilisateur(utilisateur);
-		
-		assertThat(utilisateurAjoute).isNotNull();
-		assertThat(utilisateurAjoute).isEqualTo(utilisateur);
-		assertThat(client.getUtilisateurs()).isNotNull();
-		assertThat(client.getUtilisateurs()).isNotEmpty();
-		assertThat(client.getUtilisateurs()).contains(utilisateurAjoute);
-	}
-	
-	@Test
-	public void peutSupprimerUnUtilisateur() {
-		Client client = FakeFabriqueClient.nouveau();
-		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		client.ajouteUtilisateur(utilisateur);
-		
-		client.supprimeUtilisateur(utilisateur);
-		
-		assertThat(client.getUtilisateurs()).isEmpty();
-		assertThat(client.getUtilisateurs()).excludes(utilisateur);
 	}
 	
 }

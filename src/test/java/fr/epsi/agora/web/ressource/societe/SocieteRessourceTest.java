@@ -13,10 +13,12 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.AjoutUtilisateurMessage;
+import fr.epsi.agora.commande.societe.SuppressionSocieteMessage;
 import fr.epsi.agora.requete.societe.DetailsSociete;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.web.ressource.RessourceHelper;
@@ -25,8 +27,8 @@ public class SocieteRessourceTest {
 
 	@Before
 	public void setUp() {
-		recherche = mock(RechercheSocietes.class);
 		busCommande = mock(BusCommande.class);
+		recherche = mock(RechercheSocietes.class);
 		ressource = new SocieteRessource(busCommande, recherche);
 	}
 	
@@ -56,6 +58,7 @@ public class SocieteRessourceTest {
 		
 		ressource.ajouteUtilisateur(formulaire);
 		
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<AjoutUtilisateurMessage> capteur = ArgumentCaptor.forClass(AjoutUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		AjoutUtilisateurMessage commande = capteur.getValue();
@@ -66,6 +69,20 @@ public class SocieteRessourceTest {
 		assertThat(commande.motDePasse).isEqualTo("pass");
 		assertThat(commande.adresse).isEqualTo("1 rue Test");
 		assertThat(commande.telephone).isEqualTo("0607080910");
+	}
+	
+	@Test
+	public void peutSupprimerLaSociete() {
+		DetailsSociete details = laRechercheRetourne();
+		initialiseRessource(details);
+		
+		ressource.supprime();
+		
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		ArgumentCaptor<SuppressionSocieteMessage> capteur = ArgumentCaptor.forClass(SuppressionSocieteMessage.class);
+		verify(busCommande).envoie(capteur.capture());
+		SuppressionSocieteMessage commande = capteur.getValue();
+		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 	}
 	
 	private DetailsSociete laRechercheRetourne() {
@@ -80,8 +97,8 @@ public class SocieteRessourceTest {
 		RessourceHelper.initialise(ressource).avec("id", details.getId());
 	}
 	
+	private BusCommande busCommande;
 	private RechercheSocietes recherche;
 	private SocieteRessource ressource;
-	private BusCommande busCommande;
 	
 }

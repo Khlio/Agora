@@ -3,13 +3,13 @@ package fr.epsi.agora.web.ressource.societe;
 import java.util.UUID;
 
 import org.restlet.data.Form;
-import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
+import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
 
@@ -34,8 +34,7 @@ public class SocietesRessource extends ServerResource {
 	public void cree(Form formulaire) {
 		CreationSocieteMessage commande = new CreationSocieteMessage(formulaire.getFirstValue("siret"), formulaire.getFirstValue("nom"));
 		ListenableFuture<UUID> idSociete = busCommande.envoie(commande);
-		setStatus(Status.SUCCESS_ACCEPTED);
-		//TODO redirection ?
+		redirectSeeOther("../inscription.html?societe=" + Futures.getUnchecked(idSociete));
 	}
 	
 	private BusCommande busCommande;

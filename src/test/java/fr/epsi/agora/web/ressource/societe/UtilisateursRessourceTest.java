@@ -31,8 +31,7 @@ public class UtilisateursRessourceTest {
 		busCommande = mock(BusCommande.class);
 		when(busCommande.envoie(any(Message.class))).thenReturn(Futures.<Object>immediateFuture(UUID.randomUUID()));
 		recherche = mock(RechercheSocietes.class);
-		ressource = new UtilisateursRessource(busCommande, recherche);
-		RessourceHelper.initialise(ressource);
+		ressource = new UtilisateursRessource(recherche);
 	}
 	
 	@Test
@@ -66,7 +65,7 @@ public class UtilisateursRessourceTest {
 	}
 	
 	private BusCommande busCommande;
-	private UtilisateursRessource ressource;
 	private RechercheSocietes recherche;
+	private UtilisateursRessource ressource;
 	
 }

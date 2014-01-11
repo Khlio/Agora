@@ -8,13 +8,16 @@ import com.google.inject.Provider;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 
+import fr.epsi.agora.Constante;
+
 public class JongoProvider implements Provider<Jongo> {
 
 	@Override
 	public Jongo get() {
 		try {
-			//DB db = new MongoClient().getDB("agora");
-			DB db = new MongoClient("dharma.mongohq.com", 10094).getDB("l63NezvVkeCikZVvYBmfw");
+			DB db = (Constante.PROD
+					? new MongoClient("dharma.mongohq.com", 10094).getDB("l63NezvVkeCikZVvYBmfw")
+					: new MongoClient().getDB("agora"));
 			db.authenticate("dev-agora", "dev@gora".toCharArray());
 			return new Jongo(db);
 		} catch (UnknownHostException e) {

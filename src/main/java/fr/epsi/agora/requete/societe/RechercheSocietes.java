@@ -8,13 +8,15 @@ import org.jongo.Jongo;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
-public class RechercheSocietes {
+import fr.epsi.agora.requete.Recherche;
 
+public class RechercheSocietes extends Recherche {
+	
 	@Inject
 	public RechercheSocietes(Jongo jongo) {
-		this.jongo = jongo;
+		super(jongo);
 	}
-	
+
 	public List<ResumeSociete> toutes() {
 		return Lists.newArrayList(jongo.getCollection("societe").find()
 				.projection("{_id: 1, siret: 1, nom: 1}")
@@ -24,7 +26,5 @@ public class RechercheSocietes {
 	public DetailsSociete detailsDe(UUID id) {
 		return jongo.getCollection("societe").findOne("{_id: #}", id).as(DetailsSociete.class);
 	}
-	
-	private Jongo jongo;
 	
 }

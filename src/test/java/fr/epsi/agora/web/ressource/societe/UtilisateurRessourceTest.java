@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
 import fr.epsi.agora.commande.BusCommande;
@@ -20,14 +21,15 @@ import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
+import fr.epsi.agora.web.Session;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class UtilisateurRessourceTest {
 
 	@Before
 	public void setUp() {
-		recherche = mock(RechercheUtilisateurs.class);
 		busCommande = mock(BusCommande.class);
+		recherche = mock(RechercheUtilisateurs.class);
 		ressource = new UtilisateurRessource(busCommande, recherche);
 	}
 	
@@ -54,6 +56,7 @@ public class UtilisateurRessourceTest {
 		
 		ressource.modifie(formulaire);
 		
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<ModificationUtilisateurMessage> capteur = ArgumentCaptor.forClass(ModificationUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		ModificationUtilisateurMessage commande = capteur.getValue();
@@ -69,6 +72,7 @@ public class UtilisateurRessourceTest {
 		
 		ressource.supprime();
 		
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<SuppressionUtilisateurMessage> capteur = ArgumentCaptor.forClass(SuppressionUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionUtilisateurMessage commande = capteur.getValue();
@@ -84,11 +88,12 @@ public class UtilisateurRessourceTest {
 	}
 	
 	private void initialiseRessource(DetailsUtilisateur details) {
+		Session.ajoute(details.getId(), UUID.randomUUID());
 		RessourceHelper.initialise(ressource).avec("idUtilisateur", details.getId());
 	}
 	
+	private BusCommande busCommande;
 	private RechercheUtilisateurs recherche;
 	private UtilisateurRessource ressource;
-	private BusCommande busCommande;
 	
 }

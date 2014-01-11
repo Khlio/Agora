@@ -22,7 +22,6 @@ public class ClientMapping extends AggregateMap<Client> {
 		property().onField("nationalite");
 		property().onField("adresse");
 		property().onField("telephone");
-		collection().onField("utilisateurs");
 	}
 
 }

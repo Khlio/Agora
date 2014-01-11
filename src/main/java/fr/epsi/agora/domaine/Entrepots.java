@@ -1,5 +1,6 @@
 package fr.epsi.agora.domaine;
 
+import fr.epsi.agora.domaine.constat.EntrepotConstats;
 import fr.epsi.agora.domaine.societe.EntrepotClients;
 import fr.epsi.agora.domaine.societe.EntrepotSocietes;
 import fr.epsi.agora.domaine.societe.EntrepotUtilisateurs;
@@ -18,9 +19,14 @@ public abstract class Entrepots {
 		return instance.entrepotClients();
 	}
 	
+	public static EntrepotConstats constats() {
+		return instance.entrepotConstats();
+	}
+	
 	protected abstract EntrepotSocietes entrepotSocietes();
 	protected abstract EntrepotUtilisateurs entrepotUtilisateurs();
 	protected abstract EntrepotClients entrepotClients();
+	protected abstract EntrepotConstats entrepotConstats();
 	
 	public static void setInstance(Entrepots instance) {
 		Entrepots.instance = instance;

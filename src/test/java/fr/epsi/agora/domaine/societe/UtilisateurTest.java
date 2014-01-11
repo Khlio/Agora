@@ -6,8 +6,6 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import fr.epsi.agora.domaine.societe.Utilisateur;
-
 public class UtilisateurTest {
 
 	@Test
@@ -81,32 +79,6 @@ public class UtilisateurTest {
 		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		
 		assertThat(utilisateur.isConnecte()).isFalse();
-	}
-	
-	@Test
-	public void peutAjouterUnClient() {
-		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		Client client = FakeFabriqueClient.nouveau();
-		
-		Client clientAjoute = utilisateur.ajouteClient(client);
-		
-		assertThat(clientAjoute).isNotNull();
-		assertThat(clientAjoute).isEqualTo(client);
-		assertThat(utilisateur.getClients()).isNotNull();
-		assertThat(utilisateur.getClients()).isNotEmpty();
-		assertThat(utilisateur.getClients()).contains(clientAjoute);
-	}
-	
-	@Test
-	public void peutSupprimerUnClient() {
-		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		Client client = FakeFabriqueClient.nouveau();
-		utilisateur.ajouteClient(client);
-		
-		utilisateur.supprimeClient(client);
-		
-		assertThat(utilisateur.getClients()).isEmpty();
-		assertThat(utilisateur.getClients()).excludes(client);
 	}
 	
 }

@@ -1,11 +1,6 @@
 package fr.epsi.agora.requete.societe;
 
-import java.util.Date;
-import java.util.List;
-
 import org.jongo.marshall.jackson.oid.Id;
-
-import com.google.common.collect.Lists;
 
 public class DetailsClient {
 
@@ -41,11 +36,11 @@ public class DetailsClient {
 		this.email = email;
 	}
 	
-	public Date getDateDeNaissance() {
+	public String getDateDeNaissance() {
 		return dateDeNaissance;
 	}
 	
-	public void setDateDeNaissance(Date dateDeNaissance) {
+	public void setDateDeNaissance(String dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
 	}
 	
@@ -88,26 +83,17 @@ public class DetailsClient {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-
-	public List<DetailsUtilisateur> getUtilisateurs() {
-		return utilisateurs;
-	}
-	
-	public void setUtilisateurs(List<DetailsUtilisateur> utilisateurs) {
-		this.utilisateurs = utilisateurs;
-	}
 	
 	@Id
 	private String id;
 	private String nom;
 	private String prenom;
 	private String email;
-	private Date dateDeNaissance;
+	private String dateDeNaissance;
 	private String lieuDeNaissance;
 	private String metier;
 	private String nationalite;
 	private String adresse;
 	private String telephone;
-	private List<DetailsUtilisateur> utilisateurs = Lists.newArrayList();
 	
 }

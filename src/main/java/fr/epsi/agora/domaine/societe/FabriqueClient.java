@@ -2,7 +2,6 @@ package fr.epsi.agora.domaine.societe;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class FabriqueClient {
@@ -10,7 +9,7 @@ public class FabriqueClient {
 	private FabriqueClient() {
 	}
 	
-	public static Client nouveau(String nom, String prenom, String email, Date dateDeNaissance, String lieuDeNaissance, String metier, String nationalite,
+	public static Client nouveau(String nom, String prenom, String email, String dateDeNaissance, String lieuDeNaissance, String metier, String nationalite,
 			String adresse, String telephone) {
 		checkNotNull(nom);
 		checkNotNull(prenom);

@@ -7,6 +7,7 @@ import org.restlet.routing.Router;
 
 import com.google.inject.Injector;
 
+import fr.epsi.agora.web.ressource.constat.ConstatRessource;
 import fr.epsi.agora.web.ressource.societe.ClientRessource;
 import fr.epsi.agora.web.ressource.societe.ClientsRessource;
 import fr.epsi.agora.web.ressource.societe.ConnexionUtilisateurRessource;
@@ -29,12 +30,13 @@ public class AgoraRouter extends Router {
 		attach("/societes", SocietesRessource.class);
 		attach("/societes/{id}", SocieteRessource.class);
 		attach("/societes/{id}/utilisateurs", UtilisateursRessource.class);
-		attach("/societes/{id}/utilisateurs/{idUtilisateur}", UtilisateurRessource.class);
-		attach("/societes/{id}/clients", ClientsRessource.class);
-		attach("/societes/{id}/clients/{idClient}", ClientRessource.class);
+		attach("/utilisateurs/{idUtilisateur}", UtilisateurRessource.class);
+		attach("/societes/{id}/utilisateurs/{idUtilisateur}/clients", ClientsRessource.class);
+		attach("/utilisateurs/{idUtilisateur}/clients/{idClient}", ClientRessource.class);
+		attach("/utilisateurs/{idUtilisateur}/constats/{idConstat}", ConstatRessource.class);
 		
-		attach("/utilisateurs/{id}/connexion", ConnexionUtilisateurRessource.class);
-		attach("/utilisateurs/{id}/deconnexion", DeconnexionUtilisateurRessource.class);
+		attach("/connexion", ConnexionUtilisateurRessource.class);
+		attach("/deconnexion", DeconnexionUtilisateurRessource.class);
 	}
 	
 	@Override

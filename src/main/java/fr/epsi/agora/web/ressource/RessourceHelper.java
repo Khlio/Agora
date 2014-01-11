@@ -19,8 +19,14 @@ public final class RessourceHelper {
 	}
 	
 	public RessourceHelper avec(String id, Object valeur) {
+		return avec(id, valeur, true);
+	}
+	
+	public RessourceHelper avec(String id, Object valeur, boolean init) {
 		ressource.getRequestAttributes().put(id, valeur.toString());
-		ressource.init(ressource.getContext(), ressource.getRequest(), ressource.getResponse());
+		if (init) {
+			ressource.init(ressource.getContext(), ressource.getRequest(), ressource.getResponse());
+		}
 		return this;
 	}
 	

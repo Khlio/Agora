@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.data.Reference;
 import org.restlet.representation.Representation;
 
 import com.google.common.collect.Lists;
@@ -68,8 +69,18 @@ public class SocietesRessourceTest {
 		assertThat(commande.nom).isEqualTo("Société générale");
 	}
 	
+	@Test
+	public void peutRediriger() {
+		UUID id = UUID.randomUUID();
+		when(busCommande.envoie(any(CreationSocieteMessage.class))).thenReturn(Futures.<Object>immediateFuture(id));
+		
+		ressource.cree(new Form());
+		
+		assertThat(ressource.getLocationRef()).isEqualTo(new Reference("http://localhost/inscription.html?societe=" + id));
+	}
+	
 	private BusCommande busCommande;
-	private SocietesRessource ressource;
 	private RechercheSocietes recherche;
+	private SocietesRessource ressource;
 	
 }

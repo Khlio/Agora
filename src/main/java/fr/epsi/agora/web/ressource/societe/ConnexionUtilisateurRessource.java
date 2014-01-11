@@ -2,7 +2,6 @@ package fr.epsi.agora.web.ressource.societe;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.restlet.data.CookieSetting;
@@ -17,6 +16,7 @@ import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ConnexionUtilisateurMessage;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
+import fr.epsi.agora.web.Session;
 
 public class ConnexionUtilisateurRessource extends ServerResource {
 
@@ -35,9 +35,9 @@ public class ConnexionUtilisateurRessource extends ServerResource {
 			ConnexionUtilisateurMessage commande = new ConnexionUtilisateurMessage(UUID.fromString(details.getId()));
 			busCommande.envoie(commande);
 			
-			CookieSetting cookie = new CookieSetting(1, "idUtilisateur", details.getId());
-			cookie.setMaxAge(Long.valueOf(new Date().getTime()/1000+7200).intValue());
-			cookie.setSecure(true);
+			Session.ajoute(details.getId(), UUID.randomUUID());
+			CookieSetting cookie = new CookieSetting(1, "utilisateur", details.getId());
+			getCookieSettings().add(cookie);
 			setStatus(Status.SUCCESS_ACCEPTED);
 		} catch (NullPointerException npe) {
 			setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);

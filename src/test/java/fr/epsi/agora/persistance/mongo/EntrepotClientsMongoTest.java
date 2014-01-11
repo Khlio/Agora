@@ -3,7 +3,6 @@ package fr.epsi.agora.persistance.mongo;
 import static org.fest.assertions.Assertions.assertThat;
 import fr.epsi.agora.domaine.societe.Client;
 import fr.epsi.agora.domaine.societe.FakeFabriqueClient;
-import fr.epsi.agora.domaine.societe.FakeFabriqueUtilisateur;
 
 public class EntrepotClientsMongoTest extends EntrepotAggregatsMongoTest<Client> {
 	
@@ -15,7 +14,6 @@ public class EntrepotClientsMongoTest extends EntrepotAggregatsMongoTest<Client>
 	@Override
 	public void peutAjouter() {
 		Client client = FakeFabriqueClient.nouveau();
-		client.ajouteUtilisateur(FakeFabriqueUtilisateur.nouveau());
 		
 		entrepot.ajoute(client);
 		mongolinkRule.cleanSession();
@@ -25,13 +23,12 @@ public class EntrepotClientsMongoTest extends EntrepotAggregatsMongoTest<Client>
 		assertThat(clientTrouve.getNom()).isEqualTo("Saban");
 		assertThat(clientTrouve.getPrenom()).isEqualTo("JR");
 		assertThat(clientTrouve.getEmail()).isEqualTo("a@a.com");
-		assertThat(clientTrouve.getDateDeNaissance()).isNotNull();
+		assertThat(clientTrouve.getDateDeNaissance()).isEqualTo("01/01/1991");
 		assertThat(clientTrouve.getLieuDeNaissance()).isEqualTo("Paris");
 		assertThat(clientTrouve.getMetier()).isEqualTo("Etudiant");
 		assertThat(clientTrouve.getNationalite()).isEqualTo("Française");
 		assertThat(clientTrouve.getAdresse()).isEqualTo("1 rue du Black");
 		assertThat(clientTrouve.getTelephone()).isEqualTo("0706080910");
-		assertThat(clientTrouve.getUtilisateurs()).hasSize(1);
 	}
 	
 	@Override
@@ -45,7 +42,7 @@ public class EntrepotClientsMongoTest extends EntrepotAggregatsMongoTest<Client>
 		
 		Client clientTrouve = entrepot.get(client.getId()).orNull();
 		assertThat(clientTrouve).isNotNull();
-		assertThat(client.getPrenom()).isEqualTo("Jean-Roland");
+		assertThat(clientTrouve.getPrenom()).isEqualTo("Jean-Roland");
 	}
 	
 	@Override

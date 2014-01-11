@@ -6,17 +6,17 @@ import org.jongo.Jongo;
 
 import com.google.inject.Inject;
 
-public class RechercheClients {
+import fr.epsi.agora.requete.Recherche;
 
+public class RechercheClients extends Recherche {
+	
 	@Inject
 	public RechercheClients(Jongo jongo) {
-		this.jongo = jongo;
+		super(jongo);
 	}
-	
+
 	public DetailsClient detailsDe(UUID id) {
 		return jongo.getCollection("client").findOne("{_id: #}", id).as(DetailsClient.class);
 	}
-	
-	private Jongo jongo;
 	
 }

@@ -2,8 +2,6 @@ package fr.epsi.agora.commande.societe;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.Date;
-
 import org.junit.Test;
 
 import fr.epsi.agora.commande.HandlerCommandeRegle;
@@ -18,7 +16,7 @@ public class AjoutClientHandlerTest extends HandlerCommandeRegle {
 	public void peutAjouterUnClient() {
 		Societe societe = FakeFabriqueSociete.nouveau();
 		Entrepots.societes().ajoute(societe);
-		AjoutClientMessage commande = new AjoutClientMessage(societe.getId(), "Saban", "JR", "a@a.com", new Date(), "Paris", "Etudiant", "Française",
+		AjoutClientMessage commande = new AjoutClientMessage(societe.getId(), "Saban", "JR", "a@a.com", "01/01/1991", "Paris", "Etudiant", "Française",
 				"1 rue du Black", "0706080910");
 		
 		new AjoutClientHandler().execute(commande);
@@ -28,7 +26,7 @@ public class AjoutClientHandlerTest extends HandlerCommandeRegle {
 		assertThat(client.getNom()).isEqualTo("Saban");
 		assertThat(client.getPrenom()).isEqualTo("JR");
 		assertThat(client.getEmail()).isEqualTo("a@a.com");
-		assertThat(client.getDateDeNaissance()).isNotNull();
+		assertThat(client.getDateDeNaissance()).isEqualTo("01/01/1991");
 		assertThat(client.getLieuDeNaissance()).isEqualTo("Paris");
 		assertThat(client.getMetier()).isEqualTo("Etudiant");
 		assertThat(client.getNationalite()).isEqualTo("Française");

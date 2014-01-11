@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
 import com.google.common.collect.Lists;
@@ -26,6 +27,7 @@ import fr.epsi.agora.commande.societe.AjoutClientMessage;
 import fr.epsi.agora.requete.societe.DetailsSociete;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.requete.societe.ResumeClient;
+import fr.epsi.agora.web.Session;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class ClientsRessourceTest {
@@ -36,7 +38,6 @@ public class ClientsRessourceTest {
 		when(busCommande.envoie(any(Message.class))).thenReturn(Futures.<Object>immediateFuture(UUID.randomUUID()));
 		recherche = mock(RechercheSocietes.class);
 		ressource = new ClientsRessource(busCommande, recherche);
-		RessourceHelper.initialise(ressource);
 	}
 	
 	@Test
@@ -65,7 +66,7 @@ public class ClientsRessourceTest {
 		formulaire.add("nom", "Saban");
 		formulaire.add("prenom", "JR");
 		formulaire.add("email", "a@a.com");
-		formulaire.add("dateDeNaissance", "25/09/1990");
+		formulaire.add("dateDeNaissance", "01/01/1991");
 		formulaire.add("lieuDeNaissance", "Paris");
 		formulaire.add("metier", "Etudiant");
 		formulaire.add("nationalite", "Française");
@@ -74,6 +75,7 @@ public class ClientsRessourceTest {
 		
 		ressource.ajouteClient(formulaire);
 		
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<AjoutClientMessage> capteur = ArgumentCaptor.forClass(AjoutClientMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		AjoutClientMessage commande = capteur.getValue();
@@ -81,7 +83,7 @@ public class ClientsRessourceTest {
 		assertThat(commande.nom).isEqualTo("Saban");
 		assertThat(commande.prenom).isEqualTo("JR");
 		assertThat(commande.email).isEqualTo("a@a.com");
-		assertThat(commande.dateDeNaissance).isNotNull();
+		assertThat(commande.dateDeNaissance).isEqualTo("01/01/1991");
 		assertThat(commande.lieuDeNaissance).isEqualTo("Paris");
 		assertThat(commande.metier).isEqualTo("Etudiant");
 		assertThat(commande.nationalite).isEqualTo("Française");
@@ -98,11 +100,13 @@ public class ClientsRessourceTest {
 	}
 	
 	private void initialiseRessource(DetailsSociete details) {
-		RessourceHelper.initialise(ressource).avec("id", details.getId());
+		UUID idUtilisateur = UUID.randomUUID();
+		Session.ajoute(idUtilisateur.toString(), UUID.randomUUID());
+		RessourceHelper.initialise(ressource).avec("id", details.getId(), false).avec("idUtilisateur", idUtilisateur);
 	}
 	
 	private BusCommande busCommande;
-	private ClientsRessource ressource;
 	private RechercheSocietes recherche;
+	private ClientsRessource ressource;
 	
 }

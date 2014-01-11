@@ -2,7 +2,6 @@ package fr.epsi.agora.requete.societe;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.jongo.Jongo;
@@ -15,37 +14,35 @@ import com.github.fakemongo.Fongo;
 public class RechercheClientsTest {
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		fongo = new Fongo("test");
 		jongo = new Jongo(fongo.getDB("agora"));
 	}
 	
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		fongo.dropDatabase("agora");
 	}
 	
 	@Test
 	public void peutRecupererUnClient() {
 		UUID idClient = UUID.randomUUID();
-		jongo.getCollection("client").insert("{_id: #, nom: 'Levacher', prenom: 'Vincent', email: 'a@a.com', dateDeNaissance: #, lieuDeNaissance: 'Limoges', metier: 'Développeur', "
-				+ "nationalite: 'Française', adresse: '1 rue Test', telephone: '0607080910', "
-				+ "utilisateurs: [{nom: 'Saban', prenom: 'JR'}]}", idClient, new Date());
+		jongo.getCollection("client").insert("{_id: #, nom: 'Saban', prenom: 'JR', email: 'a@a.com', dateDeNaissance: '01/01/1991', "
+				+ "lieuDeNaissance: 'Paris', metier: 'Etudiant', nationalite: 'Française', adresse: '1 rue du Black', telephone: '0706080910'}", idClient);
 		RechercheClients recherche = new RechercheClients(jongo);
 		
 		DetailsClient details = recherche.detailsDe(idClient);
 		
 		assertThat(details).isNotNull();
-		assertThat(details.getNom()).isEqualTo("Levacher");
-		assertThat(details.getPrenom()).isEqualTo("Vincent");
+		assertThat(details.getNom()).isEqualTo("Saban");
+		assertThat(details.getPrenom()).isEqualTo("JR");
 		assertThat(details.getEmail()).isEqualTo("a@a.com");
-		assertThat(details.getDateDeNaissance()).isNotNull();
-		assertThat(details.getLieuDeNaissance()).isEqualTo("Limoges");
-		assertThat(details.getMetier()).isEqualTo("Développeur");
+		assertThat(details.getDateDeNaissance()).isEqualTo("01/01/1991");
+		assertThat(details.getLieuDeNaissance()).isEqualTo("Paris");
+		assertThat(details.getMetier()).isEqualTo("Etudiant");
 		assertThat(details.getNationalite()).isEqualTo("Française");
-		assertThat(details.getAdresse()).isEqualTo("1 rue Test");
-		assertThat(details.getTelephone()).isEqualTo("0607080910");
-		assertThat(details.getUtilisateurs()).hasSize(1);
+		assertThat(details.getAdresse()).isEqualTo("1 rue du Black");
+		assertThat(details.getTelephone()).isEqualTo("0706080910");
 	}
 	
 	private Fongo fongo;

@@ -1,10 +1,6 @@
 package fr.epsi.agora.domaine.societe;
 
-import java.util.Date;
-import java.util.List;
 import java.util.UUID;
-
-import com.google.common.collect.Lists;
 
 import fr.epsi.agora.domaine.Aggregat;
 
@@ -46,11 +42,11 @@ public class Client implements Aggregat {
 		this.email = email;
 	}
 
-	public Date getDateDeNaissance() {
+	public String getDateDeNaissance() {
 		return dateDeNaissance;
 	}
 
-	public void setDateDeNaissance(Date dateDeNaissance) {
+	public void setDateDeNaissance(String dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
 	}
 
@@ -94,29 +90,15 @@ public class Client implements Aggregat {
 		this.telephone = telephone;
 	}
 
-	public List<Utilisateur> getUtilisateurs() {
-		return utilisateurs;
-	}
-	
-	public Utilisateur ajouteUtilisateur(Utilisateur utilisateur) {
-		utilisateurs.add(utilisateur);
-		return utilisateur;
-	}
-	
-	public void supprimeUtilisateur(Utilisateur utilisateur) {
-		utilisateurs.remove(utilisateur);
-	}
-
 	private UUID id;
 	private String nom;
 	private String prenom;
 	private String email;
-	private Date dateDeNaissance;
+	private String dateDeNaissance;
 	private String lieuDeNaissance;
 	private String metier;
 	private String nationalite;
 	private String adresse;
 	private String telephone;
-	private List<Utilisateur> utilisateurs = Lists.newArrayList();
 
 }

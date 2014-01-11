@@ -1,13 +1,12 @@
 package fr.epsi.agora.commande.societe;
 
-import java.util.Date;
 import java.util.UUID;
 
 import fr.epsi.agora.commande.Message;
 
 public class AjoutClientMessage implements Message {
 
-	public AjoutClientMessage(UUID idSociete, String nom, String prenom, String email, Date dateDeNaissance, String lieuDeNaissance, String metier,
+	public AjoutClientMessage(UUID idSociete, String nom, String prenom, String email, String dateDeNaissance, String lieuDeNaissance, String metier,
 			String nationalite, String adresse, String telephone) {
 		this.idSociete = idSociete;
 		this.nom = nom;
@@ -25,7 +24,7 @@ public class AjoutClientMessage implements Message {
 	public final String nom;
 	public final String prenom;
 	public final String email;
-	public final Date dateDeNaissance;
+	public final String dateDeNaissance;
 	public final String lieuDeNaissance;
 	public final String metier;
 	public final String nationalite;
