@@ -21,7 +21,7 @@ public class EntrepotConstatsMongoTest extends EntrepotAggregatsMongoTest<Consta
 		Constat constatTrouve = entrepot.get(constat.getId()).orNull();
 		assertThat(constatTrouve).isNotNull();
 		assertThat(constat.getNom()).isEqualTo("Tout cassé");
-		assertThat(constat.getDate()).isEqualTo("01/01/2014");
+		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
 		assertThat(constat.getUtilisateur()).isNotNull();
 		assertThat(constat.getClient()).isNotNull();
