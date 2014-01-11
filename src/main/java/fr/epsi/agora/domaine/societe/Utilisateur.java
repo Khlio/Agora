@@ -1,6 +1,5 @@
 package fr.epsi.agora.domaine.societe;
 
-import java.util.Date;
 import java.util.UUID;
 
 import fr.epsi.agora.domaine.Aggregat;
@@ -67,22 +66,6 @@ public class Utilisateur implements Aggregat {
 		this.telephone = telephone;
 	}
 
-	public Date getDerniereConnexion() {
-		return derniereConnexion;
-	}
-
-	public void setDerniereConnexion(Date derniereConnexion) {
-		this.derniereConnexion = derniereConnexion;
-	}
-
-	public Boolean isConnecte() {
-		return connecte;
-	}
-
-	public void setConnecte(Boolean connecte) {
-		this.connecte = connecte;
-	}
-
 	private UUID id;
 	private String nom;
 	private String prenom;
@@ -90,7 +73,5 @@ public class Utilisateur implements Aggregat {
 	private String motDePasse;
 	private String adresse;
 	private String telephone;
-	private Date derniereConnexion;
-	private Boolean connecte;
 
 }

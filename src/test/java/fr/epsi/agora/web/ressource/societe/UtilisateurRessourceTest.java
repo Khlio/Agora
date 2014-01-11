@@ -88,7 +88,7 @@ public class UtilisateurRessourceTest {
 	}
 	
 	private void initialiseRessource(DetailsUtilisateur details) {
-		Session.ajoute(details.getId(), UUID.randomUUID());
+		Session.ajoute(details.getId());
 		RessourceHelper.initialise(ressource).avec("idUtilisateur", details.getId());
 	}
 	

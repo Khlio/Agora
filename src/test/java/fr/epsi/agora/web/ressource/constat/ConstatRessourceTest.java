@@ -89,7 +89,7 @@ public class ConstatRessourceTest {
 	
 	private void initialiseRessource(DetailsConstat details) {
 		UUID idUtilisateur = UUID.randomUUID();
-		Session.ajoute(idUtilisateur.toString(), UUID.randomUUID());
+		Session.ajoute(idUtilisateur.toString());
 		RessourceHelper.initialise(ressource).avec("idConstat", details.getId(), false).avec("idUtilisateur", idUtilisateur);
 	}
 	

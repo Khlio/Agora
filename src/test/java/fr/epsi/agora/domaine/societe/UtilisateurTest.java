@@ -2,8 +2,6 @@ package fr.epsi.agora.domaine.societe;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.Date;
-
 import org.junit.Test;
 
 public class UtilisateurTest {
@@ -56,29 +54,6 @@ public class UtilisateurTest {
 		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		
 		assertThat(utilisateur.getTelephone()).isEqualTo("0607080910");
-	}
-	
-	@Test
-	public void peutDonnerUneDerniereConnexion() {
-		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		utilisateur.setDerniereConnexion(new Date());
-		
-		assertThat(utilisateur.getDerniereConnexion()).isNotNull();
-	}
-	
-	@Test
-	public void peutDonnerSilEstConnecte() {
-		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		utilisateur.setConnecte(true);
-		
-		assertThat(utilisateur.isConnecte()).isTrue();
-	}
-	
-	@Test
-	public void peutDonnerSilNestPasConnecte() {
-		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		
-		assertThat(utilisateur.isConnecte()).isFalse();
 	}
 	
 }

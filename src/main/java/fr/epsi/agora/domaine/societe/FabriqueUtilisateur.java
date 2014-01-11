@@ -24,7 +24,6 @@ public class FabriqueUtilisateur {
 		utilisateur.setMotDePasse(motDePasse);
 		utilisateur.setAdresse(adresse);
 		utilisateur.setTelephone(telephone);
-		utilisateur.setConnecte(false);
 		return utilisateur;
 	}
 	

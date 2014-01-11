@@ -2,6 +2,7 @@ package fr.epsi.agora.requete.constat;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.jongo.Jongo;
@@ -22,6 +23,44 @@ public class RechercheConstatsTest {
 	@After
 	public void tearDown() {
 		fongo.dropDatabase("agora");
+	}
+	
+	@Test
+	public void peutRecupererTousLesConstatsDunUtilisateur() {
+		UUID idUtilisateur = UUID.randomUUID();
+		jongo.getCollection("constat").insert("{nom: 'Tout cassé', date: '01/01/2014', geolocalisation: '', utilisateur: {_id: #}}", idUtilisateur);
+		jongo.getCollection("constat").insert("{nom: 'test'}");
+		RechercheConstats recherche = new RechercheConstats(jongo);
+		
+		List<DetailsConstat> constats = recherche.tousDunUtilisateur(idUtilisateur);
+		
+		assertThat(constats).isNotNull();
+		assertThat(constats).hasSize(1);
+		DetailsConstat constat = constats.get(0);
+		assertThat(constat.getNom()).isEqualTo("Tout cassé");
+		assertThat(constat.getDate()).isEqualTo("01/01/2014");
+		assertThat(constat.getGeolocalisation()).isEqualTo("");
+		assertThat(constat.getUtilisateur()).isNotNull();
+		assertThat(constat.getUtilisateur().getId()).isEqualTo(idUtilisateur.toString());
+	}
+	
+	@Test
+	public void peutRecupererTousLesConstatsDunClient() {
+		UUID idClient = UUID.randomUUID();
+		jongo.getCollection("constat").insert("{nom: 'Tout cassé', date: '01/01/2014', geolocalisation: '', client: {_id: #}}", idClient);
+		jongo.getCollection("constat").insert("{nom: 'test'}");
+		RechercheConstats recherche = new RechercheConstats(jongo);
+		
+		List<DetailsConstat> constats = recherche.tousDunClient(idClient);
+		
+		assertThat(constats).isNotNull();
+		assertThat(constats).hasSize(1);
+		DetailsConstat constat = constats.get(0);
+		assertThat(constat.getNom()).isEqualTo("Tout cassé");
+		assertThat(constat.getDate()).isEqualTo("01/01/2014");
+		assertThat(constat.getGeolocalisation()).isEqualTo("");
+		assertThat(constat.getClient()).isNotNull();
+		assertThat(constat.getClient().getId()).isEqualTo(idClient.toString());
 	}
 	
 	@Test

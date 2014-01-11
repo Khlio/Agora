@@ -1,7 +1,5 @@
 package fr.epsi.agora.requete.societe;
 
-import java.util.Date;
-
 import org.jongo.marshall.jackson.oid.Id;
 
 public class DetailsUtilisateur {
@@ -62,22 +60,6 @@ public class DetailsUtilisateur {
 		this.telephone = telephone;
 	}
 
-	public Date getDerniereConnexion() {
-		return derniereConnexion;
-	}
-
-	public void setDerniereConnexion(Date derniereConnexion) {
-		this.derniereConnexion = derniereConnexion;
-	}
-
-	public Boolean isConnecte() {
-		return connecte;
-	}
-
-	public void setConnecte(Boolean connecte) {
-		this.connecte = connecte;
-	}
-
 	@Id
 	private String id;
 	private String nom;
@@ -86,7 +68,5 @@ public class DetailsUtilisateur {
 	private String motDePasse;
 	private String adresse;
 	private String telephone;
-	private Date derniereConnexion;
-	private Boolean connecte;
 	
 }

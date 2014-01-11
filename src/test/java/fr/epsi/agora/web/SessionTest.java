@@ -2,25 +2,25 @@ package fr.epsi.agora.web;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.UUID;
-
+import org.joda.time.DateTime;
 import org.junit.Test;
+
+import fr.epsi.agora.Constante;
 
 public class SessionTest {
 
 	@Test
 	public void peutAjouterUneSession() {
-		UUID id = UUID.randomUUID();
-		Session session = Session.ajoute("utilisateur", id);
+		Session session = Session.ajoute("utilisateur");
 		
 		assertThat(session).isNotNull();
 		assertThat(session.getNom()).isEqualTo("utilisateur");
-		assertThat(session.getValeur()).isEqualTo(id);
+		assertThat(session.getDebutSession()).isNotNull();
 	}
 	
 	@Test
 	public void peutSupprimerUneSession() {
-		Session.ajoute("utilisateur", UUID.randomUUID());
+		Session.ajoute("utilisateur");
 		
 		Session.supprime("utilisateur");
 		
@@ -29,13 +29,22 @@ public class SessionTest {
 	
 	@Test
 	public void peutRecupererUneSessionAvecSonNom() {
-		Session session = Session.ajoute("utilisateur", UUID.randomUUID());
+		Session session = Session.ajoute("utilisateur");
 		
 		Session sessionRecuperee = Session.get("utilisateur").orNull();
 		
 		assertThat(sessionRecuperee).isNotNull();
 		assertThat(sessionRecuperee.getNom()).isEqualTo(session.getNom());
-		assertThat(sessionRecuperee.getValeur()).isEqualTo(session.getValeur());
+		assertThat(sessionRecuperee.getDebutSession()).isEqualTo(session.getDebutSession());
+	}
+	
+	@Test
+	public void nePeutPasRecupererUneSessionExpiree() {
+		Session.ajoute("utilisateur", DateTime.now().minusHours(Constante.DELAI_SESSION));
+		
+		Session sessionRecuperee = Session.get("utilisateur").orNull();
+		
+		assertThat(sessionRecuperee).isNull();
 	}
 	
 }

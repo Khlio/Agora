@@ -26,8 +26,6 @@ public class EntrepotUtilisateursMongoTest extends EntrepotAggregatsMongoTest<Ut
 		assertThat(utilisateurTrouve.getMotDePasse()).isEqualTo("pass");
 		assertThat(utilisateurTrouve.getAdresse()).isEqualTo("1 rue Test");
 		assertThat(utilisateurTrouve.getTelephone()).isEqualTo("0607080910");
-		assertThat(utilisateurTrouve.getDerniereConnexion()).isNull();
-		assertThat(utilisateurTrouve.isConnecte()).isFalse();
 	}
 	
 	@Override

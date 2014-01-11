@@ -28,7 +28,7 @@ public class RechercheUtilisateursTest {
 	public void peutRecupererUnUtilisateur() {
 		UUID id = UUID.randomUUID();
 		jongo.getCollection("utilisateur").insert("{_id: #, nom: 'Levacher', prenom: 'Vincent', email: 'a@a.com', motDePasse: 'pass', adresse: '1 rue Test', "
-				+ "telephone: '0607080910', connecte: false}", id);
+				+ "telephone: '0607080910'}", id);
 		RechercheUtilisateurs recherche = new RechercheUtilisateurs(jongo);
 		
 		DetailsUtilisateur details = recherche.detailsDe(id);
@@ -40,8 +40,6 @@ public class RechercheUtilisateursTest {
 		assertThat(details.getMotDePasse()).isEqualTo("pass");
 		assertThat(details.getAdresse()).isEqualTo("1 rue Test");
 		assertThat(details.getTelephone()).isEqualTo("0607080910");
-		assertThat(details.getDerniereConnexion()).isNull();
-		assertThat(details.isConnecte()).isFalse();
 	}
 	
 	@Test
