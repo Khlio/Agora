@@ -2,6 +2,7 @@ package fr.epsi.agora.web.ressource.constat;
 
 import java.util.UUID;
 
+import org.joda.time.DateTime;
 import org.restlet.data.Form;
 import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
@@ -51,7 +52,7 @@ public class ConstatsRessource extends ServerResource {
 		if (isCommitted()) {
 			return;
 		}
-		CreationConstatMessage commande = new CreationConstatMessage(formulaire.getFirstValue("nom"), formulaire.getFirstValue("date"),
+		CreationConstatMessage commande = new CreationConstatMessage(formulaire.getFirstValue("nom"), formulaire.getFirstValue("adresse"), DateTime.now(),
 				formulaire.getFirstValue("geolocalisation"), UUID.fromString(session.getNom()), UUID.fromString(formulaire.getFirstValue("client")));
 		ListenableFuture<UUID> idConstat = busCommande.envoie(commande);
 		redirectSeeOther("../constat.html?constat=" + Futures.getUnchecked(idConstat));

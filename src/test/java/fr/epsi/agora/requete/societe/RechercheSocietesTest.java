@@ -54,6 +54,21 @@ public class RechercheSocietesTest {
 		assertThat(details.getClients()).hasSize(1);
 	}
 	
+	@Test
+	public void peutRecupererUneSocieteDunUtilisateur() {
+		UUID idUtilisateur = UUID.randomUUID();
+		jongo.getCollection("societe").insert("{nom: 'test', utilisateurs: [{_id: #, nom: 'Levacher'}]}", idUtilisateur);
+		RechercheSocietes recherche = new RechercheSocietes(jongo);
+		
+		DetailsSociete details = recherche.societeDeLUtilisateur(idUtilisateur);
+		
+		assertThat(details).isNotNull();
+		assertThat(details.getNom()).isEqualTo("test");
+		assertThat(details.getUtilisateurs()).hasSize(1);
+		assertThat(details.getUtilisateurs().get(0).getId()).isEqualTo(idUtilisateur.toString());
+		assertThat(details.getUtilisateurs().get(0).getNom()).isEqualTo("Levacher");
+	}
+	
 	private Fongo fongo;
 	private Jongo jongo;
 	

@@ -4,6 +4,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.UUID;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import fr.epsi.agora.commande.HandlerCommandeRegle;
@@ -22,7 +23,7 @@ public class CreationConstatHandlerTest extends HandlerCommandeRegle {
 		Entrepots.utilisateurs().ajoute(utilisateur);
 		Client client = FakeFabriqueClient.nouveau();
 		Entrepots.clients().ajoute(client);
-		CreationConstatMessage commande = new CreationConstatMessage("Tout cassé", "01/01/2014", "", utilisateur.getId(), client.getId());
+		CreationConstatMessage commande = new CreationConstatMessage("Tout cassé", "1 rue du Bordel", DateTime.now(), "", utilisateur.getId(), client.getId());
 		
 		UUID idConstat = new CreationConstatHandler().execute(commande);
 		
@@ -30,7 +31,7 @@ public class CreationConstatHandlerTest extends HandlerCommandeRegle {
 		Constat constat = Entrepots.constats().get(idConstat).orNull();
 		assertThat(constat).isNotNull();
 		assertThat(constat.getNom()).isEqualTo("Tout cassé");
-		assertThat(constat.getDate()).isEqualTo("01/01/2014");
+		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
 		assertThat(constat.getUtilisateur()).isEqualTo(utilisateur);
 		assertThat(constat.getClient()).isEqualTo(client);

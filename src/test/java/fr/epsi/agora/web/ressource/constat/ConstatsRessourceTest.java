@@ -60,7 +60,7 @@ public class ConstatsRessourceTest {
 		UUID idClient = UUID.randomUUID();
 		Form formulaire = new Form();
 		formulaire.add("nom", "Tout cassé");
-		formulaire.add("date", "01/01/2014");
+		formulaire.add("adresse", "test");
 		formulaire.add("geolocalisation", "");
 		formulaire.add("client", idClient.toString());
 		
@@ -70,7 +70,8 @@ public class ConstatsRessourceTest {
 		verify(busCommande).envoie(capteur.capture());
 		CreationConstatMessage commande = capteur.getValue();
 		assertThat(commande.nom).isEqualTo("Tout cassé");
-		assertThat(commande.date).isEqualTo("01/01/2014");
+		assertThat(commande.adresse).isEqualTo("test");
+		assertThat(commande.date).isNotNull();
 		assertThat(commande.geolocalisation).isEqualTo("");
 		assertThat(commande.utilisateur).isNotNull();
 		assertThat(commande.client).isEqualTo(idClient);

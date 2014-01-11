@@ -14,6 +14,7 @@ public class ConstatMapping extends AggregateMap<Constat> {
 	public void map() {
 		id().onProperty(element().getId()).natural();
 		property().onField("nom");
+		property().onField("adresse");
 		property().onField("date");
 		property().onField("geolocalisation");
 		property().onField("utilisateur");

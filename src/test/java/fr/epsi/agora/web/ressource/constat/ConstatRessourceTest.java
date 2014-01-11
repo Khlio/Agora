@@ -52,7 +52,7 @@ public class ConstatRessourceTest {
 		initialiseRessource(details);
 		Form formulaire = new Form();
 		formulaire.add("nom", details.getNom());
-		formulaire.add("geolocalisation", "test");
+		formulaire.add("adresse", "test");
 		
 		ressource.modifie(formulaire);
 		
@@ -62,7 +62,7 @@ public class ConstatRessourceTest {
 		ModificationConstatMessage commande = capteur.getValue();
 		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.nom).isEqualTo(details.getNom());
-		assertThat(commande.geolocalisation).isEqualTo("test");
+		assertThat(commande.adresse).isEqualTo("test");
 	}
 	
 	@Test

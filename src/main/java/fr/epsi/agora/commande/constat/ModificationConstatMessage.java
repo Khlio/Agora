@@ -6,16 +6,14 @@ import fr.epsi.agora.commande.Message;
 
 public class ModificationConstatMessage implements Message {
 
-	public ModificationConstatMessage(UUID id, String nom, String date, String geolocalisation) {
+	public ModificationConstatMessage(UUID id, String nom, String adresse) {
 		this.id = id;
 		this.nom = nom;
-		this.date = date;
-		this.geolocalisation = geolocalisation;
+		this.adresse = adresse;
 	}
 	
 	public final UUID id;
 	public final String nom;
-	public final String date;
-	public final String geolocalisation;
+	public final String adresse;
 	
 }

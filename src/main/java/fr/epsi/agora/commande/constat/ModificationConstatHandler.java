@@ -10,8 +10,7 @@ public class ModificationConstatHandler implements HandlerCommande<ModificationC
 	public Object execute(ModificationConstatMessage commande) {
 		Constat constat = Entrepots.constats().get(commande.id).get();
 		constat.setNom(commande.nom);
-		constat.setDate(commande.date);
-		constat.setGeolocalisation(commande.geolocalisation);
+		constat.setAdresse(commande.adresse);
 		Entrepots.constats().modifie(constat);
 		return null;
 	}

@@ -32,9 +32,9 @@ public class AgoraRouter extends Router {
 		attach("/societes", SocietesRessource.class);
 		attach("/societes/{id}", SocieteRessource.class);
 		attach("/societes/{id}/utilisateurs", UtilisateursRessource.class);
-		attach("/societes/{id}/utilisateurs/{idUtilisateur}/clients", ClientsRessource.class);
 		
 		attach("/utilisateurs/{idUtilisateur}", UtilisateurRessource.class);
+		attach("/utilisateurs/{idUtilisateur}/clients", ClientsRessource.class);
 		attach("/utilisateurs/{idUtilisateur}/clients/{idClient}", ClientRessource.class);
 		attach("/utilisateurs/{idUtilisateur}/constats", ConstatsRessource.class);
 		attach("/utilisateurs/{idUtilisateur}/constats/clients/{idClient}", ConstatsClientRessource.class);

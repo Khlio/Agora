@@ -28,10 +28,9 @@ public class ClientsRessource extends ServerResource {
 	
 	@Override
 	protected void doInit() {
-		UUID id = UUID.fromString(getRequestAttributes().get("id").toString());
 		UUID idUtilisateur = UUID.fromString(getRequestAttributes().get("idUtilisateur").toString());
 		if (Session.get(idUtilisateur.toString()).isPresent()) {
-			societe = recherche.detailsDe(id);
+			societe = recherche.societeDeLUtilisateur(idUtilisateur);
 		} else {
 			setStatus(Status.CLIENT_ERROR_FORBIDDEN);
 			setCommitted(true);

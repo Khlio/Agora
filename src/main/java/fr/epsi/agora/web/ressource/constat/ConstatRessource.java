@@ -51,7 +51,7 @@ public class ConstatRessource extends ServerResource {
 			return;
 		}
 		ModificationConstatMessage commande = new ModificationConstatMessage(UUID.fromString(constat.getId()), formulaire.getFirstValue("nom"),
-				formulaire.getFirstValue("date"), formulaire.getFirstValue("geolocalisation"));
+				formulaire.getFirstValue("adresse"));
 		busCommande.envoie(commande);
 		setStatus(Status.SUCCESS_ACCEPTED);
 	}

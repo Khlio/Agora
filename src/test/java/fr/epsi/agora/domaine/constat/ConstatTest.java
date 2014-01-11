@@ -2,6 +2,7 @@ package fr.epsi.agora.domaine.constat;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 public class ConstatTest {
@@ -22,10 +23,19 @@ public class ConstatTest {
 	}
 	
 	@Test
+	public void peutDonnerUneAdresse() {
+		Constat constat = FakeFabriqueConstat.nouveau();
+		
+		assertThat(constat.getAdresse()).isEqualTo("1 rue du Bordel");
+	}
+	
+	@Test
 	public void peutDonnerUneDate() {
 		Constat constat = FakeFabriqueConstat.nouveau();
 		
-		assertThat(constat.getDate()).isEqualTo("01/01/2014");
+		assertThat(constat.getDate().getDayOfMonth()).isEqualTo(DateTime.now().getDayOfMonth());
+		assertThat(constat.getDate().getMonthOfYear()).isEqualTo(DateTime.now().getMonthOfYear());
+		assertThat(constat.getDate().getYear()).isEqualTo(DateTime.now().getYear());
 	}
 	
 	@Test

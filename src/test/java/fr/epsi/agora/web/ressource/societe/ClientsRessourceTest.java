@@ -95,18 +95,19 @@ public class ClientsRessourceTest {
 		DetailsSociete details = new DetailsSociete();
 		UUID id = UUID.randomUUID();
 		details.setId(id.toString());
-		when(recherche.detailsDe(id)).thenReturn(details);
+		idUtilisateur = UUID.randomUUID();
+		when(recherche.societeDeLUtilisateur(idUtilisateur)).thenReturn(details);
 		return details;
 	}
 	
 	private void initialiseRessource(DetailsSociete details) {
-		UUID idUtilisateur = UUID.randomUUID();
 		Session.ajoute(idUtilisateur.toString());
-		RessourceHelper.initialise(ressource).avec("id", details.getId(), false).avec("idUtilisateur", idUtilisateur);
+		RessourceHelper.initialise(ressource).avec("idUtilisateur", idUtilisateur);
 	}
 	
 	private BusCommande busCommande;
 	private RechercheSocietes recherche;
 	private ClientsRessource ressource;
+	private UUID idUtilisateur;
 	
 }

@@ -14,15 +14,14 @@ public class ModificationConstatHandlerTest extends HandlerCommandeRegle {
 	@Test
 	public void peutModifierConstat() {
 		Constat constat = Entrepots.constats().ajoute(FakeFabriqueConstat.nouveau());
-		ModificationConstatMessage commande = new ModificationConstatMessage(constat.getId(), constat.getNom(), constat.getDate(), "test");
+		ModificationConstatMessage commande = new ModificationConstatMessage(constat.getId(), constat.getNom(), "test");
 		
 		new ModificationConstatHandler().execute(commande);
 		
 		Constat constatModifie = Entrepots.constats().get(constat.getId()).orNull();
 		assertThat(constatModifie).isNotNull();
 		assertThat(constatModifie.getNom()).isEqualTo(constat.getNom());
-		assertThat(constatModifie.getDate()).isEqualTo(constat.getDate());
-		assertThat(constatModifie.getGeolocalisation()).isEqualTo("test");
+		assertThat(constatModifie.getAdresse()).isEqualTo("test");
 	}
 	
 }

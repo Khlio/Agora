@@ -26,5 +26,9 @@ public class RechercheSocietes extends Recherche {
 	public DetailsSociete detailsDe(UUID id) {
 		return jongo.getCollection("societe").findOne("{_id: #}", id).as(DetailsSociete.class);
 	}
+
+	public DetailsSociete societeDeLUtilisateur(UUID idUtilisateur) {
+		return jongo.getCollection("societe").findOne("{utilisateurs._id: #}", idUtilisateur).as(DetailsSociete.class);
+	}
 	
 }

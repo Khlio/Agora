@@ -2,6 +2,8 @@ package fr.epsi.agora.domaine.constat;
 
 import java.util.UUID;
 
+import org.joda.time.DateTime;
+
 import fr.epsi.agora.domaine.Aggregat;
 import fr.epsi.agora.domaine.societe.Client;
 import fr.epsi.agora.domaine.societe.Utilisateur;
@@ -27,12 +29,20 @@ public class Constat implements Aggregat {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
+	public String getAdresse() {
+		return adresse;
+	}
+	
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
 
-	public String getDate() {
+	public DateTime getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(DateTime date) {
 		this.date = date;
 	}
 
@@ -62,7 +72,8 @@ public class Constat implements Aggregat {
 
 	private UUID id;
 	private String nom;
-	private String date;
+	private String adresse;
+	private DateTime date;
 	private String geolocalisation;
 	private Utilisateur utilisateur;
 	private Client client;

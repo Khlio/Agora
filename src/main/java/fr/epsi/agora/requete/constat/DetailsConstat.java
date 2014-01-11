@@ -1,5 +1,6 @@
 package fr.epsi.agora.requete.constat;
 
+import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 
 import fr.epsi.agora.requete.societe.DetailsClient;
@@ -22,11 +23,19 @@ public class DetailsConstat {
 		this.nom = nom;
 	}
 	
-	public String getDate() {
+	public String getAdresse() {
+		return adresse;
+	}
+	
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+	
+	public DateTime getDate() {
 		return date;
 	}
 	
-	public void setDate(String date) {
+	public void setDate(DateTime date) {
 		this.date = date;
 	}
 	
@@ -57,7 +66,8 @@ public class DetailsConstat {
 	@Id
 	private String id;
 	private String nom;
-	private String date;
+	private String adresse;
+	private DateTime date;
 	private String geolocalisation;
 	private DetailsUtilisateur utilisateur;
 	private DetailsClient client;
