@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.data.Reference;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
@@ -58,7 +59,6 @@ public class SocieteRessourceTest {
 		
 		ressource.ajouteUtilisateur(formulaire);
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<AjoutUtilisateurMessage> capteur = ArgumentCaptor.forClass(AjoutUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		AjoutUtilisateurMessage commande = capteur.getValue();
@@ -69,6 +69,16 @@ public class SocieteRessourceTest {
 		assertThat(commande.motDePasse).isEqualTo("pass");
 		assertThat(commande.adresse).isEqualTo("1 rue Test");
 		assertThat(commande.telephone).isEqualTo("0607080910");
+	}
+	
+	@Test
+	public void peutRediriger() {
+		DetailsSociete details = laRechercheRetourne();
+		initialiseRessource(details);
+		
+		ressource.ajouteUtilisateur(new Form());
+		
+		assertThat(ressource.getLocationRef()).isEqualTo(new Reference("http://localhost/societe/societe.html?id=" + details.getId()));
 	}
 	
 	@Test

@@ -41,7 +41,7 @@ public class AgoraRouter extends Router {
 		attach("/utilisateurs/{idUtilisateur}/constats/{idConstat}", ConstatRessource.class);
 		
 		attach("/connexion", ConnexionUtilisateurRessource.class);
-		attach("/deconnexion", DeconnexionUtilisateurRessource.class);
+		attach("/deconnexion/{id}", DeconnexionUtilisateurRessource.class);
 	}
 	
 	@Override

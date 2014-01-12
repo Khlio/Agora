@@ -35,7 +35,7 @@ public class ConstatRessource extends ServerResource {
 		if (Session.get(idUtilisateur.toString()).isPresent()) {
 			constat = recherche.detailsDe(idConstat);
 		} else {
-			setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
 			setCommitted(true);
 		}
 	}

@@ -30,6 +30,8 @@ public class ConnexionUtilisateurRessource extends ServerResource {
 			
 			Session.ajoute(details.getId());
 			CookieSetting cookie = new CookieSetting(1, Constante.SESSION_COOKIE, details.getId());
+			cookie.setPath("/");
+			cookie.setAccessRestricted(true);
 			getCookieSettings().add(cookie);
 			setStatus(Status.SUCCESS_ACCEPTED);
 		} catch (NullPointerException npe) {

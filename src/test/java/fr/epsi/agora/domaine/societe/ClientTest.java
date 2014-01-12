@@ -64,17 +64,38 @@ public class ClientTest {
 	}
 	
 	@Test
-	public void peutDonnerUneAdresse() {
+	public void peutDonnerUneAdresse1() {
 		Client client = FakeFabriqueClient.nouveau();
 		
-		assertThat(client.getAdresse()).isEqualTo("1 rue du Black");
+		assertThat(client.getAdresse1()).isEqualTo("1 rue du Black");
 	}
 	
 	@Test
-	public void peutDonnerUnTelephone() {
+	public void peutDonnerUneAdresse2() {
 		Client client = FakeFabriqueClient.nouveau();
 		
-		assertThat(client.getTelephone()).isEqualTo("0706080910");
+		assertThat(client.getAdresse2()).isEqualTo("test");
+	}
+	
+	@Test
+	public void peutDonnerUnCodePostal() {
+		Client client = FakeFabriqueClient.nouveau();
+		
+		assertThat(client.getCodePostal()).isEqualTo("33000");
+	}
+	
+	@Test
+	public void peutDonnerUnTelephonePortable() {
+		Client client = FakeFabriqueClient.nouveau();
+		
+		assertThat(client.getTelephonePortable()).isEqualTo("0706080910");
+	}
+	
+	@Test
+	public void peutDonnerUnTelephoneFixe() {
+		Client client = FakeFabriqueClient.nouveau();
+		
+		assertThat(client.getTelephoneFixe()).isEqualTo("0506070809");
 	}
 	
 }

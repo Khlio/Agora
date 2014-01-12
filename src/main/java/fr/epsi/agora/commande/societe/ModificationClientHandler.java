@@ -16,8 +16,11 @@ public class ModificationClientHandler implements HandlerCommande<ModificationCl
 		client.setLieuDeNaissance(commande.lieuDeNaissance);
 		client.setMetier(commande.metier);
 		client.setNationalite(commande.nationalite);
-		client.setAdresse(commande.adresse);
-		client.setTelephone(commande.telephone);
+		client.setAdresse1(commande.adresse1);
+		client.setAdresse2(commande.adresse2);
+		client.setCodePostal(commande.codePostal);
+		client.setTelephonePortable(commande.telephonePortable);
+		client.setTelephoneFixe(commande.telephoneFixe);
 		Entrepots.clients().modifie(client);
 		return null;
 	}

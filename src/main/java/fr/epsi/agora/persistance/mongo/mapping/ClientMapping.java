@@ -20,8 +20,11 @@ public class ClientMapping extends AggregateMap<Client> {
 		property().onField("lieuDeNaissance");
 		property().onField("metier");
 		property().onField("nationalite");
-		property().onField("adresse");
-		property().onField("telephone");
+		property().onField("adresse1");
+		property().onField("adresse2");
+		property().onField("codePostal");
+		property().onField("telephonePortable");
+		property().onField("telephoneFixe");
 	}
 
 }

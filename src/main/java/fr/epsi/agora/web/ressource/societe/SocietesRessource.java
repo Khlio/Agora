@@ -34,7 +34,7 @@ public class SocietesRessource extends ServerResource {
 	public void cree(Form formulaire) {
 		CreationSocieteMessage commande = new CreationSocieteMessage(formulaire.getFirstValue("siret"), formulaire.getFirstValue("nom"));
 		ListenableFuture<UUID> idSociete = busCommande.envoie(commande);
-		redirectSeeOther("../inscription.html?societe=" + Futures.getUnchecked(idSociete));
+		redirectSeeOther("../../societe/societe.html?id=" + Futures.getUnchecked(idSociete));
 	}
 	
 	private BusCommande busCommande;

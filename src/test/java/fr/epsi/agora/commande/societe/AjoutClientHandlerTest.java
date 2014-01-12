@@ -17,7 +17,7 @@ public class AjoutClientHandlerTest extends HandlerCommandeRegle {
 		Societe societe = FakeFabriqueSociete.nouveau();
 		Entrepots.societes().ajoute(societe);
 		AjoutClientMessage commande = new AjoutClientMessage(societe.getId(), "Saban", "JR", "a@a.com", "01/01/1991", "Paris", "Etudiant", "Française",
-				"1 rue du Black", "0706080910");
+				"1 rue du Black", "test", "33000", "0706080910", "0506070809");
 		
 		new AjoutClientHandler().execute(commande);
 		
@@ -30,8 +30,12 @@ public class AjoutClientHandlerTest extends HandlerCommandeRegle {
 		assertThat(client.getLieuDeNaissance()).isEqualTo("Paris");
 		assertThat(client.getMetier()).isEqualTo("Etudiant");
 		assertThat(client.getNationalite()).isEqualTo("Française");
-		assertThat(client.getAdresse()).isEqualTo("1 rue du Black");
-		assertThat(client.getTelephone()).isEqualTo("0706080910");
+		assertThat(client.getAdresse1()).isEqualTo("1 rue du Black");
+		assertThat(client.getAdresse2()).isEqualTo("test");
+		assertThat(client.getCodePostal()).isEqualTo("33000");
+		assertThat(client.getTelephonePortable()).isEqualTo("0706080910");
+		assertThat(client.getTelephoneFixe()).isEqualTo("0506070809");
+		assertThat(Entrepots.clients().get(client.getId()).isPresent()).isTrue();
 	}
 	
 }

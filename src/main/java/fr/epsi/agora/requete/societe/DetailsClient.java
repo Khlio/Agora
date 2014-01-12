@@ -68,20 +68,44 @@ public class DetailsClient {
 		this.nationalite = nationalite;
 	}
 	
-	public String getAdresse() {
-		return adresse;
+	public String getAdresse1() {
+		return adresse1;
+	}
+
+	public void setAdresse1(String adresse1) {
+		this.adresse1 = adresse1;
 	}
 	
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public String getAdresse2() {
+		return adresse2;
+	}
+
+	public void setAdresse2(String adresse2) {
+		this.adresse2 = adresse2;
 	}
 	
-	public String getTelephone() {
-		return telephone;
+	public String getCodePostal() {
+		return codePostal;
 	}
 	
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getTelephonePortable() {
+		return telephonePortable;
+	}
+
+	public void setTelephonePortable(String telephonePortable) {
+		this.telephonePortable = telephonePortable;
+	}
+	
+	public String getTelephoneFixe() {
+		return telephoneFixe;
+	}
+
+	public void setTelephoneFixe(String telephoneFixe) {
+		this.telephoneFixe = telephoneFixe;
 	}
 	
 	@Id
@@ -93,7 +117,10 @@ public class DetailsClient {
 	private String lieuDeNaissance;
 	private String metier;
 	private String nationalite;
-	private String adresse;
-	private String telephone;
+	private String adresse1;
+	private String adresse2;
+	private String codePostal;
+	private String telephonePortable;
+	private String telephoneFixe;
 	
 }

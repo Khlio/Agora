@@ -32,7 +32,7 @@ public class ClientsRessource extends ServerResource {
 		if (Session.get(idUtilisateur.toString()).isPresent()) {
 			societe = recherche.societeDeLUtilisateur(idUtilisateur);
 		} else {
-			setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
 			setCommitted(true);
 		}
 	}
@@ -53,7 +53,8 @@ public class ClientsRessource extends ServerResource {
 		AjoutClientMessage commande = new AjoutClientMessage(UUID.fromString(societe.getId()), formulaire.getFirstValue("nom"),
 				formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), formulaire.getFirstValue("dateDeNaissance"),
 				formulaire.getFirstValue("lieuDeNaissance"), formulaire.getFirstValue("metier"), formulaire.getFirstValue("nationalite"),
-				formulaire.getFirstValue("adresse"), formulaire.getFirstValue("telephone"));
+				formulaire.getFirstValue("adresse1"), formulaire.getFirstValue("adresse2"), formulaire.getFirstValue("codePostal"),
+				formulaire.getFirstValue("telephonePortable"), formulaire.getFirstValue("telephoneFixe"));
 		busCommande.envoie(commande);
 		setStatus(Status.SUCCESS_ACCEPTED);
 	}

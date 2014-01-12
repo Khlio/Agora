@@ -11,6 +11,8 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
+import com.google.inject.Inject;
+
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
@@ -20,6 +22,7 @@ import fr.epsi.agora.web.Session;
 
 public class UtilisateurRessource extends ServerResource {
 
+	@Inject
 	public UtilisateurRessource(BusCommande busCommande, RechercheUtilisateurs recherche) {
 		this.busCommande = busCommande;
 		this.recherche = recherche;

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Agora - Inscription soci&eacute;t&eacute;</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+ 
+<!-- StyleSheet -->
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/custom.css" />	
+</head>
+ 
+<body>
+<!-- Navigation Bar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container"> 
+		<a href="index.html" class="brand">Agora</a> 
+    </div>
+  </div>
+</div>
+<!-- Navigation Ends -->
+ 
+<!-- Main Container -->
+<section>
+<div class="container">
+    <div class="row col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+        <div class="panel-group">
+			<div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><strong>Enregistrer une soci&eacute;t&eacute;</strong></h4>
+                    </div>
+				<div class="panel-body">
+					<form class="form-horizontal" action="../rest/societes" method="POST" role="form" onsubmit="return valider(this)" id="inscription">
+						<div class="form-group">
+							<label for="inputSiret" class="col-sm-3 control-label">Siret</label>
+							<div class="col-sm-9">
+								<input type="text" name="siret" class="form-control" required id="inputSiret" placeholder="Votre Siret">
+								<span class="help-block">Exemple : xxx-xxx-xxx xxxxx ou xxx xxx xxx xxxxxx</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputNom" class="col-sm-3 control-label">Nom</label>
+							<div class="col-sm-9">
+								<input type="text" name="nom" class="form-control" required id="inputNom" placeholder="Nom de l'entreprise">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+								<button type="submit" class="btn btn-default">Enregistrer</button>
+							</div>
+						</div>
+					</form>				
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<p class="footer text-center muted ">&copy; Copyright 2013 - Agora</p>
+</section>
+<!-- Main Container Ends -->
+ 
+<!-- JavaScript -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/inscriptionSociete.js"></script>
+</body>
+</html>

@@ -28,7 +28,8 @@ public class RechercheClientsTest {
 	public void peutRecupererUnClient() {
 		UUID idClient = UUID.randomUUID();
 		jongo.getCollection("client").insert("{_id: #, nom: 'Saban', prenom: 'JR', email: 'a@a.com', dateDeNaissance: '01/01/1991', "
-				+ "lieuDeNaissance: 'Paris', metier: 'Etudiant', nationalite: 'Française', adresse: '1 rue du Black', telephone: '0706080910'}", idClient);
+				+ "lieuDeNaissance: 'Paris', metier: 'Etudiant', nationalite: 'Française', adresse1: '1 rue du Black', codePostal: '33000', "
+				+ "telephonePortable: '0706080910', telephoneFixe: '0506070809'}", idClient);
 		RechercheClients recherche = new RechercheClients(jongo);
 		
 		DetailsClient details = recherche.detailsDe(idClient);
@@ -41,8 +42,10 @@ public class RechercheClientsTest {
 		assertThat(details.getLieuDeNaissance()).isEqualTo("Paris");
 		assertThat(details.getMetier()).isEqualTo("Etudiant");
 		assertThat(details.getNationalite()).isEqualTo("Française");
-		assertThat(details.getAdresse()).isEqualTo("1 rue du Black");
-		assertThat(details.getTelephone()).isEqualTo("0706080910");
+		assertThat(details.getAdresse1()).isEqualTo("1 rue du Black");
+		assertThat(details.getCodePostal()).isEqualTo("33000");
+		assertThat(details.getTelephonePortable()).isEqualTo("0706080910");
+		assertThat(details.getTelephoneFixe()).isEqualTo("0506070809");
 	}
 	
 	private Fongo fongo;

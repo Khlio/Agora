@@ -15,7 +15,8 @@ public class ModificationClientHandlerTest extends HandlerCommandeRegle {
 	public void peutModifierClient() {
 		Client client = Entrepots.clients().ajoute(FakeFabriqueClient.nouveau());
 		ModificationClientMessage commande = new ModificationClientMessage(client.getId(), client.getNom(), client.getPrenom(), "b@b.com",
-				client.getDateDeNaissance(), client.getLieuDeNaissance(), client.getMetier(), client.getNationalite(), client.getAdresse(), client.getTelephone());
+				client.getDateDeNaissance(), client.getLieuDeNaissance(), client.getMetier(), client.getNationalite(), client.getAdresse1(), client.getAdresse2(),
+				client.getCodePostal(), client.getTelephonePortable(), client.getTelephoneFixe());
 		
 		new ModificationClientHandler().execute(commande);
 		
@@ -27,8 +28,11 @@ public class ModificationClientHandlerTest extends HandlerCommandeRegle {
 		assertThat(clientModifie.getDateDeNaissance()).isEqualTo(client.getDateDeNaissance());
 		assertThat(clientModifie.getLieuDeNaissance()).isEqualTo(client.getLieuDeNaissance());
 		assertThat(clientModifie.getMetier()).isEqualTo(client.getMetier());
-		assertThat(clientModifie.getAdresse()).isEqualTo(client.getAdresse());
-		assertThat(clientModifie.getTelephone()).isEqualTo(client.getTelephone());
+		assertThat(clientModifie.getAdresse1()).isEqualTo(client.getAdresse1());
+		assertThat(clientModifie.getAdresse2()).isEqualTo(client.getAdresse2());
+		assertThat(clientModifie.getCodePostal()).isEqualTo(client.getCodePostal());
+		assertThat(clientModifie.getTelephonePortable()).isEqualTo(client.getTelephonePortable());
+		assertThat(clientModifie.getTelephoneFixe()).isEqualTo(client.getTelephoneFixe());
 	}
 	
 }

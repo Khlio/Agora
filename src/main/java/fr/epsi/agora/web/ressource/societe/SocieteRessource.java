@@ -44,7 +44,7 @@ public class SocieteRessource extends ServerResource {
 				formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), formulaire.getFirstValue("motDePasse"),
 				formulaire.getFirstValue("adresse"), formulaire.getFirstValue("telephone"));
 		busCommande.envoie(commande);
-		setStatus(Status.SUCCESS_ACCEPTED);
+		redirectSeeOther("../../societe/societe.html?id=" + UUID.fromString(societe.getId()));
 	}
 	
 	@Delete

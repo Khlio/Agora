@@ -70,8 +70,11 @@ public class ClientsRessourceTest {
 		formulaire.add("lieuDeNaissance", "Paris");
 		formulaire.add("metier", "Etudiant");
 		formulaire.add("nationalite", "Française");
-		formulaire.add("adresse", "1 rue du Black");
-		formulaire.add("telephone", "0706080910");
+		formulaire.add("adresse1", "1 rue du Black");
+		formulaire.add("adresse2", "test");
+		formulaire.add("codePostal", "33000");
+		formulaire.add("telephonePortable", "0706080910");
+		formulaire.add("telephoneFixe", "0506070809");
 		
 		ressource.ajouteClient(formulaire);
 		
@@ -87,8 +90,11 @@ public class ClientsRessourceTest {
 		assertThat(commande.lieuDeNaissance).isEqualTo("Paris");
 		assertThat(commande.metier).isEqualTo("Etudiant");
 		assertThat(commande.nationalite).isEqualTo("Française");
-		assertThat(commande.adresse).isEqualTo("1 rue du Black");
-		assertThat(commande.telephone).isEqualTo("0706080910");
+		assertThat(commande.adresse1).isEqualTo("1 rue du Black");
+		assertThat(commande.adresse2).isEqualTo("test");
+		assertThat(commande.codePostal).isEqualTo("33000");
+		assertThat(commande.telephonePortable).isEqualTo("0706080910");
+		assertThat(commande.telephoneFixe).isEqualTo("0506070809");
 	}
 	
 	private DetailsSociete laRechercheRetourne() {

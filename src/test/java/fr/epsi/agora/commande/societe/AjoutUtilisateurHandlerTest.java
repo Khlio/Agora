@@ -28,6 +28,7 @@ public class AjoutUtilisateurHandlerTest extends HandlerCommandeRegle {
 		assertThat(utilisateur.getMotDePasse()).isEqualTo("pass");
 		assertThat(utilisateur.getAdresse()).isEqualTo("1 rue Test");
 		assertThat(utilisateur.getTelephone()).isEqualTo("0607080910");
+		assertThat(Entrepots.utilisateurs().get(utilisateur.getId()).isPresent()).isTrue();
 	}
 	
 }

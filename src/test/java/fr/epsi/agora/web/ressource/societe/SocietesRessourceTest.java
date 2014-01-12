@@ -76,7 +76,7 @@ public class SocietesRessourceTest {
 		
 		ressource.cree(new Form());
 		
-		assertThat(ressource.getLocationRef()).isEqualTo(new Reference("http://localhost/inscription.html?societe=" + id));
+		assertThat(ressource.getLocationRef()).isEqualTo(new Reference("http://localhost/societe/societe.html?id=" + id));
 	}
 	
 	private BusCommande busCommande;
