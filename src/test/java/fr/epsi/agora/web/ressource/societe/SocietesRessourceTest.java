@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
-import org.restlet.data.Reference;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
 import com.google.common.collect.Lists;
@@ -24,6 +24,7 @@ import com.google.common.util.concurrent.Futures;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.Message;
 import fr.epsi.agora.commande.societe.CreationSocieteMessage;
+import fr.epsi.agora.domaine.validateur.Erreur;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.requete.societe.ResumeSociete;
 import fr.epsi.agora.web.ressource.RessourceHelper;
@@ -52,31 +53,35 @@ public class SocietesRessourceTest {
 		assertThat(represente).isNotNull();
 		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
 		assertThat(represente.getText()).contains(societes.get(0).getId());
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 	}
 	
 	@Test
-	public void peutCreerUneSociete() {
+	public void peutCreerUneSociete() throws IOException {
 		Form formulaire = new Form();
 		formulaire.add("siret", "552-120-222 00013");
 		formulaire.add("nom", "Société générale");
 		
-		ressource.cree(formulaire);
+		Representation represente = ressource.cree(formulaire);
 		
 		ArgumentCaptor<CreationSocieteMessage> capteur = ArgumentCaptor.forClass(CreationSocieteMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		CreationSocieteMessage commande = capteur.getValue();
 		assertThat(commande.siret).isEqualTo("552-120-222 00013");
 		assertThat(commande.nom).isEqualTo("Société générale");
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isNotEmpty();
 	}
 	
 	@Test
-	public void peutRediriger() {
-		UUID id = UUID.randomUUID();
-		when(busCommande.envoie(any(CreationSocieteMessage.class))).thenReturn(Futures.<Object>immediateFuture(id));
+	public void peutVerifierQueLeSiretEstInvalide() throws IOException {
+		Form formulaire = new Form();
+		formulaire.add("siret", "552-120-22200013");
 		
-		ressource.cree(new Form());
+		Representation represente = ressource.cree(formulaire);
 		
-		assertThat(ressource.getLocationRef()).isEqualTo(new Reference("http://localhost/societe/societe.html?id=" + id));
+		assertThat(ressource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
+		assertThat(represente.getText()).isEqualTo(Erreur.SIRET_INVALIDE);
 	}
 	
 	private BusCommande busCommande;

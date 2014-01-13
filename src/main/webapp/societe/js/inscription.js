@@ -27,7 +27,7 @@ function valider(formulaire){
 	var uneMajuscule = new RegExp("(?=(.*[A-Z]){1,})","g");
 	var unChiffre = new RegExp("(?=(.*[0-9]){1,})","g");
 	var unCaractereSpe = new RegExp("[^a-zA-Z1-9]{1,}","g");
-	var numeroTel = new RegExp("^0[1-8][0-9]{8}$","g");
+	var numeroTel = new RegExp("^0[1-9]([-. ]?[0-9]{2}){4}$","g");
 	
 	if(!uneMajuscule.test(MDP)){
 		alert('Votre mot de passe doit contenir au moins une majuscule');

@@ -24,6 +24,7 @@ import fr.epsi.agora.requete.societe.DetailsSociete;
 import fr.epsi.agora.requete.societe.RechercheClients;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.web.Session;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class ClientRessourceTest {
@@ -46,44 +47,49 @@ public class ClientRessourceTest {
 		assertThat(represente).isNotNull();
 		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
 		assertThat(represente.getText()).contains(details.getId());
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 	}
 	
 	@Test
-	public void peutModifierLeClient() {
+	public void peutModifierLeClient() throws IOException {
 		DetailsClient details = laRechercheRetourne();
 		details.setNom("Saban");
 		initialiseRessource(details);
 		Form formulaire = new Form();
 		formulaire.add("nom", details.getNom());
 		formulaire.add("email", "b@b.com");
+		formulaire.add("telephonePortable", "0607080910");
 		
-		ressource.modifie(formulaire);
+		Representation represente = ressource.modifie(formulaire);
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<ModificationClientMessage> capteur = ArgumentCaptor.forClass(ModificationClientMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		ModificationClientMessage commande = capteur.getValue();
 		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.nom).isEqualTo(details.getNom());
 		assertThat(commande.email).isEqualTo("b@b.com");
+		assertThat(commande.telephonePortable).isEqualTo("0607080910");
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
 	}
 	
 	@Test
-	public void peutSupprimerLeClient() {
+	public void peutSupprimerLeClient() throws IOException {
 		DetailsClient details = laRechercheRetourne();
 		initialiseRessource(details);
 		DetailsSociete societe = new DetailsSociete();
 		societe.setId(UUID.randomUUID().toString());
 		when(rechercheSocietes.societeDuClient(UUID.fromString(details.getId()))).thenReturn(societe);
 		
-		ressource.supprime();
+		Representation represente = ressource.supprime();
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<SuppressionClientMessage> capteur = ArgumentCaptor.forClass(SuppressionClientMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionClientMessage commande = capteur.getValue();
 		assertThat(commande.idClient).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.idSociete).isEqualTo(UUID.fromString(societe.getId()));
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
 	}
 	
 	private DetailsClient laRechercheRetourne() {

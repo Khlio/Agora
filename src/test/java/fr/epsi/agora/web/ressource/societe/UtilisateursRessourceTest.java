@@ -12,6 +12,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 import org.restlet.data.MediaType;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
 import com.google.common.collect.Lists;
@@ -52,6 +53,7 @@ public class UtilisateursRessourceTest {
 		assertThat(represente).isNotNull();
 		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
 		assertThat(represente.getText()).contains(utilisateurs.get(0).getId());
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 	}
 	
 	private DetailsSociete laRechercheRetourne() {

@@ -3,7 +3,7 @@ package fr.epsi.agora.web.ressource.societe;
 import java.util.UUID;
 
 import org.restlet.data.Form;
-import org.restlet.ext.jackson.JacksonRepresentation;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
@@ -15,7 +15,10 @@ import com.google.inject.Inject;
 
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.CreationSocieteMessage;
+import fr.epsi.agora.domaine.validateur.Erreur;
+import fr.epsi.agora.domaine.validateur.SiretValidateur;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 
 public class SocietesRessource extends ServerResource {
 
@@ -27,14 +30,31 @@ public class SocietesRessource extends ServerResource {
 	
 	@Get("json")
 	public Representation represente() {
-		return new JacksonRepresentation<>(recherche.toutes());
+		try {
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.json(recherche.toutes());
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	@Post
-	public void cree(Form formulaire) {
-		CreationSocieteMessage commande = new CreationSocieteMessage(formulaire.getFirstValue("siret"), formulaire.getFirstValue("nom"));
-		ListenableFuture<UUID> idSociete = busCommande.envoie(commande);
-		redirectSeeOther("../../societe/societe.html?id=" + Futures.getUnchecked(idSociete));
+	public Representation cree(Form formulaire) {
+		Erreur erreurSiret = SiretValidateur.valide(formulaire.getFirstValue("siret"));
+		if (erreurSiret.aDesErreurs()) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.get(erreurSiret.premiereErreur());
+		}
+		try {
+			CreationSocieteMessage commande = new CreationSocieteMessage(formulaire.getFirstValue("siret"), formulaire.getFirstValue("nom"));
+			ListenableFuture<UUID> idSociete = busCommande.envoie(commande);
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.get(Futures.getUnchecked(idSociete).toString());
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	private BusCommande busCommande;

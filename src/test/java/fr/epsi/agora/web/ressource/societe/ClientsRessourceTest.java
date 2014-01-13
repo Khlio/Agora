@@ -58,10 +58,11 @@ public class ClientsRessourceTest {
 		assertThat(represente).isNotNull();
 		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
 		assertThat(represente.getText()).contains(clients.get(0).getId());
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 	}
 	
 	@Test
-	public void peutAjouterUnClientAUneSociete() {
+	public void peutAjouterUnClientAUneSociete() throws IOException {
 		DetailsSociete details = laRechercheRetourne();
 		initialiseRessource(details);
 		Form formulaire = new Form();
@@ -78,9 +79,8 @@ public class ClientsRessourceTest {
 		formulaire.add("telephonePortable", "0706080910");
 		formulaire.add("telephoneFixe", "0506070809");
 		
-		ressource.ajouteClient(formulaire);
+		Representation represente = ressource.ajouteClient(formulaire);
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<AjoutClientMessage> capteur = ArgumentCaptor.forClass(AjoutClientMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		AjoutClientMessage commande = capteur.getValue();
@@ -97,6 +97,8 @@ public class ClientsRessourceTest {
 		assertThat(commande.codePostal).isEqualTo("33000");
 		assertThat(commande.telephonePortable).isEqualTo("0706080910");
 		assertThat(commande.telephoneFixe).isEqualTo("0506070809");
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isNotEmpty();
 	}
 	
 	private DetailsSociete laRechercheRetourne() {

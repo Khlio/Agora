@@ -3,6 +3,7 @@ package fr.epsi.agora.web.ressource.societe;
 import java.util.UUID;
 
 import org.restlet.data.Status;
+import org.restlet.representation.Representation;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
@@ -12,6 +13,7 @@ import fr.epsi.agora.Constante;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 
 public class DeconnexionUtilisateurRessource extends ServerResource {
 
@@ -27,10 +29,16 @@ public class DeconnexionUtilisateurRessource extends ServerResource {
 	}
 	
 	@Post
-	public void deconnecte() {
-		getCookieSettings().getFirst(Constante.SESSION_COOKIE).setMaxAge(0);
-		Session.supprime(utilisateur.getId());
-		setStatus(Status.SUCCESS_ACCEPTED);
+	public Representation deconnecte() {
+		try {
+			getCookieSettings().getFirst(Constante.SESSION_COOKIE).setMaxAge(0);
+			Session.supprime(utilisateur.getId());
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.OK;
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	private RechercheUtilisateurs recherche;

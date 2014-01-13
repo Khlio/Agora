@@ -1,8 +1,13 @@
-body{
+body {
 	background-color: #F7F7F6;
 	padding-top: 65px;
 }
-.center{float: none; margin-left: auto; margin-right: auto;}
+
+.center {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 .footer {
     position: fixed;

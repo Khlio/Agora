@@ -24,6 +24,7 @@ import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class UtilisateurRessourceTest {
@@ -46,44 +47,51 @@ public class UtilisateurRessourceTest {
 		assertThat(represente).isNotNull();
 		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
 		assertThat(represente.getText()).contains(details.getId());
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 	}
 	
 	@Test
-	public void peutModifierLUtilisateur() {
+	public void peutModifierLUtilisateur() throws IOException {
 		DetailsUtilisateur details = laRechercheRetourne();
 		details.setNom("Levacher");
 		initialiseRessource(details);
 		Form formulaire = new Form();
 		formulaire.add("nom", details.getNom());
 		formulaire.add("email", "b@b.com");
+		formulaire.add("motDePasse", "Azerty1=");
+		formulaire.add("telephone", "0607080910");
 		
-		ressource.modifie(formulaire);
+		Representation represente = ressource.modifie(formulaire);
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<ModificationUtilisateurMessage> capteur = ArgumentCaptor.forClass(ModificationUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		ModificationUtilisateurMessage commande = capteur.getValue();
 		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.nom).isEqualTo(details.getNom());
 		assertThat(commande.email).isEqualTo("b@b.com");
+		assertThat(commande.motDePasse).isEqualTo("Azerty1=");
+		assertThat(commande.telephone).isEqualTo("0607080910");
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
 	}
 	
 	@Test
-	public void peutSupprimerLUtilisateur() {
+	public void peutSupprimerLUtilisateur() throws IOException {
 		DetailsUtilisateur details = laRechercheRetourne();
 		initialiseRessource(details);
 		DetailsSociete societe = new DetailsSociete();
 		societe.setId(UUID.randomUUID().toString());
 		when(rechercheSocietes.societeDeLUtilisateur(UUID.fromString(details.getId()))).thenReturn(societe);
 		
-		ressource.supprime();
+		Representation represente = ressource.supprime();
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<SuppressionUtilisateurMessage> capteur = ArgumentCaptor.forClass(SuppressionUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionUtilisateurMessage commande = capteur.getValue();
 		assertThat(commande.idUtilisateur).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.idSociete).isEqualTo(UUID.fromString(societe.getId()));
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
 	}
 	
 	private DetailsUtilisateur laRechercheRetourne() {

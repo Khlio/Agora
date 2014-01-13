@@ -7,6 +7,5 @@ function valider(formulaire){
 		alert('Le numero de siret est invalide');
 		return false;
 	}
-	
 	return true;
 }

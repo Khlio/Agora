@@ -3,8 +3,8 @@ package fr.epsi.agora.web.ressource.societe;
 import java.util.UUID;
 
 import org.restlet.data.Form;
+import org.restlet.data.Method;
 import org.restlet.data.Status;
-import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
@@ -16,10 +16,15 @@ import com.google.inject.Inject;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
+import fr.epsi.agora.domaine.validateur.EmailValidateur;
+import fr.epsi.agora.domaine.validateur.Erreur;
+import fr.epsi.agora.domaine.validateur.MotDePasseValidateur;
+import fr.epsi.agora.domaine.validateur.TelephoneValidateur;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 
 public class UtilisateurRessource extends ServerResource {
 
@@ -33,7 +38,7 @@ public class UtilisateurRessource extends ServerResource {
 	@Override
 	protected void doInit() {
 		UUID id = UUID.fromString(getRequestAttributes().get("idUtilisateur").toString());
-		if (Session.get(id.toString()).isPresent()) {
+		if (Session.get(id.toString()).isPresent() || getRequest().getMethod().equals(Method.DELETE)) {
 			utilisateur = recherche.detailsDe(id);
 		} else {
 			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
@@ -43,27 +48,60 @@ public class UtilisateurRessource extends ServerResource {
 	
 	@Get("json")
 	public Representation represente() {
-		return new JacksonRepresentation<>(utilisateur);
+		try {
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.json(utilisateur);
+		}  catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	@Put
-	public void modifie(Form formulaire) {
+	public Representation modifie(Form formulaire) {
 		if (isCommitted()) {
-			return;
+			return ReponseRessource.NON_CONNECTE;
 		}
-		ModificationUtilisateurMessage commande = new ModificationUtilisateurMessage(UUID.fromString(utilisateur.getId()), formulaire.getFirstValue("nom"),
-				formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), formulaire.getFirstValue("motDePasse"),
-				formulaire.getFirstValue("adresse"), formulaire.getFirstValue("codePostal"), formulaire.getFirstValue("telephone"));
-		busCommande.envoie(commande);
-		setStatus(Status.SUCCESS_ACCEPTED);
+		Erreur erreurEmail = EmailValidateur.valide(formulaire.getFirstValue("email"));
+		if (erreurEmail.aDesErreurs()) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.get(erreurEmail.premiereErreur());
+		}
+		Erreur erreurMotDePasse = MotDePasseValidateur.valide(formulaire.getFirstValue("motDePasse"));
+		if (erreurMotDePasse.aDesErreurs()) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.get(erreurMotDePasse.premiereErreur());
+		}
+		Erreur erreurTelephone = TelephoneValidateur.valide(formulaire.getFirstValue("telephone"));
+		if (erreurTelephone.aDesErreurs()) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.get(erreurTelephone.premiereErreur());
+		}
+		try {
+			ModificationUtilisateurMessage commande = new ModificationUtilisateurMessage(UUID.fromString(utilisateur.getId()), formulaire.getFirstValue("nom"),
+					formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), formulaire.getFirstValue("motDePasse"),
+					formulaire.getFirstValue("adresse"), formulaire.getFirstValue("codePostal"), formulaire.getFirstValue("telephone"));
+			busCommande.envoie(commande);
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.OK;
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	@Delete
-	public void supprime() {
-		String idSociete = rechercheSocietes.societeDeLUtilisateur(UUID.fromString(utilisateur.getId())).getId();
-		SuppressionUtilisateurMessage commande = new SuppressionUtilisateurMessage(UUID.fromString(utilisateur.getId()), UUID.fromString(idSociete));
-		busCommande.envoie(commande);
-		setStatus(Status.SUCCESS_ACCEPTED);
+	public Representation supprime() {
+		try {
+			String idSociete = rechercheSocietes.societeDeLUtilisateur(UUID.fromString(utilisateur.getId())).getId();
+			SuppressionUtilisateurMessage commande = new SuppressionUtilisateurMessage(UUID.fromString(utilisateur.getId()), UUID.fromString(idSociete));
+			busCommande.envoie(commande);
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.OK;
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	private BusCommande busCommande;

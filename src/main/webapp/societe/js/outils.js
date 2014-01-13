@@ -24,8 +24,17 @@ var outils = {
                     callback(donnees);
             	}
             },
-			error: function() {
-				alert("Erreur");
+			error: function(erreur) {
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    buttons: {
+
+                        Ok: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                });
+
 			}
         });
 	}

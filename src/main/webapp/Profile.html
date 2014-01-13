@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Agora</title>
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/Formulaire.css">
+    <link rel="stylesheet" href="http://jquery.bassistance.de/validate/demo/site-demos.css">
+
+    <style> body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+    </style>
+
+
+</head>
+<body class="hidden">
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Agora</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Accueil</a></li>
+                <li><a href="Formulaire.html">Cr&eacute;er constat</a></li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">Constat</b></a>
+                    <div class="hidden-xs">
+                        <ul class="dropdown-menu">
+                            <li><a href="Formulaire.html">Cr&eacute;er un constat</a></li>
+                            <li><a href="#">Voir les constats</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Fichier client</b></a>
+                    <div class="hidden-xs">
+                        <ul class="dropdown-menu">
+                            <li><a href="formulaireClient.html">Cr&eacute;er un client</a></li>
+                            <li><a href="ListeClient.html">Voir les clients</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion utilisateur</b></a>
+                    <div class="hidden-xs">
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Cr&eacute;er un utilisateur</a></li>
+                            <li><a href="#">Voir les utilisateurs</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+        </div><!--/.navbar-collapse -->
+    </div>
+</div>
+
+<form role="form" id="SignupForm" action="">
+
+    <fieldset>
+        <legend>Identit&eacute; de l'utilisateur</legend>
+        <div class='container login  text-center'>
+            <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2'>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><strong>Identit&eacute; de l'utilisateur</strong></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class='form-group'>
+                            <label for='Nom' class='col-lg-7 col-sm-7 col-xs-7'>Nom</label>
+                            <input type='text' class='form control' id='Nom' name="Nom" placeholder='' required='true' />
+                        </div>
+                        <div class='form-group'>
+                            <label for='Prenom' class='col-lg-7 col-sm-7 col-xs-7'>Pr&eacute;nom</label>
+                            <input type='text' class='form control' id='Prenom' name="Prenom" placeholder='' required='true' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+    <fieldset>
+
+        <legend>Adresse utilisateur</legend>
+        <div class='container login  text-center'>
+            <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2'>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><strong>Adresse utilisateur</strong></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class='form-group'>
+                            <label for='adresse' class='col-lg-7 col-sm-7 col-xs-7'>Adresse</label>
+                            <input type='text' class='form control' id='adresse' name="adresse" placeholder='' required='true' />
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='codePostal' class='col-lg-7 col-sm-7 col-xs-7'>Code postal</label>
+                            <input type='text' class='form control ' id='codePostal' name="codePostal" placeholder='' required='true' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+
+        <legend>Coordonn&eacute;es utilisateur</legend>
+        <div class='container login  text-center'>
+            <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2'>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><strong>Coordonn&eacute;es utilisateur</strong></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class='form-group'>
+                            <label for='email' class='col-lg-7 col-sm-7 col-xs-7'>Email</label>
+                            <input type='text' class='form control' id='email' name="email" placeholder='' required='true' />
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='telephone' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone</label>
+                            <input type='text' class='form control ' id='telephone' name="telephone" placeholder='' required='true' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+    <p>
+        <input id="SaveAccount" class="btn btn-success col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4  col-xs-12" type="submit" onclick="SubmitProfile()" value="Valider le formulaire" />
+    </p>
+</form>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="js/lib/jquery.validate.js"></script>
+<script src="js/lib/additional-methods.js"></script>
+<script src="js/lib/jquery.cookie.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/lib/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/formToWizard.js"></script>
+<script src="js/Formulaire.js"></script>
+<script src="js/outils.js"></script>
+<script src="js/Profile.js"></script>
+
+<script>
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+    });
+
+    jQuery.extend(jQuery.validator.messages, {
+        required: "Champ requis",
+        digits: "Veuillez insérer des chiffres",
+        maxlength: jQuery.validator.format("Veuillez insérer au maximum {0} caractères."),
+        minlength: jQuery.validator.format("Veuillez insérer au minimum {0} caractères."),
+        date: jQuery.validator.format("Veuillez insérer une date valide (mm/jj/aa)")
+    });
+
+    jQuery.validator.addMethod("myPhoneNumberValidator", function(value, element) {
+        // no phone number is a good phone number (the field is optional)
+        if (value.length == 0) { return true; }
+        // if the phone number field is not empty, it has to follow the fixed format
+        if(!/^33 \(0\)\d \d\d \d\d \d\d \d\d$/i.test(value)) {
+            // ten digits starting with zero
+            if (/^0(\d)(\d\d)(\d\d)(\d\d)(\d\d)$/.test(value)) {
+                value = value.replace(/^0(\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, "33 (0)$1 $2 $3 $4 $5");
+                $(element).val(value); // also update the form element
+                return true;
+            }
+        }
+        return /^33 \(0\)\d \d\d \d\d \d\d \d\d$/i.test(value);
+    }, 'Veuillez entrer votre numéro de téléphone dans le format suivant: <i>0123456789</i>');
+
+    $( "#SignupForm" ).validate({
+        rules: {
+            dateNaissance:
+            {
+                required: true
+            },
+            email:
+            {
+                required: true,
+                email: true
+            },
+            codePostal:
+            {
+                required: true,
+                digits: true,
+                minlength: 5,
+                maxlength: 5
+            },
+            telephone:"myPhoneNumberValidator",
+        },
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass('success').addClass('error');
+        },
+        success: function(label) {
+            label
+                    .text('OK!').addClass('valid')
+                    .closest('.control-group').removeClass('error').addClass('success');
+
+        }
+    });
+
+</script>
+
+</body>
+</html>
