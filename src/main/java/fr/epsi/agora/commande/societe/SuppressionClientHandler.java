@@ -8,8 +8,9 @@ public class SuppressionClientHandler implements HandlerCommande<SuppressionClie
 
 	@Override
 	public Object execute(SuppressionClientMessage commande) {
-		Client client = Entrepots.clients().get(commande.id).get();
+		Client client = Entrepots.clients().get(commande.idClient).get();
 		Entrepots.clients().supprime(client);
+		Entrepots.societes().get(commande.idSociete).get().supprimeClient(client.getId());
 		return null;
 	}
 

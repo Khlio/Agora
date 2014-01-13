@@ -2,6 +2,7 @@ package fr.epsi.agora.requete.societe;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.jongo.Jongo;
@@ -52,6 +53,21 @@ public class RechercheUtilisateursTest {
 		assertThat(details).isNotNull();
 		assertThat(details.getEmail()).isEqualTo("a@a.com");
 		assertThat(details.getMotDePasse()).isEqualTo("pass");
+	}
+	
+	@Test
+	public void peutAfficherTousLesUtilisateursDuneSociete() {
+		UUID idUtilisateur = UUID.randomUUID();
+		DetailsSociete societe = new DetailsSociete();
+		societe.getUtilisateurs().add(idUtilisateur.toString());
+		jongo.getCollection("utilisateur").insert("{_id: #, nom: 'Levacher'}", idUtilisateur);
+		RechercheUtilisateurs recherche = new RechercheUtilisateurs(jongo);
+		
+		List<ResumeUtilisateur> utilisateurs = recherche.tousDuneSociete(societe);
+		
+		assertThat(utilisateurs).isNotNull();
+		assertThat(utilisateurs).hasSize(1);
+		assertThat(utilisateurs.get(0).getNom()).isEqualTo("Levacher");
 	}
 	
 	private Fongo fongo;

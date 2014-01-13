@@ -50,6 +50,13 @@ public class UtilisateurTest {
 	}
 	
 	@Test
+	public void peutDonnerUnCodePostal() {
+		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
+		
+		assertThat(utilisateur.getCodePostal()).isEqualTo("33000");
+	}
+	
+	@Test
 	public void peutDonnerUnTelephone() {
 		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		

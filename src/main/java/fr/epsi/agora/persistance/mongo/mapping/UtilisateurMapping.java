@@ -18,6 +18,7 @@ public class UtilisateurMapping extends AggregateMap<Utilisateur> {
 		property().onField("email");
 		property().onField("motDePasse");
 		property().onField("adresse");
+		property().onField("codePostal");
 		property().onField("telephone");
 	}
 

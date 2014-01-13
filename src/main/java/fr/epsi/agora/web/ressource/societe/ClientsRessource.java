@@ -15,22 +15,24 @@ import com.google.inject.Inject;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.AjoutClientMessage;
 import fr.epsi.agora.requete.societe.DetailsSociete;
+import fr.epsi.agora.requete.societe.RechercheClients;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.web.Session;
 
 public class ClientsRessource extends ServerResource {
 
 	@Inject
-	public ClientsRessource(BusCommande busCommande, RechercheSocietes recherche) {
+	public ClientsRessource(BusCommande busCommande, RechercheClients recherche, RechercheSocietes rechercheSocietes) {
 		this.busCommande = busCommande;
 		this.recherche = recherche;
+		this.rechercheSocietes = rechercheSocietes;
 	}
 	
 	@Override
 	protected void doInit() {
 		UUID idUtilisateur = UUID.fromString(getRequestAttributes().get("idUtilisateur").toString());
 		if (Session.get(idUtilisateur.toString()).isPresent()) {
-			societe = recherche.societeDeLUtilisateur(idUtilisateur);
+			societe = rechercheSocietes.societeDeLUtilisateur(idUtilisateur);
 		} else {
 			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
 			setCommitted(true);
@@ -42,7 +44,7 @@ public class ClientsRessource extends ServerResource {
 		if (isCommitted()) {
 			return new JacksonRepresentation<>(null);
 		}
-		return new JacksonRepresentation<>(societe.getClients());
+		return new JacksonRepresentation<>(recherche.tousDuneSociete(societe));
 	}
 	
 	@Put
@@ -60,7 +62,8 @@ public class ClientsRessource extends ServerResource {
 	}
 	
 	private BusCommande busCommande;
-	private RechercheSocietes recherche;
+	private RechercheClients recherche;
+	private RechercheSocietes rechercheSocietes;
 	private DetailsSociete societe;
 
 }

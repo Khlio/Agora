@@ -6,15 +6,12 @@ import java.util.UUID;
 
 import org.joda.time.DateTime;
 
-import fr.epsi.agora.domaine.societe.Client;
-import fr.epsi.agora.domaine.societe.Utilisateur;
-
 public class FabriqueConstat {
 
 	private FabriqueConstat() {
 	}
 	
-	public static Constat nouveau(String nom, String adresse, DateTime date, String geolocalisation, Utilisateur utilisateur, Client client) {
+	public static Constat nouveau(String nom, String adresse, DateTime date, String geolocalisation, UUID utilisateur, UUID client) {
 		checkNotNull(nom);
 		checkNotNull(adresse);
 		checkNotNull(date);

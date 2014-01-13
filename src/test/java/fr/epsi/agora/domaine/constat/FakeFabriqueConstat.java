@@ -11,7 +11,7 @@ public class FakeFabriqueConstat {
 	}
 	
 	public static Constat nouveau() {
-		return FabriqueConstat.nouveau("Tout cassé", "1 rue du Bordel", DateTime.now(), "", FakeFabriqueUtilisateur.nouveau(), FakeFabriqueClient.nouveau());
+		return FabriqueConstat.nouveau("Tout cassé", "1 rue du Bordel", DateTime.now(), "", FakeFabriqueUtilisateur.nouveau().getId(), FakeFabriqueClient.nouveau().getId());
 	}
 	
 }

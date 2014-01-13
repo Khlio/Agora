@@ -6,10 +6,12 @@ import fr.epsi.agora.commande.Message;
 
 public class SuppressionUtilisateurMessage implements Message {
 
-	public SuppressionUtilisateurMessage(UUID id) {
-		this.id = id;
+	public SuppressionUtilisateurMessage(UUID idUtilisateur, UUID idSociete) {
+		this.idUtilisateur = idUtilisateur;
+		this.idSociete = idSociete;
 	}
 	
-	public final UUID id;
+	public final UUID idUtilisateur;
+	public final UUID idSociete;
 	
 }

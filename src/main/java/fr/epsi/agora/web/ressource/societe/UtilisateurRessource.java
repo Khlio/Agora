@@ -17,15 +17,17 @@ import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
+import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
 
 public class UtilisateurRessource extends ServerResource {
 
 	@Inject
-	public UtilisateurRessource(BusCommande busCommande, RechercheUtilisateurs recherche) {
+	public UtilisateurRessource(BusCommande busCommande, RechercheUtilisateurs recherche, RechercheSocietes rechercheSocietes) {
 		this.busCommande = busCommande;
 		this.recherche = recherche;
+		this.rechercheSocietes = rechercheSocietes;
 	}
 	
 	@Override
@@ -34,7 +36,7 @@ public class UtilisateurRessource extends ServerResource {
 		if (Session.get(id.toString()).isPresent()) {
 			utilisateur = recherche.detailsDe(id);
 		} else {
-			setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
 			setCommitted(true);
 		}
 	}
@@ -51,23 +53,22 @@ public class UtilisateurRessource extends ServerResource {
 		}
 		ModificationUtilisateurMessage commande = new ModificationUtilisateurMessage(UUID.fromString(utilisateur.getId()), formulaire.getFirstValue("nom"),
 				formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), formulaire.getFirstValue("motDePasse"),
-				formulaire.getFirstValue("adresse"), formulaire.getFirstValue("telephone"));
+				formulaire.getFirstValue("adresse"), formulaire.getFirstValue("codePostal"), formulaire.getFirstValue("telephone"));
 		busCommande.envoie(commande);
 		setStatus(Status.SUCCESS_ACCEPTED);
 	}
 	
 	@Delete
 	public void supprime() {
-		if (isCommitted()) {
-			return;
-		}
-		SuppressionUtilisateurMessage commande = new SuppressionUtilisateurMessage(UUID.fromString(utilisateur.getId()));
+		String idSociete = rechercheSocietes.societeDeLUtilisateur(UUID.fromString(utilisateur.getId())).getId();
+		SuppressionUtilisateurMessage commande = new SuppressionUtilisateurMessage(UUID.fromString(utilisateur.getId()), UUID.fromString(idSociete));
 		busCommande.envoie(commande);
 		setStatus(Status.SUCCESS_ACCEPTED);
 	}
 	
 	private BusCommande busCommande;
 	private RechercheUtilisateurs recherche;
+	private RechercheSocietes rechercheSocietes;
 	private DetailsUtilisateur utilisateur;
 	
 }

@@ -41,8 +41,8 @@ public class RechercheSocietesTest {
 	@Test
 	public void peutRecupererUneSociete() {
 		UUID id = UUID.randomUUID();
-		jongo.getCollection("societe").insert("{_id: #, siret: '552-120-222 00013', nom: 'Société générale', utilisateurs: [{nom: 'Levacher'}], "
-				+ "clients: [{nom: 'Saban'}]}", id);
+		jongo.getCollection("societe").insert("{_id: #, siret: '552-120-222 00013', nom: 'Société générale', utilisateurs: [#], clients: [#]}",
+				id, UUID.randomUUID(), UUID.randomUUID());
 		RechercheSocietes recherche = new RechercheSocietes(jongo);
 		
 		DetailsSociete details = recherche.detailsDe(id);
@@ -57,7 +57,7 @@ public class RechercheSocietesTest {
 	@Test
 	public void peutRecupererUneSocieteDunUtilisateur() {
 		UUID idUtilisateur = UUID.randomUUID();
-		jongo.getCollection("societe").insert("{nom: 'test', utilisateurs: [{_id: #, nom: 'Levacher'}]}", idUtilisateur);
+		jongo.getCollection("societe").insert("{nom: 'test', utilisateurs: [#]}", idUtilisateur);
 		RechercheSocietes recherche = new RechercheSocietes(jongo);
 		
 		DetailsSociete details = recherche.societeDeLUtilisateur(idUtilisateur);
@@ -65,8 +65,21 @@ public class RechercheSocietesTest {
 		assertThat(details).isNotNull();
 		assertThat(details.getNom()).isEqualTo("test");
 		assertThat(details.getUtilisateurs()).hasSize(1);
-		assertThat(details.getUtilisateurs().get(0).getId()).isEqualTo(idUtilisateur.toString());
-		assertThat(details.getUtilisateurs().get(0).getNom()).isEqualTo("Levacher");
+		assertThat(details.getUtilisateurs().get(0)).isEqualTo(idUtilisateur.toString());
+	}
+	
+	@Test
+	public void peutRecupererUneSocieteDunClient() {
+		UUID idClient = UUID.randomUUID();
+		jongo.getCollection("societe").insert("{nom: 'test', clients: [#]}", idClient);
+		RechercheSocietes recherche = new RechercheSocietes(jongo);
+		
+		DetailsSociete details = recherche.societeDuClient(idClient);
+		
+		assertThat(details).isNotNull();
+		assertThat(details.getNom()).isEqualTo("test");
+		assertThat(details.getClients()).hasSize(1);
+		assertThat(details.getClients().get(0)).isEqualTo(idClient.toString());
 	}
 	
 	private Fongo fongo;

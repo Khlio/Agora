@@ -13,17 +13,20 @@ var outils = {
         });
     },
 	
-	ajaxRequestForm: function(url, form, callback) {
+	ajaxRequestPlus: function(url, typeRequest, datas, callback) {
+		if(datas==undefined) datas = {};
 		$.ajax({
-            type: "PUT",
+            type: typeRequest,
             url: url,
-			data: form,
-			cache: false,
+			data: datas,
             success: function(donnees) {
                 if (callback != undefined) {
                     callback(donnees);
             	}
-            }
+            },
+			error: function() {
+				alert("Erreur");
+			}
         });
 	}
 };

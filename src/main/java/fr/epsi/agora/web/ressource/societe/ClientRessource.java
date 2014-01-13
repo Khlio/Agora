@@ -18,14 +18,16 @@ import fr.epsi.agora.commande.societe.ModificationClientMessage;
 import fr.epsi.agora.commande.societe.SuppressionClientMessage;
 import fr.epsi.agora.requete.societe.DetailsClient;
 import fr.epsi.agora.requete.societe.RechercheClients;
+import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.web.Session;
 
 public class ClientRessource extends ServerResource {
 
 	@Inject
-	public ClientRessource(BusCommande busCommande, RechercheClients recherche) {
+	public ClientRessource(BusCommande busCommande, RechercheClients recherche, RechercheSocietes rechercheSocietes) {
 		this.busCommande = busCommande;
 		this.recherche = recherche;
+		this.rechercheSocietes = rechercheSocietes;
 	}
 	
 	@Override
@@ -64,13 +66,15 @@ public class ClientRessource extends ServerResource {
 		if (isCommitted()) {
 			return;
 		}
-		SuppressionClientMessage commande = new SuppressionClientMessage(UUID.fromString(client.getId()));
+		String idSociete = rechercheSocietes.societeDuClient(UUID.fromString(client.getId())).getId();
+		SuppressionClientMessage commande = new SuppressionClientMessage(UUID.fromString(client.getId()), UUID.fromString(idSociete));
 		busCommande.envoie(commande);
 		setStatus(Status.SUCCESS_ACCEPTED);
 	}
 	
 	private BusCommande busCommande;
 	private RechercheClients recherche;
+	private RechercheSocietes rechercheSocietes;
 	private DetailsClient client;
 	
 }

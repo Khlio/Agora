@@ -51,6 +51,14 @@ public class DetailsUtilisateur {
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+	
+	public String getCodePostal() {
+		return codePostal;
+	}
+	
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
 
 	public String getTelephone() {
 		return telephone;
@@ -67,6 +75,7 @@ public class DetailsUtilisateur {
 	private String email;
 	private String motDePasse;
 	private String adresse;
+	private String codePostal;
 	private String telephone;
 	
 }

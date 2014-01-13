@@ -37,36 +37,34 @@ public class Societe implements Aggregat {
 		this.nom = nom;
 	}
 
-	public List<Utilisateur> getUtilisateurs() {
+	public List<UUID> getUtilisateurs() {
 		return utilisateurs;
 	}
 
-	public List<Client> getClients() {
+	public List<UUID> getClients() {
 		return clients;
 	}
 	
-	public Utilisateur ajouteUtilisateur(Utilisateur utilisateur) {
+	public void ajouteUtilisateur(UUID utilisateur) {
 		utilisateurs.add(utilisateur);
-		return utilisateur;
 	}
 	
-	public void supprimeUtilisateur(Utilisateur utilisateur) {
+	public void supprimeUtilisateur(UUID utilisateur) {
 		utilisateurs.remove(utilisateur);
 	}
 	
-	public Client ajouteClient(Client client) {
+	public void ajouteClient(UUID client) {
 		clients.add(client);
-		return client;
 	}
 	
-	public void supprimeClient(Client client) {
+	public void supprimeClient(UUID client) {
 		clients.remove(client);
 	}
 
 	private UUID id;
 	private String siret;
 	private String nom;
-	private List<Utilisateur> utilisateurs = Lists.newArrayList();
-	private List<Client> clients = Lists.newArrayList();
+	private List<UUID> utilisateurs = Lists.newArrayList();
+	private List<UUID> clients = Lists.newArrayList();
 
 }

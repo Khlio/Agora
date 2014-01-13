@@ -2,6 +2,8 @@ package fr.epsi.agora.commande.societe;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.util.UUID;
+
 import org.junit.Test;
 
 import fr.epsi.agora.commande.HandlerCommandeRegle;
@@ -19,10 +21,9 @@ public class AjoutClientHandlerTest extends HandlerCommandeRegle {
 		AjoutClientMessage commande = new AjoutClientMessage(societe.getId(), "Saban", "JR", "a@a.com", "01/01/1991", "Paris", "Etudiant", "Française",
 				"1 rue du Black", "test", "33000", "0706080910", "0506070809");
 		
-		new AjoutClientHandler().execute(commande);
+		UUID idClient = new AjoutClientHandler().execute(commande);
 		
-		assertThat(societe.getClients()).hasSize(1);
-		Client client = societe.getClients().get(0);
+		Client client = Entrepots.clients().get(idClient).orNull();
 		assertThat(client.getNom()).isEqualTo("Saban");
 		assertThat(client.getPrenom()).isEqualTo("JR");
 		assertThat(client.getEmail()).isEqualTo("a@a.com");
@@ -35,7 +36,8 @@ public class AjoutClientHandlerTest extends HandlerCommandeRegle {
 		assertThat(client.getCodePostal()).isEqualTo("33000");
 		assertThat(client.getTelephonePortable()).isEqualTo("0706080910");
 		assertThat(client.getTelephoneFixe()).isEqualTo("0506070809");
-		assertThat(Entrepots.clients().get(client.getId()).isPresent()).isTrue();
+		assertThat(societe.getClients()).hasSize(1);
+		assertThat(societe.getClients().get(0)).isEqualTo(idClient);
 	}
 	
 }

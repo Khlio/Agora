@@ -32,19 +32,19 @@ public class DetailsSociete {
 		this.nom = nom;
 	}
 	
-	public List<DetailsUtilisateur> getUtilisateurs() {
+	public List<String> getUtilisateurs() {
 		return utilisateurs;
 	}
 	
-	public void setUtilisateurs(List<DetailsUtilisateur> utilisateurs) {
+	public void setUtilisateurs(List<String> utilisateurs) {
 		this.utilisateurs = utilisateurs;
 	}
 	
-	public List<ResumeClient> getClients() {
+	public List<String> getClients() {
 		return clients;
 	}
 	
-	public void setClients(List<ResumeClient> clients) {
+	public void setClients(List<String> clients) {
 		this.clients = clients;
 	}
 	
@@ -52,7 +52,7 @@ public class DetailsSociete {
 	private String id;
 	private String siret;
 	private String nom;
-	private List<DetailsUtilisateur> utilisateurs = Lists.newArrayList();
-	private List<ResumeClient> clients = Lists.newArrayList();
+	private List<String> utilisateurs = Lists.newArrayList();
+	private List<String> clients = Lists.newArrayList();
 	
 }

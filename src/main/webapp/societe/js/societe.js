@@ -9,8 +9,10 @@ $(document).ready(function() {
 			'<p>Siret : '+societe.siret+'</p>'+
 			'<p><a href="inscription.html?societe='+societe.id+'">Ajouter un utilisateur</a></p>'
 		);
-		
-		var utilisateurs = societe.utilisateurs;
+	});
+
+	outils.ajaxRequest(outils.url+'/societes/'+idSociete+'/utilisateurs', function(json){	
+		var utilisateurs = json;
 		if(utilisateurs.length==0){
 			$('#listeUtilisateur').append(
 				'<li style="padding-bottom: 5px;"><b>Aucun utilisateur</b></li>'
@@ -18,9 +20,15 @@ $(document).ready(function() {
 		}else{
 			for(var i=0; i<utilisateurs.length;i++){
 				$('#listeUtilisateur').append(
-					'<li style="padding-bottom: 5px;"><b>'+utilisateurs[i].prenom+' '+utilisateurs[i].nom+'</b> - <a href="#">Supprimer</a></li>'
+					'<li style="padding-bottom: 5px;"><b>'+utilisateurs[i].prenom+' '+utilisateurs[i].nom+'</b> - <a href="javascript:;" onclick="supprimerUtilisateur(\''+utilisateurs[i].id+'\');">Supprimer</a></li>'
 				);
 			}
 		}
 	});
 });
+
+function supprimerUtilisateur(id) {
+	outils.ajaxRequestPlus(outils.url+'/utilisateurs/'+id,"DELETE",undefined,function(donnees){
+		location.reload();
+	});
+}

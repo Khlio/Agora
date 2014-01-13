@@ -25,6 +25,7 @@ import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.Message;
 import fr.epsi.agora.commande.societe.AjoutClientMessage;
 import fr.epsi.agora.requete.societe.DetailsSociete;
+import fr.epsi.agora.requete.societe.RechercheClients;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.requete.societe.ResumeClient;
 import fr.epsi.agora.web.Session;
@@ -36,8 +37,9 @@ public class ClientsRessourceTest {
 	public void setUp() throws Exception {
 		busCommande = mock(BusCommande.class);
 		when(busCommande.envoie(any(Message.class))).thenReturn(Futures.<Object>immediateFuture(UUID.randomUUID()));
-		recherche = mock(RechercheSocietes.class);
-		ressource = new ClientsRessource(busCommande, recherche);
+		recherche = mock(RechercheClients.class);
+		rechercheSocietes = mock(RechercheSocietes.class);
+		ressource = new ClientsRessource(busCommande, recherche, rechercheSocietes);
 	}
 	
 	@Test
@@ -49,7 +51,7 @@ public class ClientsRessourceTest {
 		ResumeClient resume = new ResumeClient();
 		resume.setId(UUID.randomUUID().toString());
 		clients.add(resume);
-		details.setClients(clients);
+		when(recherche.tousDuneSociete(details)).thenReturn(clients);
 		
 		Representation represente = ressource.represente();
 		
@@ -102,7 +104,7 @@ public class ClientsRessourceTest {
 		UUID id = UUID.randomUUID();
 		details.setId(id.toString());
 		idUtilisateur = UUID.randomUUID();
-		when(recherche.societeDeLUtilisateur(idUtilisateur)).thenReturn(details);
+		when(rechercheSocietes.societeDeLUtilisateur(idUtilisateur)).thenReturn(details);
 		return details;
 	}
 	
@@ -112,7 +114,8 @@ public class ClientsRessourceTest {
 	}
 	
 	private BusCommande busCommande;
-	private RechercheSocietes recherche;
+	private RechercheClients recherche;
+	private RechercheSocietes rechercheSocietes;
 	private ClientsRessource ressource;
 	private UUID idUtilisateur;
 	

@@ -15,7 +15,7 @@ public class ModificationUtilisateurHandlerTest extends HandlerCommandeRegle {
 	public void peutModifierUtilisateur() {
 		Utilisateur utilisateur = Entrepots.utilisateurs().ajoute(FakeFabriqueUtilisateur.nouveau());
 		ModificationUtilisateurMessage commande = new ModificationUtilisateurMessage(utilisateur.getId(), utilisateur.getNom(), utilisateur.getPrenom(),
-				"b@b.com", utilisateur.getMotDePasse(), utilisateur.getAdresse(), utilisateur.getTelephone());
+				"b@b.com", utilisateur.getMotDePasse(), utilisateur.getAdresse(), utilisateur.getCodePostal(), utilisateur.getTelephone());
 		
 		new ModificationUtilisateurHandler().execute(commande);
 		
@@ -26,6 +26,7 @@ public class ModificationUtilisateurHandlerTest extends HandlerCommandeRegle {
 		assertThat(utilisateurModifie.getEmail()).isEqualTo("b@b.com");
 		assertThat(utilisateurModifie.getMotDePasse()).isEqualTo(utilisateur.getMotDePasse());
 		assertThat(utilisateurModifie.getAdresse()).isEqualTo(utilisateur.getAdresse());
+		assertThat(utilisateurModifie.getCodePostal()).isEqualTo(utilisateur.getCodePostal());
 		assertThat(utilisateurModifie.getTelephone()).isEqualTo(utilisateur.getTelephone());
 	}
 	

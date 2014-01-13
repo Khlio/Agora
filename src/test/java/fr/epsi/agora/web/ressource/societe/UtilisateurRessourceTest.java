@@ -19,7 +19,9 @@ import org.restlet.representation.Representation;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
+import fr.epsi.agora.requete.societe.DetailsSociete;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
+import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
 import fr.epsi.agora.web.ressource.RessourceHelper;
@@ -30,7 +32,8 @@ public class UtilisateurRessourceTest {
 	public void setUp() {
 		busCommande = mock(BusCommande.class);
 		recherche = mock(RechercheUtilisateurs.class);
-		ressource = new UtilisateurRessource(busCommande, recherche);
+		rechercheSocietes = mock(RechercheSocietes.class);
+		ressource = new UtilisateurRessource(busCommande, recherche, rechercheSocietes);
 	}
 	
 	@Test
@@ -69,6 +72,9 @@ public class UtilisateurRessourceTest {
 	public void peutSupprimerLUtilisateur() {
 		DetailsUtilisateur details = laRechercheRetourne();
 		initialiseRessource(details);
+		DetailsSociete societe = new DetailsSociete();
+		societe.setId(UUID.randomUUID().toString());
+		when(rechercheSocietes.societeDeLUtilisateur(UUID.fromString(details.getId()))).thenReturn(societe);
 		
 		ressource.supprime();
 		
@@ -76,7 +82,8 @@ public class UtilisateurRessourceTest {
 		ArgumentCaptor<SuppressionUtilisateurMessage> capteur = ArgumentCaptor.forClass(SuppressionUtilisateurMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionUtilisateurMessage commande = capteur.getValue();
-		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
+		assertThat(commande.idUtilisateur).isEqualTo(UUID.fromString(details.getId()));
+		assertThat(commande.idSociete).isEqualTo(UUID.fromString(societe.getId()));
 	}
 	
 	private DetailsUtilisateur laRechercheRetourne() {
@@ -94,6 +101,7 @@ public class UtilisateurRessourceTest {
 	
 	private BusCommande busCommande;
 	private RechercheUtilisateurs recherche;
+	private RechercheSocietes rechercheSocietes;
 	private UtilisateurRessource ressource;
 	
 }

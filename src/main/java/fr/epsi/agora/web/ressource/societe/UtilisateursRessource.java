@@ -11,26 +11,29 @@ import com.google.inject.Inject;
 
 import fr.epsi.agora.requete.societe.DetailsSociete;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
+import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 
 public class UtilisateursRessource extends ServerResource {
 
 	@Inject
-	public UtilisateursRessource(RechercheSocietes recherche) {
+	public UtilisateursRessource(RechercheUtilisateurs recherche, RechercheSocietes rechercheSocietes) {
 		this.recherche = recherche;
+		this.rechercheSocietes = rechercheSocietes;
 	}
 	
 	@Override
 	protected void doInit() {
 		UUID id = UUID.fromString(getRequestAttributes().get("id").toString());
-		societe = recherche.detailsDe(id);
+		societe = rechercheSocietes.detailsDe(id);
 	}
 	
 	@Get("json")
 	public Representation represente() {
-		return new JacksonRepresentation<>(societe.getUtilisateurs());
+		return new JacksonRepresentation<>(recherche.tousDuneSociete(societe));
 	}
 	
-	private RechercheSocietes recherche;
+	private RechercheUtilisateurs recherche;
+	private RechercheSocietes rechercheSocietes;
 	private DetailsSociete societe;
 	
 }

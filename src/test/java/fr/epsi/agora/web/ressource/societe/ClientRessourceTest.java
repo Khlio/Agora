@@ -20,7 +20,9 @@ import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationClientMessage;
 import fr.epsi.agora.commande.societe.SuppressionClientMessage;
 import fr.epsi.agora.requete.societe.DetailsClient;
+import fr.epsi.agora.requete.societe.DetailsSociete;
 import fr.epsi.agora.requete.societe.RechercheClients;
+import fr.epsi.agora.requete.societe.RechercheSocietes;
 import fr.epsi.agora.web.Session;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
@@ -30,7 +32,8 @@ public class ClientRessourceTest {
 	public void setUp() {
 		busCommande = mock(BusCommande.class);
 		recherche = mock(RechercheClients.class);
-		ressource = new ClientRessource(busCommande, recherche);
+		rechercheSocietes = mock(RechercheSocietes.class);
+		ressource = new ClientRessource(busCommande, recherche, rechercheSocietes);
 	}
 	
 	@Test
@@ -69,6 +72,9 @@ public class ClientRessourceTest {
 	public void peutSupprimerLeClient() {
 		DetailsClient details = laRechercheRetourne();
 		initialiseRessource(details);
+		DetailsSociete societe = new DetailsSociete();
+		societe.setId(UUID.randomUUID().toString());
+		when(rechercheSocietes.societeDuClient(UUID.fromString(details.getId()))).thenReturn(societe);
 		
 		ressource.supprime();
 		
@@ -76,7 +82,8 @@ public class ClientRessourceTest {
 		ArgumentCaptor<SuppressionClientMessage> capteur = ArgumentCaptor.forClass(SuppressionClientMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionClientMessage commande = capteur.getValue();
-		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
+		assertThat(commande.idClient).isEqualTo(UUID.fromString(details.getId()));
+		assertThat(commande.idSociete).isEqualTo(UUID.fromString(societe.getId()));
 	}
 	
 	private DetailsClient laRechercheRetourne() {
@@ -95,6 +102,7 @@ public class ClientRessourceTest {
 	
 	private BusCommande busCommande;
 	private RechercheClients recherche;
+	private RechercheSocietes rechercheSocietes;
 	private ClientRessource ressource;
 	
 }

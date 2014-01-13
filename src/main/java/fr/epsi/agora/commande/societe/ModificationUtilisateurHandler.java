@@ -14,6 +14,7 @@ public class ModificationUtilisateurHandler implements HandlerCommande<Modificat
 		utilisateur.setEmail(commande.email);
 		utilisateur.setMotDePasse(commande.motDePasse);
 		utilisateur.setAdresse(commande.adresse);
+		utilisateur.setCodePostal(commande.codePostal);
 		utilisateur.setTelephone(commande.telephone);
 		Entrepots.utilisateurs().modifie(utilisateur);
 		return null;

@@ -33,8 +33,8 @@ public class CreationConstatHandlerTest extends HandlerCommandeRegle {
 		assertThat(constat.getNom()).isEqualTo("Tout cassé");
 		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
-		assertThat(constat.getUtilisateur()).isEqualTo(utilisateur);
-		assertThat(constat.getClient()).isEqualTo(client);
+		assertThat(constat.getUtilisateur()).isEqualTo(utilisateur.getId());
+		assertThat(constat.getClient()).isEqualTo(client.getId());
 	}
 	
 }

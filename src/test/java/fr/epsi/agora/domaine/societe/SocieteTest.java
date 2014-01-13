@@ -33,25 +33,23 @@ public class SocieteTest {
 		Societe societe = FakeFabriqueSociete.nouveau();
 		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
 		
-		Utilisateur utilisateurAjoute = societe.ajouteUtilisateur(utilisateur);
+		societe.ajouteUtilisateur(utilisateur.getId());
 		
-		assertThat(utilisateurAjoute).isNotNull();
-		assertThat(utilisateurAjoute).isEqualTo(utilisateurAjoute);
 		assertThat(societe.getUtilisateurs()).isNotNull();
-		assertThat(societe.getUtilisateurs()).isNotEmpty();
-		assertThat(societe.getUtilisateurs()).contains(utilisateurAjoute);
+		assertThat(societe.getUtilisateurs()).hasSize(1);
+		assertThat(societe.getUtilisateurs()).contains(utilisateur.getId());
 	}
 	
 	@Test
 	public void peutSupprimerUnUtilisateur() {
 		Societe societe = FakeFabriqueSociete.nouveau();
 		Utilisateur utilisateur = FakeFabriqueUtilisateur.nouveau();
-		societe.ajouteUtilisateur(utilisateur);
+		societe.ajouteUtilisateur(utilisateur.getId());
 		
-		societe.supprimeUtilisateur(utilisateur);
+		societe.supprimeUtilisateur(utilisateur.getId());
 		
 		assertThat(societe.getUtilisateurs()).isEmpty();
-		assertThat(societe.getUtilisateurs()).excludes(utilisateur);
+		assertThat(societe.getUtilisateurs()).excludes(utilisateur.getId());
 	}
 	
 	@Test
@@ -59,25 +57,23 @@ public class SocieteTest {
 		Societe societe = FakeFabriqueSociete.nouveau();
 		Client client = FakeFabriqueClient.nouveau();
 		
-		Client clientAjoute = societe.ajouteClient(client);
+		societe.ajouteClient(client.getId());
 		
-		assertThat(clientAjoute).isNotNull();
-		assertThat(clientAjoute).isEqualTo(clientAjoute);
 		assertThat(societe.getClients()).isNotNull();
-		assertThat(societe.getClients()).isNotEmpty();
-		assertThat(societe.getClients()).contains(clientAjoute);
+		assertThat(societe.getClients()).hasSize(1);
+		assertThat(societe.getClients()).contains(client.getId());
 	}
 	
 	@Test
 	public void peutSupprimerUnClient() {
 		Societe societe = FakeFabriqueSociete.nouveau();
 		Client client = FakeFabriqueClient.nouveau();
-		societe.ajouteClient(client);
+		societe.ajouteClient(client.getId());
 		
-		societe.supprimeClient(client);
+		societe.supprimeClient(client.getId());
 		
 		assertThat(societe.getClients()).isEmpty();
-		assertThat(societe.getClients()).excludes(client);
+		assertThat(societe.getClients()).excludes(client.getId());
 	}
 	
 }

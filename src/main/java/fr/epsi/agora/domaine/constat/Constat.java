@@ -5,8 +5,6 @@ import java.util.UUID;
 import org.joda.time.DateTime;
 
 import fr.epsi.agora.domaine.Aggregat;
-import fr.epsi.agora.domaine.societe.Client;
-import fr.epsi.agora.domaine.societe.Utilisateur;
 
 public class Constat implements Aggregat {
 
@@ -54,19 +52,19 @@ public class Constat implements Aggregat {
 		this.geolocalisation = geolocalisation;
 	}
 
-	public Utilisateur getUtilisateur() {
+	public UUID getUtilisateur() {
 		return utilisateur;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
+	public void setUtilisateur(UUID utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 
-	public Client getClient() {
+	public UUID getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(UUID client) {
 		this.client = client;
 	}
 
@@ -75,7 +73,7 @@ public class Constat implements Aggregat {
 	private String adresse;
 	private DateTime date;
 	private String geolocalisation;
-	private Utilisateur utilisateur;
-	private Client client;
+	private UUID utilisateur;
+	private UUID client;
 
 }

@@ -42,9 +42,9 @@ public class SocieteRessource extends ServerResource {
 	public void ajouteUtilisateur(Form formulaire) {
 		AjoutUtilisateurMessage commande = new AjoutUtilisateurMessage(UUID.fromString(societe.getId()), formulaire.getFirstValue("nom"),
 				formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), formulaire.getFirstValue("motDePasse"),
-				formulaire.getFirstValue("adresse"), formulaire.getFirstValue("telephone"));
+				formulaire.getFirstValue("adresse"), formulaire.getFirstValue("codePostal"), formulaire.getFirstValue("telephone"));
 		busCommande.envoie(commande);
-		redirectSeeOther("../../societe/societe.html?id=" + UUID.fromString(societe.getId()));
+		setStatus(Status.SUCCESS_ACCEPTED);
 	}
 	
 	@Delete

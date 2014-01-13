@@ -8,8 +8,9 @@ public class SuppressionUtilisateurHandler implements HandlerCommande<Suppressio
 
 	@Override
 	public Object execute(SuppressionUtilisateurMessage commande) {
-		Utilisateur utilisateur = Entrepots.utilisateurs().get(commande.id).get();
+		Utilisateur utilisateur = Entrepots.utilisateurs().get(commande.idUtilisateur).get();
 		Entrepots.utilisateurs().supprime(utilisateur);
+		Entrepots.societes().get(commande.idSociete).get().supprimeUtilisateur(utilisateur.getId());
 		return null;
 	}
 

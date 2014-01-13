@@ -20,8 +20,9 @@ import com.google.common.util.concurrent.Futures;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.Message;
 import fr.epsi.agora.requete.societe.DetailsSociete;
-import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
+import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
+import fr.epsi.agora.requete.societe.ResumeUtilisateur;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class UtilisateursRessourceTest {
@@ -30,8 +31,9 @@ public class UtilisateursRessourceTest {
 	public void setUp() {
 		busCommande = mock(BusCommande.class);
 		when(busCommande.envoie(any(Message.class))).thenReturn(Futures.<Object>immediateFuture(UUID.randomUUID()));
-		recherche = mock(RechercheSocietes.class);
-		ressource = new UtilisateursRessource(recherche);
+		recherche = mock(RechercheUtilisateurs.class);
+		rechercheSocietes = mock(RechercheSocietes.class);
+		ressource = new UtilisateursRessource(recherche, rechercheSocietes);
 	}
 	
 	@Test
@@ -39,11 +41,11 @@ public class UtilisateursRessourceTest {
 		DetailsSociete details = laRechercheRetourne();
 		initialiseRessource(details);
 		
-		List<DetailsUtilisateur> utilisateurs = Lists.newArrayList();
-		DetailsUtilisateur detailsUtilisateur = new DetailsUtilisateur();
-		detailsUtilisateur.setId(UUID.randomUUID().toString());
-		utilisateurs.add(detailsUtilisateur);
-		details.setUtilisateurs(utilisateurs);
+		List<ResumeUtilisateur> utilisateurs = Lists.newArrayList();
+		ResumeUtilisateur resume = new ResumeUtilisateur();
+		resume.setId(UUID.randomUUID().toString());
+		utilisateurs.add(resume);
+		when(recherche.tousDuneSociete(details)).thenReturn(utilisateurs);
 		
 		Representation represente = ressource.represente();
 		
@@ -56,7 +58,7 @@ public class UtilisateursRessourceTest {
 		DetailsSociete details = new DetailsSociete();
 		UUID id = UUID.randomUUID();
 		details.setId(id.toString());
-		when(recherche.detailsDe(id)).thenReturn(details);
+		when(rechercheSocietes.detailsDe(id)).thenReturn(details);
 		return details;
 	}
 	
@@ -65,7 +67,8 @@ public class UtilisateursRessourceTest {
 	}
 	
 	private BusCommande busCommande;
-	private RechercheSocietes recherche;
+	private RechercheUtilisateurs recherche;
+	private RechercheSocietes rechercheSocietes;
 	private UtilisateursRessource ressource;
 	
 }

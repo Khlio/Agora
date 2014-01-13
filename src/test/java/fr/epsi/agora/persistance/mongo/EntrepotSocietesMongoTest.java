@@ -32,27 +32,25 @@ public class EntrepotSocietesMongoTest extends EntrepotAggregatsMongoTest<Societ
 	@Test
 	public void peutPersisterUtilisateurs() {
 		Societe societe = FakeFabriqueSociete.nouveau();
-		societe.ajouteUtilisateur(FakeFabriqueUtilisateur.nouveau());
+		societe.ajouteUtilisateur(FakeFabriqueUtilisateur.nouveau().getId());
 		
 		entrepot.ajoute(societe);
 		mongolinkRule.cleanSession();
 		
 		Societe societeTrouve = entrepot.get(societe.getId()).get();
 		assertThat(societeTrouve.getUtilisateurs()).hasSize(1);
-		assertThat(societeTrouve.getUtilisateurs().get(0).getNom()).isEqualTo("Levacher");
 	}
 	
 	@Test
 	public void peutPersisterClients() {
 		Societe societe = FakeFabriqueSociete.nouveau();
-		societe.ajouteClient(FakeFabriqueClient.nouveau());
+		societe.ajouteClient(FakeFabriqueClient.nouveau().getId());
 		
 		entrepot.ajoute(societe);
 		mongolinkRule.cleanSession();
 		
 		Societe societeTrouve = entrepot.get(societe.getId()).get();
 		assertThat(societeTrouve.getClients()).hasSize(1);
-		assertThat(societeTrouve.getClients().get(0).getNom()).isEqualTo("Saban");
 	}
 
 	@Override

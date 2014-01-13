@@ -15,7 +15,7 @@ public class CreationConstatHandler implements HandlerCommande<CreationConstatMe
 	public UUID execute(CreationConstatMessage commande) {
 		Utilisateur utilisateur = Entrepots.utilisateurs().get(commande.utilisateur).get();
 		Client client = Entrepots.clients().get(commande.client).get();
-		Constat constat = FabriqueConstat.nouveau(commande.nom, commande.adresse, commande.date, commande.geolocalisation, utilisateur, client);
+		Constat constat = FabriqueConstat.nouveau(commande.nom, commande.adresse, commande.date, commande.geolocalisation, utilisateur.getId(), client.getId());
 		Entrepots.constats().ajoute(constat);
 		return constat.getId();
 	}
