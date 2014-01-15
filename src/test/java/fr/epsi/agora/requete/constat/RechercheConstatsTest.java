@@ -29,7 +29,7 @@ public class RechercheConstatsTest {
 	@Test
 	public void peutRecupererTousLesConstatsDunUtilisateur() {
 		UUID idUtilisateur = UUID.randomUUID();
-		jongo.getCollection("constat").insert("{nom: 'Tout cassé', adresse: '1 rue du Bordel', date: #, geolocalisation: '', "
+		jongo.getCollection("constat").insert("{nom: 'Tout cassé', adresse1: '1 rue du Bordel', codePostal: '87000', date: #, geolocalisation: '', "
 				+ "utilisateur: {_id: #}}", DateTime.now().getMillis(), idUtilisateur);
 		jongo.getCollection("constat").insert("{nom: 'test'}");
 		RechercheConstats recherche = new RechercheConstats(jongo);
@@ -40,7 +40,9 @@ public class RechercheConstatsTest {
 		assertThat(constats).hasSize(1);
 		DetailsConstat constat = constats.get(0);
 		assertThat(constat.getNom()).isEqualTo("Tout cassé");
-		assertThat(constat.getAdresse()).isEqualTo("1 rue du Bordel");
+		assertThat(constat.getAdresse1()).isEqualTo("1 rue du Bordel");
+		assertThat(constat.getAdresse2()).isNull();
+		assertThat(constat.getCodePostal()).isEqualTo("87000");
 		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
 		assertThat(constat.getUtilisateur()).isNotNull();
@@ -50,7 +52,7 @@ public class RechercheConstatsTest {
 	@Test
 	public void peutRecupererTousLesConstatsDunClient() {
 		UUID idClient = UUID.randomUUID();
-		jongo.getCollection("constat").insert("{nom: 'Tout cassé', adresse: '1 rue du Bordel', date: #, geolocalisation: '', "
+		jongo.getCollection("constat").insert("{nom: 'Tout cassé', adresse1: '1 rue du Bordel', codePostal: '87000', date: #, geolocalisation: '', "
 				+ "client: {_id: #}}", DateTime.now().getMillis(), idClient);
 		jongo.getCollection("constat").insert("{nom: 'test'}");
 		RechercheConstats recherche = new RechercheConstats(jongo);
@@ -61,7 +63,9 @@ public class RechercheConstatsTest {
 		assertThat(constats).hasSize(1);
 		DetailsConstat constat = constats.get(0);
 		assertThat(constat.getNom()).isEqualTo("Tout cassé");
-		assertThat(constat.getAdresse()).isEqualTo("1 rue du Bordel");
+		assertThat(constat.getAdresse1()).isEqualTo("1 rue du Bordel");
+		assertThat(constat.getAdresse2()).isNull();
+		assertThat(constat.getCodePostal()).isEqualTo("87000");
 		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
 		assertThat(constat.getClient()).isNotNull();
@@ -71,15 +75,17 @@ public class RechercheConstatsTest {
 	@Test
 	public void peutRecupererUnConstat() {
 		UUID idConstat = UUID.randomUUID();
-		jongo.getCollection("constat").insert("{_id: #, nom: 'Tout cassé', adresse: '1 rue du Bordel', date: #, geolocalisation: '', "
-				+ "utilisateur: {nom: 'Levacher', prenom: 'Vincent'}, client: {nom: 'Saban', prenom: 'JR'}}", idConstat, DateTime.now().getMillis());
+		jongo.getCollection("constat").insert("{_id: #, nom: 'Tout cassé', adresse1: '1 rue du Bordel', adresse2: 'bis', codePostal: '87000', date: #, geolocalisation: '', "
+				+ "utilisateur: {nom: 'Levacher', prenom: 'Vincent'}, client: {nom: 'Saban', prenom: 'JR'}, medias: ['\\\\medias\\audio.mp3']}", idConstat, DateTime.now().getMillis());
 		RechercheConstats recherche = new RechercheConstats(jongo);
 		
 		DetailsConstat details = recherche.detailsDe(idConstat);
 		
 		assertThat(details).isNotNull();
 		assertThat(details.getNom()).isEqualTo("Tout cassé");
-		assertThat(details.getAdresse()).isEqualTo("1 rue du Bordel");
+		assertThat(details.getAdresse1()).isEqualTo("1 rue du Bordel");
+		assertThat(details.getAdresse2()).isEqualTo("bis");
+		assertThat(details.getCodePostal()).isEqualTo("87000");
 		assertThat(details.getDate()).isNotNull();
 		assertThat(details.getGeolocalisation()).isEqualTo("");
 		assertThat(details.getUtilisateur()).isNotNull();
@@ -88,6 +94,7 @@ public class RechercheConstatsTest {
 		assertThat(details.getClient()).isNotNull();
 		assertThat(details.getClient().getNom()).isEqualTo("Saban");
 		assertThat(details.getClient().getPrenom()).isEqualTo("JR");
+		assertThat(details.getMedias()).hasSize(1);
 	}
 	
 	private Fongo fongo;

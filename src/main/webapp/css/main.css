@@ -41,12 +41,25 @@
     left: -6px;
 }
 
-#steps { list-style:none; width:100%; overflow:hidden; margin:0px; padding:0px;}
-#steps li {float:left; padding:5px; color:#b0b1b3;}
-#steps li.current { color:#000;}
+#steps {
+	list-style:none;
+	width:100%;
+	overflow:hidden;
+	margin:0px;
+	padding:0px;
+}
+
+#steps li {
+	float:left;
+	padding:5px;
+	color:#b0b1b3;
+}
+
+#steps li.current {
+	color:#000;
+}
 
 #steps li span {
     font-size: 9px;
     display: block;
 }
-

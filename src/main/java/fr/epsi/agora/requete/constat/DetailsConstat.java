@@ -1,7 +1,11 @@
 package fr.epsi.agora.requete.constat;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
+
+import com.google.common.collect.Lists;
 
 import fr.epsi.agora.requete.societe.DetailsClient;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
@@ -23,12 +27,28 @@ public class DetailsConstat {
 		this.nom = nom;
 	}
 	
-	public String getAdresse() {
-		return adresse;
+	public String getAdresse1() {
+		return adresse1;
 	}
 	
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public void setAdresse1(String adresse1) {
+		this.adresse1 = adresse1;
+	}
+	
+	public String getAdresse2() {
+		return adresse2;
+	}
+	
+	public void setAdresse2(String adresse2) {
+		this.adresse2 = adresse2;
+	}
+	
+	public String getCodePostal() {
+		return codePostal;
+	}
+	
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 	
 	public DateTime getDate() {
@@ -63,13 +83,24 @@ public class DetailsConstat {
 		this.client = client;
 	}
 	
+	public List<String> getMedias() {
+		return medias;
+	}
+	
+	public void setMedias(List<String> medias) {
+		this.medias = medias;
+	}
+	
 	@Id
 	private String id;
 	private String nom;
-	private String adresse;
+	private String adresse1;
+	private String adresse2;
+	private String codePostal;
 	private DateTime date;
 	private String geolocalisation;
 	private DetailsUtilisateur utilisateur;
 	private DetailsClient client;
+	private List<String> medias = Lists.newArrayList();
 	
 }

@@ -1,18 +1,28 @@
 
-
 $(document).ready
 (
     function()
     {
 
-    /*  $(function() {
-     var json = $.getJSON("C:/Users\Panda\WebstormProjects\Mobile\client.json", {
-     tags: "mount rainier",
-     tagmode: "any",
-     format: "json"
-     })*/
+        $.getJSON(outils.url + "/utilisateur/" + document.cookie["bouh"] + "/client/" + getUrlVars()["id"], function(json)
+        {
+            $.each(json, function(i, v) {
+                document.getElementById("nom").value =v.nom;
+                document.getElementById("prenom").value = v.prenom;
+                document.getElementById("dateNaissance").value = v.dateDeNaisance;
+                document.getElementById("lieuNaissance").value = v.lieuDeNaissance;
+                document.getElementById("nationalite").value = v.nationalite;
+                document.getElementById("metier").value = v.metier;
+                document.getElementById("adresse1").value = v.adresse1;
+                document.getElementById("adresse2").value = v.adresse2;
+                document.getElementById("codePostal").value = v.codePostal;
+                document.getElementById("email").value = v.email;
+                document.getElementById("telPortable").value = v.telephonePortable;
+                document.getElementById("telFixe").value = v.telephoneFixe;
+            });
+        });
 
-    var json =
+   /* var json =
         [ {
             _id: '27679b1c-4d85-4ae7-99a2-28f21eafe08f',
             nom: 'Levacher',
@@ -28,24 +38,24 @@ $(document).ready
             telephonePortable:"04512541425",
             telephoneFixe:"04512541425"
         }
-        ];
-
-    $.each(json, function(i, v) {
-        document.getElementById("Nom").value =v.nom;
-        document.getElementById("Prenom").value = v.prenom;
-        document.getElementById("dateNaissance").value = v.dateDeNaisance;
-        document.getElementById("lieuNaissance").value = v.lieuDeNaissance;
-        document.getElementById("nationalite").value = v.nationalite;
-        document.getElementById("metier").value = v.metier;
-        document.getElementById("adresse1").value = v.adresse1;
-        document.getElementById("adresse2").value = v.adresse2;
-        document.getElementById("codePostal").value = v.codePostal;
-        document.getElementById("email").value = v.email;
-        document.getElementById("telPortable").value = v.telephonePortable;
-        document.getElementById("telFixe").value = v.telephoneFixe;
-    });
+        ];*/
     }
 );
+
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
 
 function SubmitClient()
 {

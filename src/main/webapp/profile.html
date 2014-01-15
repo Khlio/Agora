@@ -5,16 +5,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta name="viewport" content="width=device-width">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
     <title>Agora</title>
     <meta name="description" content="">
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/Formulaire.css">
+    <link rel="stylesheet" href="css/formulaire.css">
     <link rel="stylesheet" href="http://jquery.bassistance.de/validate/demo/site-demos.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
     <style> body {
         padding-top: 50px;
@@ -41,13 +40,13 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html">Accueil</a></li>
-                <li><a href="Formulaire.html">Cr&eacute;er constat</a></li>
+                <li><a href="formulaire.html">Cr&eacute;er constat</a></li>
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">Constat</b></a>
                     <div class="hidden-xs">
                         <ul class="dropdown-menu">
-                            <li><a href="Formulaire.html">Cr&eacute;er un constat</a></li>
-                            <li><a href="#">Voir les constats</a></li>
+                            <li><a href="formulaire.html">Cr&eacute;er un constat</a></li>
+                            <li><a href="listeConstat.html">Voir les constats</a></li>
                         </ul>
                     </div>
                 </li>
@@ -56,69 +55,36 @@
                     <div class="hidden-xs">
                         <ul class="dropdown-menu">
                             <li><a href="formulaireClient.html">Cr&eacute;er un client</a></li>
-                            <li><a href="ListeClient.html">Voir les clients</a></li>
+                            <li><a href="listeClient.html">Voir les clients</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion utilisateur</b></a>
-                    <div class="hidden-xs">
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Cr&eacute;er un utilisateur</a></li>
-                            <li><a href="#">Voir les utilisateurs</a></li>
-                        </ul>
-                    </div>
+                    <a href="profile.html" class="dropdown-toggle">Profil</b></a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
         </div><!--/.navbar-collapse -->
     </div>
 </div>
 
-
 <form role="form" id="SignupForm" action="">
 
     <fieldset>
-        <legend>Identit&eacute; du client</legend>
+        <legend>Identit&eacute; de l'utilisateur</legend>
         <div class='container login  text-center'>
             <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2'>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><strong>Identit&eacute; du client</strong></h4>
+                        <h4 class="panel-title"><strong>Identit&eacute; de l'utilisateur</strong></h4>
                     </div>
                     <div class="panel-body">
                         <div class='form-group'>
                             <label for='Nom' class='col-lg-7 col-sm-7 col-xs-7'>Nom</label>
-                            <input type='text' class='form control' id='Nom' name="Nom" placeholder='' required='true' />
+                            <input type='text' class='form control' id='nom' name="nom" placeholder='' required='true' />
                         </div>
                         <div class='form-group'>
                             <label for='Prenom' class='col-lg-7 col-sm-7 col-xs-7'>Pr&eacute;nom</label>
-                            <input type='text' class='form control' id='Prenom' name="Prenom" placeholder='' required='true' />
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='dateNaissance' class='col-lg-7 col-sm-7 col-xs-7'>Date de naissance</label>
-                            <input type='date' class='form control ' id='dateNaissance' name="dateNaissance" placeholder='' required='true' />
-                        </div>
-                        <div class='form-group'>
-                            <label for='lieuNaissance' class='col-lg-7 col-sm-7 col-xs-7'>Lieu de naissance</label>
-                            <input type='text' class='form control'  id='lieuNaissance' name="lieuNaissance" placeholder='' required='true' />
-                        </div>
-                        <div class='form-group'>
-                            <label for='nationalite' class='col-lg-7 col-sm-7 col-xs-7'>Nationalit&ecute;</label>
-                            <input type='text' class='form control ' id='nationalite' name="nationalite" placeholder='' required='true' />
-                        </div>
-                        <div class='form-group'>
-                            <label for='metier' class='col-lg-7 col-sm-7 col-xs-7'>M&eacute;tier</label>
-                            <input type='text' class='form control ' id='metier' name="metier" placeholder='' required='true' />
+                            <input type='text' class='form control' id='prenom' name="prenom" placeholder='' required='true' />
                         </div>
                     </div>
                 </div>
@@ -128,21 +94,17 @@
     </fieldset>
     <fieldset>
 
-        <legend>Adresse du client</legend>
+        <legend>Adresse utilisateur</legend>
         <div class='container login  text-center'>
             <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2'>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><strong>Adresse du client</strong></h4>
+                        <h4 class="panel-title"><strong>Adresse utilisateur</strong></h4>
                     </div>
                     <div class="panel-body">
                         <div class='form-group'>
-                            <label for='adresse1' class='col-lg-7 col-sm-7 col-xs-7'>Adresse</label>
-                            <input type='text' class='form control' id='adresse1' name="adresse1" placeholder='' required='true' />
-                        </div>
-                        <div class='form-group'>
-                            <label for='adresse2' class='col-lg-7 col-sm-7 col-xs-7'>Adresse 2</label>
-                            <input type='text' class='form control' id='adresse2' name="adresse2" placeholder='' required='true' />
+                            <label for='adresse' class='col-lg-7 col-sm-7 col-xs-7'>Adresse</label>
+                            <input type='text' class='form control' id='adresse' name="adresse" placeholder='' required='true' />
                         </div>
 
                         <div class='form-group'>
@@ -158,26 +120,22 @@
 
     <fieldset>
 
-        <legend>Coordonn&eacute;es du client</legend>
+        <legend>Coordonn&eacute;es utilisateur</legend>
         <div class='container login  text-center'>
             <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2'>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><strong>Coordonn&eacute;es du client</strong></h4>
+                        <h4 class="panel-title"><strong>Coordonn&eacute;es  utilisateur</strong></h4>
                     </div>
                     <div class="panel-body">
                         <div class='form-group'>
                             <label for='email' class='col-lg-7 col-sm-7 col-xs-7'>Email</label>
                             <input type='text' class='form control' id='email' name="email" placeholder='' required='true' />
                         </div>
-                        <div class='form-group'>
-                            <label for='telPortable' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone portable</label>
-                            <input type='text' class='form control' id='telPortable' name="telPortable" placeholder='' required='true' />
-                        </div>
 
                         <div class='form-group'>
-                            <label for='telFixe' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone fixe</label>
-                            <input type='text' class='form control ' id='telFixe' name="telFixe" placeholder='' required='true' />
+                            <label for='telephone' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone</label>
+                            <input type='text' class='form control ' id='telephone' name="telephone" placeholder='' required='true' />
                         </div>
                     </div>
                 </div>
@@ -186,23 +144,28 @@
 
     </fieldset>
     <p>
-        <input id="SaveAccount" class="btn btn-success col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4  col-xs-12" type="submit" onclick="SubmitClient()" value="Valider le formulaire" />
+        <input id="SaveAccount" class="btn btn-success col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4  col-xs-12" type="submit" onclick="SubmitProfile()" value="Valider le formulaire" />
     </p>
 </form>
+<div id="dialog-message" class="modal fade" title="Une erreur est survenue">
+
+</div>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="js/lib/jquery.validate.js"></script>
-<script src="js/lib/additional-methods.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
 <script src="js/lib/jquery.cookie.js"></script>
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/formToWizard.js"></script>
-<script src="js/Formulaire.js"></script>
+<script src="js/formulaire.js"></script>
 <script src="js/outils.js"></script>
+<script src="js/profile.js"></script>
 
 <script>
+
     jQuery.validator.setDefaults({
         debug: true,
         success: "valid"
@@ -210,10 +173,10 @@
 
     jQuery.extend(jQuery.validator.messages, {
         required: "Champ requis",
-        digits: "Veuillez ins√©rer des chiffres",
-        maxlength: jQuery.validator.format("Veuillez ins√©rer au maximum {0} caract√®res."),
-        minlength: jQuery.validator.format("Veuillez ins√©rer au minimum {0} caract√®res."),
-        date: jQuery.validator.format("Veuillez ins√©rer une date valide (mm/jj/aa)")
+        digits: "Veuillez insÈrer des chiffres",
+        maxlength: jQuery.validator.format("Veuillez inserer au maximum {0} caractËres."),
+        minlength: jQuery.validator.format("Veuillez inserer au minimum {0} caractËres."),
+        date: jQuery.validator.format("Veuillez insÈrer une date valide (mm/jj/aa)")
     });
 
     jQuery.validator.addMethod("myPhoneNumberValidator", function(value, element) {
@@ -229,7 +192,7 @@
             }
         }
         return /^33 \(0\)\d \d\d \d\d \d\d \d\d$/i.test(value);
-    }, 'Veuillez entrer votre num√©ro de t√©l√©phone dans le format suivant: <i>0123456789</i>');
+    }, 'Veuillez entrer votre numÈro de tÈlÈphone dans le format suivant: <i>0123456789</i>');
 
     $( "#SignupForm" ).validate({
         rules: {
@@ -249,8 +212,7 @@
                 minlength: 5,
                 maxlength: 5
             },
-            telPortable:"myPhoneNumberValidator",
-            telFixe:"myPhoneNumberValidator"
+            telephone:"myPhoneNumberValidator",
         },
         highlight: function(label) {
             $(label).closest('.control-group').removeClass('success').addClass('error');

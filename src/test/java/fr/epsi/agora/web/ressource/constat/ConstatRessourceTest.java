@@ -22,6 +22,7 @@ import fr.epsi.agora.commande.constat.SuppressionConstatMessage;
 import fr.epsi.agora.requete.constat.DetailsConstat;
 import fr.epsi.agora.requete.constat.RechercheConstats;
 import fr.epsi.agora.web.Session;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class ConstatRessourceTest {
@@ -43,40 +44,43 @@ public class ConstatRessourceTest {
 		assertThat(represente).isNotNull();
 		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
 		assertThat(represente.getText()).contains(details.getId());
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 	}
 	
 	@Test
-	public void peutModifierLeConstat() {
+	public void peutModifierLeConstat() throws IOException {
 		DetailsConstat details = laRechercheRetourne();
 		details.setNom("Tout cassé");
 		initialiseRessource(details);
 		Form formulaire = new Form();
 		formulaire.add("nom", details.getNom());
-		formulaire.add("adresse", "test");
+		formulaire.add("adresse1", "test");
 		
-		ressource.modifie(formulaire);
+		Representation represente = ressource.modifie(formulaire);
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<ModificationConstatMessage> capteur = ArgumentCaptor.forClass(ModificationConstatMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		ModificationConstatMessage commande = capteur.getValue();
 		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.nom).isEqualTo(details.getNom());
-		assertThat(commande.adresse).isEqualTo("test");
+		assertThat(commande.adresse1).isEqualTo("test");
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
 	}
 	
 	@Test
-	public void peutSupprimerLeConstat() {
+	public void peutSupprimerLeConstat() throws IOException {
 		DetailsConstat details = laRechercheRetourne();
 		initialiseRessource(details);
 		
-		ressource.supprime();
+		Representation represente = ressource.supprime();
 		
-		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		ArgumentCaptor<SuppressionConstatMessage> capteur = ArgumentCaptor.forClass(SuppressionConstatMessage.class);
 		verify(busCommande).envoie(capteur.capture());
 		SuppressionConstatMessage commande = capteur.getValue();
 		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
+		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
 	}
 	
 	private DetailsConstat laRechercheRetourne() {

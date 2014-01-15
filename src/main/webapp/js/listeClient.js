@@ -57,11 +57,11 @@ $('#instantSearchList').bind('input',
         {
             $.each(json, function(i, v) {
                 if(v.nom.toLowerCase().search(test12) != -1){
-                    $("#listClient").append("<tr><td><a href='InformationClient.html?id=" + v._id + "'>" + v.nom + " " + v.prenom+"</a></td></tr>" );
+                    $("#listClient").append("<tr><td><a href='informationClient.html?id=" + v._id + "'>" + v.nom + " " + v.prenom+"</a></td></tr>" );
                     return;
                 }
                 else if(v.prenom.toLowerCase().search(test12) != -1){
-                    $("#listClient").append("<tr><td><a href='InformationClient.html?id=" + v._id + "'>" + v.nom + " " + v.prenom+"</a></td></tr>" );
+                    $("#listClient").append("<tr><td><a href='informationClient.html?id=" + v._id + "'>" + v.nom + " " + v.prenom+"</a></td></tr>" );
                     return;
                 }
             });

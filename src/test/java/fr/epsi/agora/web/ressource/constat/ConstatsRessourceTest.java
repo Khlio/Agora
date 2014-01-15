@@ -11,8 +11,8 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.restlet.data.Form;
 import org.restlet.data.MediaType;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
 import com.google.common.collect.Lists;
@@ -49,30 +49,7 @@ public class ConstatsRessourceTest {
 		assertThat(represente).isNotNull();
 		assertThat(represente.getMediaType()).isEqualTo(MediaType.APPLICATION_JSON);
 		assertThat(represente.getText()).contains(constats.get(0).getId());
-	}
-	
-	@Test
-	public void peutCreerUnConstat() {
-		initialiseRessource();
-		UUID idClient = UUID.randomUUID();
-		Form formulaire = new Form();
-		formulaire.add("nom", "Tout cassé");
-		formulaire.add("adresse", "test");
-		formulaire.add("geolocalisation", "");
-		formulaire.add("client", idClient.toString());
-		
-		//ressource.cree(formulaire);
-		//TODO envoyer une representation
-		
-		/*ArgumentCaptor<CreationConstatMessage> capteur = ArgumentCaptor.forClass(CreationConstatMessage.class);
-		verify(busCommande).envoie(capteur.capture());
-		CreationConstatMessage commande = capteur.getValue();
-		assertThat(commande.nom).isEqualTo("Tout cassé");
-		assertThat(commande.adresse).isEqualTo("test");
-		assertThat(commande.date).isNotNull();
-		assertThat(commande.geolocalisation).isEqualTo("");
-		assertThat(commande.utilisateur).isNotNull();
-		assertThat(commande.client).isEqualTo(idClient);*/
+		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 	}
 	
 	private void initialiseRessource() {

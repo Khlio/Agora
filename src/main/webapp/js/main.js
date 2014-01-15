@@ -1,3 +1,5 @@
+
+
 window.onload = VerifCookie();
 
     function VerifCookie()
@@ -6,7 +8,7 @@ window.onload = VerifCookie();
 
         if(idClientCookie ==null)
         {
-        	window.location.replace("login.html");
+        	//window.location.replace("login.html");
             $('body').removeClass("hidden");
         }
         else
@@ -14,3 +16,6 @@ window.onload = VerifCookie();
             $('body').removeClass("hidden");
         }
     }
+
+
+

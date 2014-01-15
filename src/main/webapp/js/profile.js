@@ -6,8 +6,8 @@ $(document).ready
 
          $.getJSON(outils.url + "/utilisateur/" + document.cookie['bouh'],function( json ) {
              $.each(json, function(i, v) {
-                 document.getElementById("Nom").value =v.nom;
-                 document.getElementById("Prenom").value = v.prenom;
+                 document.getElementById("nom").value =v.nom;
+                 document.getElementById("prenom").value = v.prenom;
                  document.getElementById("adresse").value = v.adresse;
                  document.getElementById("codePostal").value = v.codePostal;
                  document.getElementById("email").value = v.email;
@@ -15,7 +15,7 @@ $(document).ready
              });
              });
 
-        var json =
+        /*var json =
             [ {
                 _id: '27679b1c-4d85-4ae7-99a2-28f21eafe08f',
                 nom: 'Levacher',
@@ -35,7 +35,7 @@ $(document).ready
             document.getElementById("codePostal").value = v.codePostal;
             document.getElementById("email").value = v.email;
             document.getElementById("telephone").value = v.telephone;
-        });
+        });*/
     }
 );
 

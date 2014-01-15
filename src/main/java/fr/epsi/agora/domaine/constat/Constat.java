@@ -1,8 +1,11 @@
 package fr.epsi.agora.domaine.constat;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
+
+import com.google.common.collect.Lists;
 
 import fr.epsi.agora.domaine.Aggregat;
 
@@ -28,12 +31,28 @@ public class Constat implements Aggregat {
 		this.nom = nom;
 	}
 	
-	public String getAdresse() {
-		return adresse;
+	public String getAdresse1() {
+		return adresse1;
 	}
 	
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public void setAdresse1(String adresse1) {
+		this.adresse1 = adresse1;
+	}
+	
+	public String getAdresse2() {
+		return adresse2;
+	}
+	
+	public void setAdresse2(String adresse2) {
+		this.adresse2 = adresse2;
+	}
+	
+	public String getCodePostal() {
+		return codePostal;
+	}
+	
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 
 	public DateTime getDate() {
@@ -67,13 +86,24 @@ public class Constat implements Aggregat {
 	public void setClient(UUID client) {
 		this.client = client;
 	}
+	
+	public List<String> getMedias() {
+		return medias;
+	}
+	
+	public void setMedias(List<String> medias) {
+		this.medias = medias;
+	}
 
 	private UUID id;
 	private String nom;
-	private String adresse;
+	private String adresse1;
+	private String adresse2;
+	private String codePostal;
 	private DateTime date;
 	private String geolocalisation;
 	private UUID utilisateur;
 	private UUID client;
+	private List<String> medias = Lists.newArrayList();
 
 }

@@ -23,10 +23,24 @@ public class ConstatTest {
 	}
 	
 	@Test
-	public void peutDonnerUneAdresse() {
+	public void peutDonnerUneAdresse1() {
 		Constat constat = FakeFabriqueConstat.nouveau();
 		
-		assertThat(constat.getAdresse()).isEqualTo("1 rue du Bordel");
+		assertThat(constat.getAdresse1()).isEqualTo("1 rue du Bordel");
+	}
+	
+	@Test
+	public void peutDonnerUneAdresse2() {
+		Constat constat = FakeFabriqueConstat.nouveau();
+		
+		assertThat(constat.getAdresse2()).isEqualTo("bis");
+	}
+	
+	@Test
+	public void peutDonnerUnCodePostal() {
+		Constat constat = FakeFabriqueConstat.nouveau();
+		
+		assertThat(constat.getCodePostal()).isEqualTo("87000");
 	}
 	
 	@Test
@@ -57,6 +71,15 @@ public class ConstatTest {
 		Constat constat = FakeFabriqueConstat.nouveau();
 		
 		assertThat(constat.getClient()).isNotNull();
+	}
+	
+	@Test
+	public void peutDonnerUneListeDeMedias() {
+		Constat constat = FakeFabriqueConstat.nouveau();
+		
+		assertThat(constat.getMedias()).isNotNull();
+		assertThat(constat.getMedias()).hasSize(1);
+		assertThat(constat.getMedias().get(0)).isEqualTo("\\\\medias\\audio.mp3");
 	}
 	
 }

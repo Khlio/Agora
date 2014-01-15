@@ -2,7 +2,6 @@ package fr.epsi.agora.web.ressource.societe;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import org.restlet.data.CookieSetting;
 import org.restlet.data.Form;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
@@ -11,7 +10,6 @@ import org.restlet.resource.ServerResource;
 
 import com.google.inject.Inject;
 
-import fr.epsi.agora.Constante;
 import fr.epsi.agora.domaine.validateur.EmailValidateur;
 import fr.epsi.agora.domaine.validateur.Erreur;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
@@ -38,12 +36,8 @@ public class ConnexionUtilisateurRessource extends ServerResource {
 			checkNotNull(details);
 			
 			Session.ajoute(details.getId());
-			CookieSetting cookie = new CookieSetting(1, Constante.SESSION_COOKIE, details.getId());
-			cookie.setPath("/");
-			cookie.setAccessRestricted(true);
-			getCookieSettings().add(cookie);
 			setStatus(Status.SUCCESS_ACCEPTED);
-			return ReponseRessource.OK;
+			return ReponseRessource.get(details.getId());
 		} catch (NullPointerException npe) {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 			return ReponseRessource.get(Erreur.IDENTIFIANTS_INTROUVABLE);

@@ -14,11 +14,14 @@ public class ConstatMapping extends AggregateMap<Constat> {
 	public void map() {
 		id().onProperty(element().getId()).natural();
 		property().onField("nom");
-		property().onField("adresse");
+		property().onField("adresse1");
+		property().onField("adresse2");
+		property().onField("codePostal");
 		property().onField("date");
 		property().onField("geolocalisation");
 		property().onField("utilisateur");
 		property().onField("client");
+		collection().onField("medias");
 	}
 
 }

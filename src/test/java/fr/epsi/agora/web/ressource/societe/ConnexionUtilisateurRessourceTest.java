@@ -9,17 +9,14 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.restlet.data.CookieSetting;
 import org.restlet.data.Form;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
-import fr.epsi.agora.Constante;
 import fr.epsi.agora.domaine.validateur.Erreur;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
-import fr.epsi.agora.web.ressource.ReponseRessource;
 import fr.epsi.agora.web.ressource.RessourceHelper;
 
 public class ConnexionUtilisateurRessourceTest {
@@ -46,13 +43,7 @@ public class ConnexionUtilisateurRessourceTest {
 		
 		assertThat(Session.get(details.getId()).isPresent()).isTrue();
 		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
-		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
-		assertThat(ressource.getCookieSettings()).hasSize(1);
-		CookieSetting cookie = ressource.getCookieSettings().get(0);
-		assertThat(cookie).isNotNull();
-		assertThat(cookie.getName()).isEqualTo(Constante.SESSION_COOKIE);
-		assertThat(cookie.getValue()).isEqualTo(details.getId());
-		assertThat(cookie.getMaxAge()).isEqualTo(-1);
+		assertThat(represente.getText()).isEqualTo(details.getId());
 	}
 	
 	@Test
@@ -72,7 +63,6 @@ public class ConnexionUtilisateurRessourceTest {
 		assertThat(Session.get(details.getId()).isPresent()).isFalse();
 		assertThat(ressource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
 		assertThat(represente.getText()).isEqualTo(Erreur.IDENTIFIANTS_INTROUVABLE);
-		assertThat(ressource.getCookieSettings()).isEmpty();
 	}
 	
 	@Test

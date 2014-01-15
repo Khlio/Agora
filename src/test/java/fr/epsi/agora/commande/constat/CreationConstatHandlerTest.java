@@ -23,7 +23,7 @@ public class CreationConstatHandlerTest extends HandlerCommandeRegle {
 		Entrepots.utilisateurs().ajoute(utilisateur);
 		Client client = FakeFabriqueClient.nouveau();
 		Entrepots.clients().ajoute(client);
-		CreationConstatMessage commande = new CreationConstatMessage("Tout cassé", "1 rue du Bordel", DateTime.now(), "", utilisateur.getId(), client.getId());
+		CreationConstatMessage commande = new CreationConstatMessage("Tout cassé", "1 rue du Bordel", "bis", "87000", DateTime.now(), "", utilisateur.getId(), client.getId(), null);
 		
 		UUID idConstat = new CreationConstatHandler().execute(commande);
 		
@@ -31,6 +31,9 @@ public class CreationConstatHandlerTest extends HandlerCommandeRegle {
 		Constat constat = Entrepots.constats().get(idConstat).orNull();
 		assertThat(constat).isNotNull();
 		assertThat(constat.getNom()).isEqualTo("Tout cassé");
+		assertThat(constat.getAdresse1()).isEqualTo("1 rue du Bordel");
+		assertThat(constat.getAdresse2()).isEqualTo("bis");
+		assertThat(constat.getCodePostal()).isEqualTo("87000");
 		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
 		assertThat(constat.getUtilisateur()).isEqualTo(utilisateur.getId());

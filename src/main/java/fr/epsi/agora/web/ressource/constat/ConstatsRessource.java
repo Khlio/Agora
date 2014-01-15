@@ -1,25 +1,30 @@
 package fr.epsi.agora.web.ressource.constat;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.joda.time.DateTime;
 import org.restlet.data.Status;
 import org.restlet.ext.fileupload.RestletFileUpload;
-import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
+import com.google.common.collect.Lists;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
 
 import fr.epsi.agora.commande.BusCommande;
+import fr.epsi.agora.commande.constat.CreationConstatMessage;
 import fr.epsi.agora.requete.constat.RechercheConstats;
 import fr.epsi.agora.web.Session;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 
 public class ConstatsRessource extends ServerResource {
 
@@ -43,29 +48,65 @@ public class ConstatsRessource extends ServerResource {
 	@Get("json")
 	public Representation represente() {
 		if (isCommitted()) {
-			return new JacksonRepresentation<>(null);
+			return ReponseRessource.NON_CONNECTE;
 		}
-		return new JacksonRepresentation<>(recherche.tousDunUtilisateur(UUID.fromString(session.getNom())));
+		try {
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.json(recherche.tousDunUtilisateur(UUID.fromString(session.getNom())));
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	@Post
-	public void cree(Representation representation) throws FileUploadException, IOException {
+	public Representation cree(Representation representation) {
 		if (isCommitted()) {
-			return;
+			return ReponseRessource.NON_CONNECTE;
 		}
-		RestletFileUpload upload = new RestletFileUpload(new DiskFileItemFactory());
-		List<FileItem> fichiers = upload.parseRepresentation(representation);
-		for (FileItem fichier : fichiers) {
-			if (fichier.isFormField()) {
-				fichier.getFieldName(); //TODO alimenter la commande avec les champs du formulaire
-			} else {
-				fichier.getInputStream(); //TODO mettre le fichier en base
+		String nom = null;
+		String adresse1 = null;
+		String adresse2 = null;
+		String codePostal = null;
+		String geolocalisation = "";
+		String idClient = null;
+		try {
+			RestletFileUpload upload = new RestletFileUpload(new DiskFileItemFactory());
+			List<FileItem> fichiers = upload.parseRepresentation(representation);
+			List<String> medias = Lists.newArrayList();
+			for (FileItem fichier : fichiers) {
+				if (fichier.isFormField()) {
+					String champ = fichier.getFieldName();
+					BufferedReader buffer = new BufferedReader(new InputStreamReader(fichier.getInputStream()));
+					String ligne = buffer.readLine();
+					if (champ.equalsIgnoreCase("nom")) {
+						nom = ligne;
+					} else if (champ.equalsIgnoreCase("adresse1")) {
+						adresse1 = ligne;
+					} else if (champ.equalsIgnoreCase("adresse2")) {
+						adresse2 = ligne;
+					} else if (champ.equalsIgnoreCase("geolocalisation")) {
+						geolocalisation = ligne;
+					} else if (champ.equalsIgnoreCase("instantSearch")) {
+						idClient = ligne;
+					} else if (champ.equalsIgnoreCase("codePostal")) {
+						codePostal = ligne;
+					}
+				} else {
+					if (0 < fichier.getInputStream().available()) {
+						medias.add(fichier.getName()); // TODO Enregistrer le fichier sur le cloud
+					}
+				}
 			}
+			CreationConstatMessage commande = new CreationConstatMessage(nom, adresse1, adresse2, codePostal, DateTime.now(), geolocalisation,
+					UUID.fromString(session.getNom()), UUID.fromString(idClient), medias);
+			ListenableFuture<UUID> idConstat = busCommande.envoie(commande);
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.get(Futures.getUnchecked(idConstat).toString());
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
 		}
-		/*CreationConstatMessage commande = new CreationConstatMessage(formulaire.getFirstValue("nom"), formulaire.getFirstValue("adresse"), DateTime.now(),
-				formulaire.getFirstValue("geolocalisation"), UUID.fromString(session.getNom()), UUID.fromString(formulaire.getFirstValue("client")));*/
-		//ListenableFuture<UUID> idConstat = busCommande.envoie(commande);
-		//redirectSeeOther("../constat.html?constat=" + Futures.getUnchecked(idConstat));
 	}
 	
 	private BusCommande busCommande;

@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.restlet.data.Form;
 import org.restlet.data.Status;
-import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
@@ -19,6 +18,7 @@ import fr.epsi.agora.commande.constat.SuppressionConstatMessage;
 import fr.epsi.agora.requete.constat.DetailsConstat;
 import fr.epsi.agora.requete.constat.RechercheConstats;
 import fr.epsi.agora.web.Session;
+import fr.epsi.agora.web.ressource.ReponseRessource;
 
 public class ConstatRessource extends ServerResource {
 
@@ -42,28 +42,46 @@ public class ConstatRessource extends ServerResource {
 	
 	@Get("json")
 	public Representation represente() {
-		return new JacksonRepresentation<>(constat);
+		try {
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.json(constat);
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	@Put
-	public void modifie(Form formulaire) {
+	public Representation modifie(Form formulaire) {
 		if (isCommitted()) {
-			return;
+			return ReponseRessource.NON_CONNECTE;
 		}
-		ModificationConstatMessage commande = new ModificationConstatMessage(UUID.fromString(constat.getId()), formulaire.getFirstValue("nom"),
-				formulaire.getFirstValue("adresse"));
-		busCommande.envoie(commande);
-		setStatus(Status.SUCCESS_ACCEPTED);
+		try {
+			ModificationConstatMessage commande = new ModificationConstatMessage(UUID.fromString(constat.getId()), formulaire.getFirstValue("nom"),
+					formulaire.getFirstValue("adresse1"), formulaire.getFirstValue("adresse2"), formulaire.getFirstValue("codePostal"));
+			busCommande.envoie(commande);
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.OK;
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	@Delete
-	public void supprime() {
+	public Representation supprime() {
 		if (isCommitted()) {
-			return;
+			return ReponseRessource.NON_CONNECTE;
 		}
-		SuppressionConstatMessage commande = new SuppressionConstatMessage(UUID.fromString(constat.getId()));
-		busCommande.envoie(commande);
-		setStatus(Status.SUCCESS_ACCEPTED);
+		try {
+			SuppressionConstatMessage commande = new SuppressionConstatMessage(UUID.fromString(constat.getId()));
+			busCommande.envoie(commande);
+			setStatus(Status.SUCCESS_ACCEPTED);
+			return ReponseRessource.OK;
+		} catch (Exception e) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.ERREUR;
+		}
 	}
 	
 	private BusCommande busCommande;

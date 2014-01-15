@@ -23,7 +23,7 @@
 
             // 2
             var name = $(this).find("legend").html();
-            $("#steps").append("<li id='stepDesc" + i + "'class='col-md-3 col-lg-3 col-xs-3'>étape " + (i + 1) + "<span class=''>" + name + "</span></li>");
+            $("#steps").append("<li id='stepDesc" + i + "'class='col-md-3 col-lg-3 col-xs-3'>Etape " + (i + 1) + "<span class=''>" + name + "</span></li>");
 
             if (i == 0) {
                 createNextButton(i);
@@ -42,7 +42,7 @@
 
         function createPrevButton(i) {
             var stepName = "steps" + i;
-            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='btn btn-default btn-xs pull-left ButtonForm'>< Precedent</a>");
+            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='btn btn-default btn-xs pull-left ButtonForm'>< Pr&eacute;c&eacute;dent</a>");
 
             $("#" + stepName + "Prev").bind("click", function(e) {
                 $("#" + stepName).hide();
