@@ -42,7 +42,7 @@ function valider(formulaire){
 		return false;
 	}
 	if(MDP.length<8){
-		alert('Votre mot de passe doit contenir au moins huit caractè');
+		alert('Votre mot de passe doit contenir au moins huit caractères');
 		return false;
 	}
 	

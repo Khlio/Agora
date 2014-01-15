@@ -9,11 +9,9 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.restlet.data.CookieSetting;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
-import fr.epsi.agora.Constante;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
@@ -33,12 +31,10 @@ public class DeconnexionUtilisateurRessourceTest {
 	public void peutDeconnecterLUtilisateur() throws IOException {
 		DetailsUtilisateur details = laRechercheRetourne();
 		initialiseRessource(details);
-		ressource.getCookieSettings().add(new CookieSetting(Constante.SESSION_COOKIE, details.getId()));
 		
 		Representation represente = ressource.deconnecte();
 		
 		assertThat(Session.get(details.getId()).isPresent()).isFalse();
-		assertThat(ressource.getCookieSettings().get(0).getMaxAge()).isEqualTo(0);
 		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());
 	}

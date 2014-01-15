@@ -9,7 +9,6 @@ import org.restlet.resource.ServerResource;
 
 import com.google.inject.Inject;
 
-import fr.epsi.agora.Constante;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
 import fr.epsi.agora.web.Session;
@@ -31,7 +30,6 @@ public class DeconnexionUtilisateurRessource extends ServerResource {
 	@Post
 	public Representation deconnecte() {
 		try {
-			getCookieSettings().getFirst(Constante.SESSION_COOKIE).setMaxAge(0);
 			Session.supprime(utilisateur.getId());
 			setStatus(Status.SUCCESS_ACCEPTED);
 			return ReponseRessource.OK;
