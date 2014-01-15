@@ -108,20 +108,6 @@ public class SocieteRessourceTest {
 	}
 	
 	@Test
-	public void peutVerifierQueLeMotDePasseEstInvalide() throws IOException {
-		DetailsSociete details = laRechercheRetourne();
-		initialiseRessource(details);
-		Form formulaire = new Form();
-		formulaire.add("email", "a@a.com");
-		formulaire.add("motDePasse", "Azerty1");
-		
-		Representation represente = ressource.ajouteUtilisateur(formulaire);
-		
-		assertThat(ressource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
-		assertThat(represente.getText()).isEqualTo(Erreur.MOT_DE_PASSE_INVALIDE);
-	}
-	
-	@Test
 	public void peutVerifierQueLeTelephoneEstInvalide() throws IOException {
 		DetailsSociete details = laRechercheRetourne();
 		initialiseRessource(details);

@@ -10,7 +10,6 @@ import org.restlet.resource.ServerResource;
 
 import com.google.inject.Inject;
 
-import fr.epsi.agora.Constante;
 import fr.epsi.agora.domaine.MD5;
 import fr.epsi.agora.domaine.validateur.EmailValidateur;
 import fr.epsi.agora.domaine.validateur.Erreur;
@@ -34,7 +33,7 @@ public class ConnexionUtilisateurRessource extends ServerResource {
 			return ReponseRessource.get(erreurEmail.premiereErreur());
 		}
 		try {
-			String motDePasseCrypte = MD5.crypte(Constante.CLE_CRYPTAGE + formulaire.getFirstValue("motDePasse"));
+			String motDePasseCrypte = MD5.crypteAvecCle(formulaire.getFirstValue("motDePasse"));
 			DetailsUtilisateur details = recherche.detailsDe(formulaire.getFirstValue("email"), motDePasseCrypte);
 			checkNotNull(details);
 			

@@ -13,6 +13,7 @@ import org.restlet.data.Form;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
+import fr.epsi.agora.domaine.MD5;
 import fr.epsi.agora.domaine.validateur.Erreur;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheUtilisateurs;
@@ -33,7 +34,7 @@ public class ConnexionUtilisateurRessourceTest {
 		DetailsUtilisateur details = new DetailsUtilisateur();
 		details.setId(UUID.randomUUID().toString());
 		details.setEmail("a@a.com");
-		details.setMotDePasse("pass");
+		details.setMotDePasse(MD5.crypteAvecCle("pass"));
 		when(recherche.detailsDe(details.getEmail(), details.getMotDePasse())).thenReturn(details);
 		Form formulaire = new Form();
 		formulaire.add("email", "a@a.com");

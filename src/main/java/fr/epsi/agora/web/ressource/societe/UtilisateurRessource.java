@@ -13,7 +13,6 @@ import org.restlet.resource.ServerResource;
 
 import com.google.inject.Inject;
 
-import fr.epsi.agora.Constante;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
@@ -80,7 +79,7 @@ public class UtilisateurRessource extends ServerResource {
 			return ReponseRessource.get(erreurTelephone.premiereErreur());
 		}
 		try {
-			String motDePasseCrypte = MD5.crypte(Constante.CLE_CRYPTAGE + formulaire.getFirstValue("motDePasse"));
+			String motDePasseCrypte = MD5.crypteAvecCle(formulaire.getFirstValue("motDePasse"));
 			ModificationUtilisateurMessage commande = new ModificationUtilisateurMessage(UUID.fromString(utilisateur.getId()), formulaire.getFirstValue("nom"),
 					formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), motDePasseCrypte, formulaire.getFirstValue("adresse"),
 					formulaire.getFirstValue("codePostal"), formulaire.getFirstValue("telephone"));

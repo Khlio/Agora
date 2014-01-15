@@ -19,6 +19,7 @@ import org.restlet.representation.Representation;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
+import fr.epsi.agora.domaine.MD5;
 import fr.epsi.agora.requete.societe.DetailsSociete;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
@@ -69,7 +70,7 @@ public class UtilisateurRessourceTest {
 		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.nom).isEqualTo(details.getNom());
 		assertThat(commande.email).isEqualTo("b@b.com");
-		assertThat(commande.motDePasse).isEqualTo("Azerty1=");
+		assertThat(commande.motDePasse).isEqualTo(MD5.crypteAvecCle("Azerty1="));
 		assertThat(commande.telephone).isEqualTo("0607080910");
 		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);
 		assertThat(represente.getText()).isEqualTo(ReponseRessource.OK.toString());

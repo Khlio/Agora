@@ -6,6 +6,8 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 
+import fr.epsi.agora.Constante;
+
 public class MD5 {
 
 	private MD5() {
@@ -29,6 +31,10 @@ public class MD5 {
 			}
 		}
 		return md5.toString();
+	}
+	
+	public static String crypteAvecCle(final String chaine) {
+		return crypte(Constante.CLE_CRYPTAGE + chaine);
 	}
 	
 }
