@@ -83,25 +83,24 @@
                         <label for='Nom' class='col-lg-7 col-sm-7 col-xs-7'>Nom</label>
                         <input type='text' class='form control' id='nom' name="nom" placeholder='' required='true' />
                     </div>
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='Prenom' class='col-lg-7 col-sm-7 col-xs-7'>Pr&eacute;nom</label>
                             <input type='text' class='form control' id='prenom' name="prenom" placeholder='' required='true' />
                         </div>
-
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='dateNaissance' class='col-lg-7 col-sm-7 col-xs-7'>Date de naissance</label>
-                            <input type='date' class='form control ' id='dateNaissance' name="dateNaissance" placeholder='' required='true' />
+                            <input type='date' class='form control ' id='dateDeNaissance' name="dateDeNaissance" placeholder='' required='true' />
                         </div>
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='lieuNaissance' class='col-lg-7 col-sm-7 col-xs-7'>Lieu de naissance</label>
-                            <input type='text' class='form control'  id='lieuNaissance' name="lieuNaissance" placeholder='' required='true' />
+                            <input type='text' class='form control'  id='lieuDeNaissance' name="lieuDeNaissance" placeholder='' required='true' />
                         </div>
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='nationalite' class='col-lg-7 col-sm-7 col-xs-7'>Nationalit&eacute;</label>
                             <input type='text' class='form control ' id='nationalite' name="nationalite" placeholder='' required='true' />
                         </div>
-                        <div class='form-group'>
-                            <label for='metier' class='col-lg-7 col-sm-7 col-xs-7'>Nationalit&eacute;</label>
+                        <div class='form-group PaddingEsc'>
+                            <label for='metier' class='col-lg-7 col-sm-7 col-xs-7'>M&eacute;tier</label>
                             <input type='text' class='form control ' id='metier' name="metier" placeholder='' required='true' />
                         </div>
                     </div>
@@ -122,12 +121,12 @@
                             <label for='adresse1' class='col-lg-7 col-sm-7 col-xs-7'>Adresse</label>
                             <input type='text' class='form control' id='adresse1' name="adresse1" placeholder='' required='true' />
                         </div>
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='adresse2' class='col-lg-7 col-sm-7 col-xs-7'>Adresse 2</label>
-                            <input type='text' class='form control' id='adresse2' name="adresse2" placeholder='' required='true' />
+                            <input type='text' class='form control' id='adresse2' name="adresse2" placeholder='' />
                         </div>
 
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='codePostal' class='col-lg-7 col-sm-7 col-xs-7'>Code postal</label>
                             <input type='text' class='form control ' id='codePostal' name="codePostal" placeholder='' required='true' />
                         </div>
@@ -149,14 +148,14 @@
                             <label for='email' class='col-lg-7 col-sm-7 col-xs-7'>Email</label>
                             <input type='text' class='form control' id='email' name="email" placeholder='' required='true' />
                         </div>
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='telPortable' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone portable</label>
-                            <input type='text' class='form control' id='telPortable' name="telPortable" placeholder='' required='true' />
+                            <input type='text' class='form control' id='telephonePortable' name="telephonePortable" placeholder='' required='true' />
                         </div>
 
-                        <div class='form-group'>
+                        <div class='form-group PaddingEsc'>
                             <label for='telFixe' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone fixe</label>
-                            <input type='text' class='form control ' id='telFixe' name="telFixe" placeholder='' />
+                            <input type='text' class='form control ' id='telephoneFixe' name="telephoneFixe" placeholder='' />
                         </div>
                     </div>
                 </div>
@@ -194,27 +193,20 @@
         digits: "Veuillez insérer des chiffres",
         maxlength: jQuery.validator.format("Veuillez insérer au maximum {0} caractères."),
         minlength: jQuery.validator.format("Veuillez insérer au minimum {0} caractères."),
-        date: jQuery.validator.format("Veuillez insérer une date valide (mm/jj/aa)")
+        date: jQuery.validator.format("Veuillez insérer une date valide (mm/jj/aaaa)")
     });
 
     jQuery.validator.addMethod("myPhoneNumberValidator", function(value, element) {
-        // no phone number is a good phone number (the field is optional)
-        if (value.length == 0) { return true; }
-        // if the phone number field is not empty, it has to follow the fixed format
-        if(!/^33 \(0\)\d \d\d \d\d \d\d \d\d$/i.test(value)) {
-            // ten digits starting with zero
-            if (/^0(\d)(\d\d)(\d\d)(\d\d)(\d\d)$/.test(value)) {
-                value = value.replace(/^0(\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, "33 (0)$1 $2 $3 $4 $5");
-                $(element).val(value); // also update the form element
-                return true;
-            }
+        var reg = new RegExp("^0[1-9]([-. ]?[0-9]{2}){4}$");
+        if (reg.test(value)) {
+            return true;
         }
-        return /^33 \(0\)\d \d\d \d\d \d\d \d\d$/i.test(value);
+        return false;
     }, 'Veuillez entrer votre numéro de téléphone dans le format suivant: <i>0123456789</i>');
 
     $( "#SignupForm" ).validate({
         rules: {
-            dateNaissance:
+            dateDeNaissance:
             {
                 required: true
             },
@@ -230,8 +222,8 @@
                 minlength: 5,
                 maxlength: 5
             },
-            telPortable:"myPhoneNumberValidator",
-            telFixe:"myPhoneNumberValidator"
+            telephonePortable:"myPhoneNumberValidator",
+            telephoneFixe:"myPhoneNumberValidator"
         },
         highlight: function(label) {
             $(label).closest('.control-group').removeClass('success').addClass('error');

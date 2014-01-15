@@ -87,7 +87,7 @@ public class ConstatsRessource extends ServerResource {
 						adresse2 = ligne;
 					} else if (champ.equalsIgnoreCase("geolocalisation")) {
 						geolocalisation = ligne;
-					} else if (champ.equalsIgnoreCase("instantSearch")) {
+					} else if (champ.equalsIgnoreCase("clientChoice")) {
 						idClient = ligne;
 					} else if (champ.equalsIgnoreCase("codePostal")) {
 						codePostal = ligne;

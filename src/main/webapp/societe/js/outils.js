@@ -18,20 +18,29 @@ var outils = {
 		$.ajax({
             type: typeRequest,
             url: url,
-			data: datas
-        }).done( function(donnees) {
-            if (callback != undefined) {
-                callback(donnees);
-        	}
-        }).fail (function(erreur) {
-            $( "#dialog-message" ).dialog({
-                modal: true,
-                buttons: {
-                    Ok: function() {
-                        $( this ).dialog( "close" );
+			data: datas,
+            success: function(donnees) {
+                if (callback != undefined) {
+                    callback(donnees);
+            	}
+            },
+			error: function(erreur) {
+				var dialogue = $( "#dialog-message" );
+				dialogue.removeClass("fade");
+				dialogue.empty();
+				dialogue.append(erreur.responseText);
+				dialogue.dialog({
+                    modal: true,
+                    title: erreur.statusText,
+                    buttons: {
+
+                        Ok: function() {
+                            $( this ).dialog( "close" );
+                        }
                     }
-                }
-            });
-		});
+                });
+
+			}
+        });
 	}
 };

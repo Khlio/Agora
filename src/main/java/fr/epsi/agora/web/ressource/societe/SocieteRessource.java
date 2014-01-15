@@ -23,7 +23,6 @@ import fr.epsi.agora.commande.societe.SuppressionSocieteMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
 import fr.epsi.agora.domaine.validateur.EmailValidateur;
 import fr.epsi.agora.domaine.validateur.Erreur;
-import fr.epsi.agora.domaine.validateur.MotDePasseValidateur;
 import fr.epsi.agora.domaine.validateur.TelephoneValidateur;
 import fr.epsi.agora.requete.constat.DetailsConstat;
 import fr.epsi.agora.requete.constat.RechercheConstats;
@@ -69,11 +68,6 @@ public class SocieteRessource extends ServerResource {
 		if (erreurEmail.aDesErreurs()) {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 			return ReponseRessource.get(erreurEmail.premiereErreur());
-		}
-		Erreur erreurMotDePasse = MotDePasseValidateur.valide(formulaire.getFirstValue("motDePasse"));
-		if (erreurMotDePasse.aDesErreurs()) {
-			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-			return ReponseRessource.get(erreurMotDePasse.premiereErreur());
 		}
 		Erreur erreurTelephone = TelephoneValidateur.valide(formulaire.getFirstValue("telephone"));
 		if (erreurTelephone.aDesErreurs()) {

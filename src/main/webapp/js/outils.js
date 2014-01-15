@@ -1,5 +1,6 @@
 var outils = {
 	url:'rest',
+    cookie:$.cookie("bouh"),
     ajaxRequest: function(url, callback) {
         $.ajax({
             type: "GET",
@@ -25,8 +26,13 @@ var outils = {
             	}
             },
 			error: function(erreur) {
-                $( "#dialog-message" ).dialog({
+				var dialogue = $( "#dialog-message" );
+				dialogue.removeClass("fade");
+				dialogue.empty();
+				dialogue.append(erreur.responseText);
+				dialogue.dialog({
                     modal: true,
+                    title: erreur.statusText,
                     buttons: {
 
                         Ok: function() {

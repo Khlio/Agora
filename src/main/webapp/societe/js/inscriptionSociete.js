@@ -7,5 +7,10 @@ function valider(formulaire){
 		alert('Le numero de siret est invalide');
 		return false;
 	}
-	return true;
+	
+	outils.ajaxRequestPlus((outils.url+'/societes'),"POST",$('#inscriptionSociete').serialize(),function(idSociete){
+		document.location.href="societe.html?id="+idSociete;
+	});
+	
+	return false;
 }

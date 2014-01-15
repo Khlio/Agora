@@ -10,12 +10,12 @@
     <title>Agora</title>
     <meta name="description" content="">
 
+    <link rel="stylesheet" href="http://jquery.bassistance.de/validate/demo/site-demos.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/formulaire.css">
-    <link rel="stylesheet" href="http://jquery.bassistance.de/validate/demo/site-demos.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
 
     <style>
@@ -90,7 +90,7 @@
                             </select>
                         </div>
                         <div class="PaddingEsc">
-                            <button type="button" class="btn btn-primary col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">Ajouter un client</button>
+                            <button onclick="window.location.replace('formulaireClient.html')" type="button" class="btn btn-primary col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">Ajouter un client</button>
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                         </div>
                         <div class='form-group'>
                             <label for="adresse2" class="col-lg-4">Adresse 2</label>
-                            <input type='text' class='form control' id='adresse2' name="adresse2" placeholder='Ins&eacute;rer votre adresse' required='true' />
+                            <input type='text' class='form control' id='adresse2' name="adresse2" placeholder='Ins&eacute;rer votre adresse' />
                         </div>
                         <div class='form-group'>
                             <label for="codePostal" class="col-lg-4">Code postal</label>
@@ -166,7 +166,7 @@
                      <div class='panel-body'>
                         <div class='PaddingEsc'></div>
                         <div class='browse-wrap'>
-                            <span class="help-block">Fichier annexe (description d'un lieu, photo, etc.)</span>
+                            <span class="help-block">Fichier annexe (description audio d'un lieu, photo, etc.)</span>
                           <div class='title'>Ajouter un document</div>
                             <input type='file' name='uploadAnomalie' id='uploadAnomalie' class='upload' title='Choissisez un fichier' multiple='true' onchange='ShowFileUpload()'>
                           </div>
@@ -198,7 +198,9 @@
 <script src="js/main.js"></script>
 <script src="js/formToWizard.js"></script>
 <script src="js/formulaire.js"></script>
+<script src="js/listeClientFormulaire.js"></script>
 <script src="js/outils.js"></script>
+
 
 <script>
     jQuery.validator.setDefaults({
@@ -220,10 +222,6 @@
                 required:true
             },
             adresse1:
-            {
-                required:true
-            },
-            adresse2:
             {
                 required:true
             },

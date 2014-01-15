@@ -8,7 +8,9 @@
  
 <!-- StyleSheet -->
 <link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/login.css" />	
+<link rel="stylesheet" href="css/login.css" />
+<link rel="stylesheet" href="http://jquery.bassistance.de/validate/demo/site-demos.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 </head>
  
 <body>
@@ -32,7 +34,7 @@
                         <h4 class="panel-title"><strong>Se connecter</strong></h4>
                     </div>
 				<div class="panel-body">
-					<form class="form-horizontal" action="rest/connexion" method="POST" role="form" onsubmit="return valider(this)">
+					<form id="SignupForm"" class="form-horizontal" role="form">
 						<div class="row col-lg-10 col-md-10">
 							<div class="form-group">
 								<input type="email" name="email" class="form-control" placeholder="Email" required />
@@ -44,7 +46,7 @@
 						<div class="row"></div>
 						<div class="row col-lg-1">
 							<div class="form-group">
-								<button type="submit" class="btn btn-success btn-sm">Connexion</button>
+								<button type="submit" class="btn btn-success btn-sm" onclick="SignUp()">Connexion</button>
 							</div>
 						</div>
 					</form>
@@ -57,7 +59,52 @@
 </section>
 <!-- Main Container Ends -->
  
+ <div id="dialog-message" class="modal fade" title="Une erreur est survenue">
+
+</div>
+ 
 <!-- JavaScript -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
+<script src="js/lib/jquery.cookie.js"></script>
+<script src="js/outils.js"></script>
+<script src="js/login.js"></script>
+
+<script>
+jQuery.validator.setDefaults({
+debug: true,
+success: "valid"
+});
+
+jQuery.extend(jQuery.validator.messages, {
+required: "Champ requis",
+});
+
+$( "#SignupForm" ).validate({
+rules: {
+email:
+{
+    required:true,
+    email:true
+},
+MotDePasse:
+{
+        required:true
+}
+},
+highlight: function(label) {
+$(label).closest('.control-group').removeClass('success').addClass('error');
+},
+success: function(label) {
+label
+.text('OK!').addClass('valid')
+.closest('.control-group').removeClass('error').addClass('success');
+}
+});
+</script>
+
+
 </body>
 </html>

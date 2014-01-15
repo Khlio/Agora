@@ -16,17 +16,23 @@ $(document).ready
 //appel ajax pour le submit du client
 function SubmitClient()
 {
-    outils.ajaxRequestPlus((outils.url+'/utilisateurs/' + $.cookie('bouh') + '/clients',"PUT",$("#SignupForm").serialize(),function(donnees){
-        document.location.href= "formulaire.html";
-    }));
+	if($("#SignupForm").valid())
+    {
+	    outils.ajaxRequestPlus(outils.url+'/utilisateurs/' + outils.cookie + '/clients',"PUT",$("#SignupForm").serialize(),function(donnees){
+	        document.location.href= "formulaire.html";
+	    });
+    }
 }
 
 //appel ajax pour le submit du constat
 function SubmitConstat()
 {
-    outils.ajaxRequestPlus((outils.url+'/utilisateurs/' + $.cookie('bouh') + '/constats',"PUT",$("#SignupForm").serialize(),function(donnees){
-        document.location.href= "index.html";
-    }));
+	if($("#SignupForm").valid())
+    {
+	    outils.ajaxRequestPlus(outils.url+'/utilisateurs/' + outils.cookie + '/constats',"POST",$("#SignupForm").serialize(),function(donnees){
+	        document.location.href= "index.html";
+	    });
+    }
 }
 
 //permet d'afficher dynamiquement les fichier ajoutée par le file input (client description)
