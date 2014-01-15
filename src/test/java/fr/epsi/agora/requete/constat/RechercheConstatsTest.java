@@ -30,7 +30,7 @@ public class RechercheConstatsTest {
 	public void peutRecupererTousLesConstatsDunUtilisateur() {
 		UUID idUtilisateur = UUID.randomUUID();
 		jongo.getCollection("constat").insert("{nom: 'Tout cassé', adresse1: '1 rue du Bordel', codePostal: '87000', date: #, geolocalisation: '', "
-				+ "utilisateur: {_id: #}}", DateTime.now().getMillis(), idUtilisateur);
+				+ "utilisateur: #}", DateTime.now().getMillis(), idUtilisateur);
 		jongo.getCollection("constat").insert("{nom: 'test'}");
 		RechercheConstats recherche = new RechercheConstats(jongo);
 		
@@ -45,15 +45,14 @@ public class RechercheConstatsTest {
 		assertThat(constat.getCodePostal()).isEqualTo("87000");
 		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
-		assertThat(constat.getUtilisateur()).isNotNull();
-		assertThat(constat.getUtilisateur().getId()).isEqualTo(idUtilisateur.toString());
+		assertThat(constat.getUtilisateur()).isEqualTo(idUtilisateur.toString());
 	}
 	
 	@Test
 	public void peutRecupererTousLesConstatsDunClient() {
 		UUID idClient = UUID.randomUUID();
 		jongo.getCollection("constat").insert("{nom: 'Tout cassé', adresse1: '1 rue du Bordel', codePostal: '87000', date: #, geolocalisation: '', "
-				+ "client: {_id: #}}", DateTime.now().getMillis(), idClient);
+				+ "client: #}", DateTime.now().getMillis(), idClient);
 		jongo.getCollection("constat").insert("{nom: 'test'}");
 		RechercheConstats recherche = new RechercheConstats(jongo);
 		
@@ -68,15 +67,16 @@ public class RechercheConstatsTest {
 		assertThat(constat.getCodePostal()).isEqualTo("87000");
 		assertThat(constat.getDate()).isNotNull();
 		assertThat(constat.getGeolocalisation()).isEqualTo("");
-		assertThat(constat.getClient()).isNotNull();
-		assertThat(constat.getClient().getId()).isEqualTo(idClient.toString());
+		assertThat(constat.getClient()).isEqualTo(idClient.toString());
 	}
 	
 	@Test
 	public void peutRecupererUnConstat() {
 		UUID idConstat = UUID.randomUUID();
+		UUID idUtilisateur = UUID.randomUUID();
+		UUID idClient = UUID.randomUUID();
 		jongo.getCollection("constat").insert("{_id: #, nom: 'Tout cassé', adresse1: '1 rue du Bordel', adresse2: 'bis', codePostal: '87000', date: #, geolocalisation: '', "
-				+ "utilisateur: {nom: 'Levacher', prenom: 'Vincent'}, client: {nom: 'Saban', prenom: 'JR'}, medias: ['\\\\medias\\audio.mp3']}", idConstat, DateTime.now().getMillis());
+				+ "utilisateur: #, client: #, medias: ['\\\\medias\\audio.mp3']}", idConstat, DateTime.now().getMillis(), idUtilisateur, idClient);
 		RechercheConstats recherche = new RechercheConstats(jongo);
 		
 		DetailsConstat details = recherche.detailsDe(idConstat);
@@ -86,14 +86,10 @@ public class RechercheConstatsTest {
 		assertThat(details.getAdresse1()).isEqualTo("1 rue du Bordel");
 		assertThat(details.getAdresse2()).isEqualTo("bis");
 		assertThat(details.getCodePostal()).isEqualTo("87000");
-		assertThat(details.getDate()).isNotNull();
+		assertThat(details.getDate()).isEqualTo(DateTime.now().getDayOfMonth() + "-" + DateTime.now().getMonthOfYear() + "-" + DateTime.now().getYear());
 		assertThat(details.getGeolocalisation()).isEqualTo("");
-		assertThat(details.getUtilisateur()).isNotNull();
-		assertThat(details.getUtilisateur().getNom()).isEqualTo("Levacher");
-		assertThat(details.getUtilisateur().getPrenom()).isEqualTo("Vincent");
-		assertThat(details.getClient()).isNotNull();
-		assertThat(details.getClient().getNom()).isEqualTo("Saban");
-		assertThat(details.getClient().getPrenom()).isEqualTo("JR");
+		assertThat(details.getUtilisateur()).isEqualTo(idUtilisateur.toString());
+		assertThat(details.getClient()).isEqualTo(idClient.toString());
 		assertThat(details.getMedias()).hasSize(1);
 	}
 	

@@ -10,6 +10,10 @@ window.onload = VerifCookie();
         }
         else
         {
-            $('body').removeClass("hidden");
+        	outils.ajaxRequestErreur(outils.url + '/utilisateurs/' + outils.cookie, function(donnees) {
+        		$('body').removeClass("hidden");
+    	    }, function(erreur) {
+    	    	window.location.replace("login.html");
+    	    });
         }
     }

@@ -22,6 +22,7 @@ import com.google.inject.Inject;
 
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.constat.CreationConstatMessage;
+import fr.epsi.agora.domaine.validateur.Erreur;
 import fr.epsi.agora.requete.constat.RechercheConstats;
 import fr.epsi.agora.web.Session;
 import fr.epsi.agora.web.ressource.ReponseRessource;
@@ -94,7 +95,13 @@ public class ConstatsRessource extends ServerResource {
 					}
 				} else {
 					if (0 < fichier.getInputStream().available()) {
-						medias.add(fichier.getName()); // TODO Enregistrer le fichier sur le cloud
+						if (fichier.getName().contains("mp3") || fichier.getName().contains("ogg") || fichier.getName().contains("jpg") || fichier.getName().contains("jpeg")
+								|| fichier.getName().contains("bmp") || fichier.getName().contains("png") || fichier.getName().contains("gif")) {
+							medias.add(fichier.getName()); // TODO Enregistrer le fichier sur le cloud
+						} else {
+							setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+							return ReponseRessource.get(Erreur.FORMAT_NON_SUPPORTE);
+						}
 					}
 				}
 			}

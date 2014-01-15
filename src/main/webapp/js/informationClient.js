@@ -8,7 +8,7 @@ $(document).ready
         {
             document.getElementById("nom").value = json.nom;
             document.getElementById("prenom").value = json.prenom;
-            $("#dateDeNaissance").val(json.dateDeNaisance);
+            document.getElementById("dateDeNaissance").value = json.dateDeNaissance;
             document.getElementById("lieuDeNaissance").value = json.lieuDeNaissance;
             document.getElementById("nationalite").value = json.nationalite;
             document.getElementById("metier").value = json.metier;
@@ -41,8 +41,8 @@ function SubmitClient()
 {
 	if($("#SignupForm").valid())
     {
-        outils.ajaxRequestPlus(outils.url+'/utilisateurs/' + outils.cookie + '/clients',"PUT",$("#SignupForm").serialize(),function(donnees){
-        document.location.href= "formulaire.html";
+        outils.ajaxRequestPlus(outils.url+'/utilisateurs/' + outils.cookie + '/clients/' + getUrlVars()["id"],"PUT",$("#SignupForm").serialize(),function(donnees){
+        	location.reload();
         });
     }
 }

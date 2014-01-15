@@ -7,9 +7,6 @@ import org.jongo.marshall.jackson.oid.Id;
 
 import com.google.common.collect.Lists;
 
-import fr.epsi.agora.requete.societe.DetailsClient;
-import fr.epsi.agora.requete.societe.DetailsUtilisateur;
-
 public class DetailsConstat {
 	
 	public String getId() {
@@ -51,11 +48,16 @@ public class DetailsConstat {
 		this.codePostal = codePostal;
 	}
 	
-	public DateTime getDate() {
-		return date;
+	public String getDate() {
+		try {
+			DateTime dateTime = new DateTime(Long.valueOf(date));
+			return dateTime.getDayOfMonth() + "-" + dateTime.getMonthOfYear() + "-" + dateTime.getYear();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 	
-	public void setDate(DateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	
@@ -67,19 +69,19 @@ public class DetailsConstat {
 		this.geolocalisation = geolocalisation;
 	}
 	
-	public DetailsUtilisateur getUtilisateur() {
+	public String getUtilisateur() {
 		return utilisateur;
 	}
 	
-	public void setUtilisateur(DetailsUtilisateur utilisateur) {
+	public void setUtilisateur(String utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 	
-	public DetailsClient getClient() {
+	public String getClient() {
 		return client;
 	}
 	
-	public void setClient(DetailsClient client) {
+	public void setClient(String client) {
 		this.client = client;
 	}
 	
@@ -97,10 +99,10 @@ public class DetailsConstat {
 	private String adresse1;
 	private String adresse2;
 	private String codePostal;
-	private DateTime date;
+	private String date;
 	private String geolocalisation;
-	private DetailsUtilisateur utilisateur;
-	private DetailsClient client;
+	private String utilisateur;
+	private String client;
 	private List<String> medias = Lists.newArrayList();
 	
 }

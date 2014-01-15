@@ -172,16 +172,16 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
+<script src="js/lib/jquery.validate.min.js"></script>
+<script src="js/lib/additional-methods.min.js"></script>
 <script src="js/lib/jquery.cookie.js"></script>
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-<script src="js/main.js"></script>
 <script src="js/formToWizard.js"></script>
 <script src="js/formulaire.js"></script>
 <script src="js/informationClient.js"></script>
 <script src="js/outils.js"></script>
+<script src="js/main.js"></script>
 
 <script>
     jQuery.validator.setDefaults({
@@ -191,6 +191,7 @@
 
     jQuery.extend(jQuery.validator.messages, {
         required: "Champ requis",
+		email : "Veuillez entrer une adresse mail valide",
         digits: "Veuillez insérer des chiffres",
         maxlength: jQuery.validator.format("Veuillez insérer au maximum {0} caractères."),
         minlength: jQuery.validator.format("Veuillez insérer au minimum {0} caractères."),
@@ -231,7 +232,7 @@
         },
         success: function(label) {
             label
-                    .text('OK!').addClass('valid')
+                    .addClass('valid')
                     .closest('.control-group').removeClass('error').addClass('success');
 
         }

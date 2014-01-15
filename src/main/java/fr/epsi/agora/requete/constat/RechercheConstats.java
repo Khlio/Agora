@@ -18,11 +18,11 @@ public class RechercheConstats extends Recherche {
 	}
 	
 	public List<DetailsConstat> tousDunUtilisateur(UUID idUtilisateur) {
-		return Lists.newArrayList(jongo.getCollection("constat").find("{utilisateur._id: #}", idUtilisateur).as(DetailsConstat.class));
+		return Lists.newArrayList(jongo.getCollection("constat").find("{utilisateur: #}", idUtilisateur).as(DetailsConstat.class));
 	}
 	
 	public List<DetailsConstat> tousDunClient(UUID idClient) {
-		return Lists.newArrayList(jongo.getCollection("constat").find("{client._id: #}", idClient).as(DetailsConstat.class));
+		return Lists.newArrayList(jongo.getCollection("constat").find("{client: #}", idClient).as(DetailsConstat.class));
 	}
 	
 	public DetailsConstat detailsDe(UUID id) {
