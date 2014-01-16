@@ -4,7 +4,7 @@ window.onload = VerifCookie();
     {
         var idClientCookie = $.cookie("bouh");
 
-        if(idClientCookie == null)
+        if(idClientCookie == undefined || idClientCookie == null || idClientCookie == "null")
         {
            window.location.replace("login.html");
         }
@@ -17,3 +17,10 @@ window.onload = VerifCookie();
     	    });
         }
     }
+	 
+function deconnexion(){
+	outils.ajaxRequestPlus(outils.url+'/deconnexion/'+outils.cookie,"POST",undefined,function(donnees){
+		$.cookie("bouh", null);
+		window.location.replace("login.html");
+	});
+}

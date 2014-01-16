@@ -65,6 +65,9 @@
                     <a href="profile.html" class="dropdown-toggle">Profil</b></a>
                 </li>
             </ul>
+			<ul class="nav navbar-nav pull-right">
+				<li><a href="javascript:;" onclick="deconnexion();">Déconnexion</a></li>
+			</ul>
         </div><!--/.navbar-collapse -->
     </div>
 </div>
@@ -178,10 +181,10 @@
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 <script src="js/formToWizard.js"></script>
-<script src="js/formulaire.js"></script>
-<script src="js/informationClient.js"></script>
 <script src="js/outils.js"></script>
 <script src="js/main.js"></script>
+<script src="js/formulaire.js"></script>
+<script src="js/informationClient.js"></script>
 
 <script>
     jQuery.validator.setDefaults({
@@ -200,10 +203,13 @@
 
     jQuery.validator.addMethod("myPhoneNumberValidator", function(value, element) {
         var reg = new RegExp("^0[1-9]([-. ]?[0-9]{2}){4}$");
-        if (reg.test(value)) {
-            return true;
-        }
-        return false;
+		if(value.length>0){
+			if (reg.test(value)) {
+				return true;
+			}
+			return false;
+		}
+		return true;
     }, 'Veuillez entrer votre numéro de téléphone dans le format suivant: <i>0123456789</i>');
 
     $( "#SignupForm" ).validate({

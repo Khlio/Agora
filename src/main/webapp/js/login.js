@@ -1,8 +1,6 @@
 /**
  * Created by Panda on 14/01/14.
  */
-//appel ajax pour le submit du client
-
 
 function SignUp()
 {
@@ -13,7 +11,7 @@ function SignUp()
 	        var date = new Date();
 	        var minutes = 240;
 	        date.setTime(date.getTime() - date.getTimezoneOffset() * 60000 + (minutes * 60 * 1000));
-	        $.cookie("bouh", donnees, { expires: date, path : '/' });
+	        $.cookie("bouh", donnees, { expires: date });
 	    });
     }
 }
