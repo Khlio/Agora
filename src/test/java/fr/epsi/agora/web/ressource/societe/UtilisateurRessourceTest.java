@@ -55,11 +55,11 @@ public class UtilisateurRessourceTest {
 	public void peutModifierLUtilisateur() throws IOException {
 		DetailsUtilisateur details = laRechercheRetourne();
 		details.setNom("Levacher");
+		details.setMotDePasse(MD5.crypteAvecCle("Motdepasse1="));
 		initialiseRessource(details);
 		Form formulaire = new Form();
 		formulaire.add("nom", details.getNom());
-		formulaire.add("email", "b@b.com");
-		formulaire.add("motDePasse", "Azerty1=");
+		formulaire.add("nouveauMotDePasse", "Azerty1=");
 		formulaire.add("telephone", "0607080910");
 		
 		Representation represente = ressource.modifie(formulaire);
@@ -69,7 +69,6 @@ public class UtilisateurRessourceTest {
 		ModificationUtilisateurMessage commande = capteur.getValue();
 		assertThat(commande.id).isEqualTo(UUID.fromString(details.getId()));
 		assertThat(commande.nom).isEqualTo(details.getNom());
-		assertThat(commande.email).isEqualTo("b@b.com");
 		assertThat(commande.motDePasse).isEqualTo(MD5.crypteAvecCle("Azerty1="));
 		assertThat(commande.telephone).isEqualTo("0607080910");
 		assertThat(ressource.getStatus()).isEqualTo(Status.SUCCESS_ACCEPTED);

@@ -17,9 +17,7 @@ import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.societe.ModificationUtilisateurMessage;
 import fr.epsi.agora.commande.societe.SuppressionUtilisateurMessage;
 import fr.epsi.agora.domaine.MD5;
-import fr.epsi.agora.domaine.validateur.EmailValidateur;
 import fr.epsi.agora.domaine.validateur.Erreur;
-import fr.epsi.agora.domaine.validateur.MotDePasseValidateur;
 import fr.epsi.agora.domaine.validateur.TelephoneValidateur;
 import fr.epsi.agora.requete.societe.DetailsUtilisateur;
 import fr.epsi.agora.requete.societe.RechercheSocietes;
@@ -63,25 +61,22 @@ public class UtilisateurRessource extends ServerResource {
 		if (isCommitted()) {
 			return ReponseRessource.NON_CONNECTE;
 		}
-		Erreur erreurEmail = EmailValidateur.valide(formulaire.getFirstValue("email"));
-		if (erreurEmail.aDesErreurs()) {
-			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-			return ReponseRessource.get(erreurEmail.premiereErreur());
-		}
-		Erreur erreurMotDePasse = MotDePasseValidateur.valide(formulaire.getFirstValue("motDePasse"));
-		if (erreurMotDePasse.aDesErreurs()) {
-			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-			return ReponseRessource.get(erreurMotDePasse.premiereErreur());
-		}
 		Erreur erreurTelephone = TelephoneValidateur.valide(formulaire.getFirstValue("telephone"));
 		if (erreurTelephone.aDesErreurs()) {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 			return ReponseRessource.get(erreurTelephone.premiereErreur());
 		}
 		try {
-			String motDePasseCrypte = MD5.crypteAvecCle(formulaire.getFirstValue("motDePasse"));
+			if (null != formulaire.getFirstValue("motDePasse") && !formulaire.getFirstValue("motDePasse").isEmpty()) {
+				String motDePasseCrypte = MD5.crypteAvecCle(formulaire.getFirstValue("motDePasse"));
+				if (!motDePasseCrypte.equals(utilisateur.getMotDePasse())) {
+					setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+					return ReponseRessource.get(Erreur.MOT_DE_PASSE_ACTUEL_INCORRECT);
+				}
+			}
+			String nouveauMotDePasseCrypte = MD5.crypteAvecCle(formulaire.getFirstValue("nouveauMotDePasse"));
 			ModificationUtilisateurMessage commande = new ModificationUtilisateurMessage(UUID.fromString(utilisateur.getId()), formulaire.getFirstValue("nom"),
-					formulaire.getFirstValue("prenom"), formulaire.getFirstValue("email"), motDePasseCrypte, formulaire.getFirstValue("adresse"),
+					formulaire.getFirstValue("prenom"), nouveauMotDePasseCrypte, formulaire.getFirstValue("adresse"),
 					formulaire.getFirstValue("codePostal"), formulaire.getFirstValue("telephone"));
 			busCommande.envoie(commande);
 			setStatus(Status.SUCCESS_ACCEPTED);

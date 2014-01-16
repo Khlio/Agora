@@ -27,7 +27,7 @@
 
 
 </head>
-<body class="hidden">
+<body>
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
@@ -74,115 +74,72 @@
 	</div>
 </div>
 
-<form role="form" id="SignupForm" action="" method="post" enctype="multipart/form-data" onsubmit="return SubmitConstat(this)">
-    <fieldset>
-        <legend>Choix du client</legend>
+<form role="form" id="formModificationConstat" onsubmit="return validerConstat(this)">
+	<fieldset>
+        <legend>Informations du constat</legend>
         <div class="container login  text-center">
             <div class="row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-4 col-sm-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><strong>Choix du client</strong></h4>
+                        <h4 class="panel-title"><strong>Constat</strong></h4>
                     </div>
                     <div class="panel-body">
-                        <div class="PaddingEsc">
-                            <input type="text" id='instantSearch' name="instantSearch" class="form-control" placeholder="Chercher un client" />
-                        </div>
-                        <div class="PaddingEsc">
-                            <select multiple class="form-control" id="clientChoice" name="clientChoice" required="true">
-
-                            </select>
-                        </div>
-                        <div class="PaddingEsc">
-                            <button onclick="window.location.replace('formulaireClient.html')" type="button" class="btn btn-primary col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">Ajouter un client</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <div class='form-group'>
+							<label for='Nom' class='col-lg-4'>Nom du constat</label>
+							<input type='text' class='form control' id='nom' name="nom" placeholder='' required='true' />
+						</div>
+						<div class='form-group'>
+							<label class='col-lg-4'>Client</label>
+							<p class="form control" id="client"></p>
+						</div>
+						<div class='form-group'>
+							<label class='col-lg-4'>Date</label>
+							<p class="form control" id="date"></p>
+						</div>
+						<div class='form-group' id="audio">
+							<label class='col-lg-4'>Audio</label>
+						</div>
+						<div class='form-group' id="annexes">
+							<label class='col-lg-4'>Documents annexes</label>
+						</div>
+						<div class='form-group hidden'>
+							<label class='col-lg-4'>Géolocalisation</label>
+							<p class="form control" id="geolocalisation"></p>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
     </fieldset>
-
+	
     <fieldset>
-        <legend>Informations du constat</legend>
+        <legend>Adresse du constat</legend>
         <div class='container login  text-center'>
             <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2'>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><strong>Informations du constat</strong></h4>
+                        <h4 class="panel-title"><strong>Adresse du constat</strong></h4>
                     </div>
                     <div class="panel-body">
-                    	<div class='form-group'>
-                        	<label for='Nom' class='col-lg-4'>Nom du constat</label>
-                        	<input type='text' class='form control' id='nom' name="nom" placeholder='Ins&eacute;rer un nom' required='true' />
-                    	</div>
                         <div class='form-group'>
                             <label for="adresse1" class="col-lg-4">Adresse</label>
-                            <input type='text' class='form control' id='adresse1' name="adresse1" placeholder="Ins&eacute;rer l'adresse" required='true' />
+                            <input type='text' class='form control' id='adresse1' name="adresse1" placeholder='Ins&eacute;rer votre adresse' required/>
                         </div>
                         <div class='form-group'>
                             <label for="adresse2" class="col-lg-4">Adresse 2</label>
-                            <input type='text' class='form control' id='adresse2' name="adresse2" placeholder="Ins&eacute;rer l'adresse" />
+                            <input type='text' class='form control' id='adresse2' name="adresse2" placeholder='Ins&eacute;rer votre adresse' />
                         </div>
                         <div class='form-group'>
                             <label for="codePostal" class="col-lg-4">Code postal</label>
-                            <input type='tel' class='form control' id='codePostal' name="codePostal" placeholder="Ins&eacute;rer le code postal" required='true' />
+                            <input type='tel' class='form control' id='codePostal' name="codePostal" placeholder='Ins&eacute;rer le code postal' required/>
                         </div>
-                        <input  type="text " class="hidden" id="geocalisation" value="">
                     </div>
                 </div>
             </div>
         </div>
     </fieldset>
-
-    <fieldset>
-        <legend>Description client</legend>
-        <div class="container login  text-center">
-            <div class="row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-4 col-sm-offset-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title"><strong>Description client</strong></h4>
-                    </div>
-                    <div class="panel-body">
-						<div class="browse-wrap">
-                        	<div class="title">Choisissez un fichier</div>
-							<input type="file" name="uploadClientDesc" id="uploadClientDesc" class="upload error" onchange="ShowFileUploadClient()" title="Choissisez un fichier" required="true">
-						</div>
-						<span class="help-block">Veuillez ins&eacute;rer un fichier audio correspond &agrave; la description du client</span>
-						<ul class="upload-path" id="upload-path-client">
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </fieldset>
-
-    <fieldset>
-        <legend>Ajouter document annexe</legend>
-        <div class='container login  text-center'>
-            <div class='row col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-4 col-sm-offset-4'>
-                <div class='panel panel-default'>
-                    <span class='hidden' id='currentModalABC' class='currentModalABC'></span>
-                     <div class='panel-heading'>
-                        <h4 class='panel-title'><strong>Ajouter document annexe</strong></h4>
-                        </div>
-                     <div class='panel-body'>
-                        <div class='PaddingEsc'></div>
-                        <div class='browse-wrap'>
-                            <span class="help-block">Fichier annexe (description audio d'un lieu, photo, etc.)</span>
-                          <div class='title'>Ajouter un document</div>
-                            <input type='file' name='uploadAnomalie' id='uploadAnomalie' class='upload' title='Choissisez un fichier' multiple='true' onchange='ShowFileUpload()'>
-                          </div>
-                        <ul class='upload-path' id='upload-path'>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </fieldset>
-    </div>
     <p>
-        <input id="SaveAccount" class="btn btn-success col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4  col-xs-12" type="submit" value="Valider le formulaire"/>
+        <input id="enregistrerCosntat" class="btn btn-success col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4  col-xs-12" type="submit" value="Valider le formulaire"/>
     </p>
 
 </form>
@@ -199,30 +156,25 @@
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 <script src="js/formToWizard.js"></script>
-<script src="js/formulaire.js"></script>
-<script src="js/listeClientFormulaire.js"></script>
 <script src="js/outils.js"></script>
 <script src="js/main.js"></script>
+<script src="js/informationConstat.js"></script>
 
 <script>
     jQuery.validator.setDefaults({
-        debug: false,
+        debug: true,
         success: "valid"
     });
 
     jQuery.extend(jQuery.validator.messages, {
         required: "Champ requis",
         digits: "Veuillez ins&eacute;rer des chiffres",
-        maxlength: jQuery.validator.format("Veuillez ins&eacute;rer au maximum {0} caract&egrave;res."),
-        minlength: jQuery.validator.format("Veuillez ins&eacute;rer au minimum {0} caract&egrave;res.")
+        maxlength: jQuery.validator.format("Veuillez ins?rer au maximum {0} caract&egrave;res."),
+        minlength: jQuery.validator.format("Veuillez ins?rer au minimum {0} caract&egrave;res.")
     });
 
-    $( "#SignupForm" ).validate({
+    $( "#formModificationConstat" ).validate({
         rules: {
-            clientChoice:
-            {
-                required:true
-            },
             adresse1:
             {
                 required:true
@@ -233,12 +185,6 @@
                 digits: true,
                 minlength: 5,
                 maxlength: 5
-            },
-            uploadClientDesc: {
-                extension: "mp3|ogg|wave|wav|aac"
-            },
-            uploadAnomalie: {
-                extension: "mp3|ogg|wave|wav|aac|jpeg|png|jpg|bnp|gif"
             }
         },
         highlight: function(label) {

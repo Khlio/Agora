@@ -10,6 +10,7 @@ public class Erreur {
 	public static final String EMAIL_INVALIDE = "L'email est invalide";
 	public static final String MOT_DE_PASSE_INVALIDE = "Le mot de passe est invalide";
 	public static final String TELEPHONE_INVALIDE = "Le numéro de téléphone est invalide";
+	public static final String MOT_DE_PASSE_ACTUEL_INCORRECT = "Le mot de passe actuel est invalide";
 	public static final String FORMAT_NON_SUPPORTE = "Un fichier ne possède pas le bon format";
 	
 	public static final String IDENTIFIANTS_INTROUVABLE = "La combinaison email/mot de passe est introuvable";

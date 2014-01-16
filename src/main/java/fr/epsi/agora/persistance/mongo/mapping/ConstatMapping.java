@@ -21,7 +21,8 @@ public class ConstatMapping extends AggregateMap<Constat> {
 		property().onField("geolocalisation");
 		property().onField("utilisateur");
 		property().onField("client");
-		collection().onField("medias");
+		collection().onField("audios");
+		collection().onField("annexes");
 	}
 
 }

@@ -13,7 +13,7 @@ public class FabriqueConstat {
 	}
 	
 	public static Constat nouveau(String nom, String adresse1, String adresse2, String codePostal, DateTime date, String geolocalisation,
-			UUID utilisateur, UUID client, List<String> medias) {
+			UUID utilisateur, UUID client, List<String> audios, List<String> annexes) {
 		checkNotNull(nom);
 		checkNotNull(adresse1);
 		checkNotNull(codePostal);
@@ -21,6 +21,7 @@ public class FabriqueConstat {
 		checkNotNull(geolocalisation);
 		checkNotNull(utilisateur);
 		checkNotNull(client);
+		checkNotNull(audios);
 		
 		Constat constat = new Constat(UUID.randomUUID());
 		constat.setNom(nom);
@@ -31,7 +32,8 @@ public class FabriqueConstat {
 		constat.setGeolocalisation(geolocalisation);
 		constat.setUtilisateur(utilisateur);
 		constat.setClient(client);
-		constat.setMedias(medias);
+		constat.setAudios(audios);
+		constat.setAnnexes(annexes);
 		return constat;
 	}
 	

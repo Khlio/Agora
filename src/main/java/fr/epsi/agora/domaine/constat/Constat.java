@@ -87,12 +87,20 @@ public class Constat implements Aggregat {
 		this.client = client;
 	}
 	
-	public List<String> getMedias() {
-		return medias;
+	public List<String> getAudios() {
+		return audios;
 	}
 	
-	public void setMedias(List<String> medias) {
-		this.medias = medias;
+	public void setAudios(List<String> audios) {
+		this.audios = audios;
+	}
+	
+	public List<String> getAnnexes() {
+		return annexes;
+	}
+	
+	public void setAnnexes(List<String> annexes) {
+		this.annexes = annexes;
 	}
 
 	private UUID id;
@@ -104,6 +112,7 @@ public class Constat implements Aggregat {
 	private String geolocalisation;
 	private UUID utilisateur;
 	private UUID client;
-	private List<String> medias = Lists.newArrayList();
+	private List<String> audios = Lists.newArrayList();
+	private List<String> annexes = Lists.newArrayList();
 
 }

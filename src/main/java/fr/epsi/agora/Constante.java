@@ -8,6 +8,8 @@ public class Constante {
 	
 	public static final String CLE_CRYPTAGE = "43bcad2f5fca1db55ca5d89d0f005b59";
 	
+	public static final String CHEMIN_MEDIAS = "/home/user/agora/";
+	
 	private Constante() {
 	}
 	

@@ -10,7 +10,7 @@ import fr.epsi.agora.commande.Message;
 public class CreationConstatMessage implements Message {
 
 	public CreationConstatMessage(String nom, String adresse1, String adresse2, String codePostal, DateTime date, String geolocalisation,
-			UUID utilisateur, UUID client, List<String> medias) {
+			UUID utilisateur, UUID client, List<String> audios, List<String> annexes) {
 		this.nom = nom;
 		this.adresse1 = adresse1;
 		this.adresse2 = adresse2;
@@ -19,7 +19,8 @@ public class CreationConstatMessage implements Message {
 		this.geolocalisation = geolocalisation;
 		this.utilisateur = utilisateur;
 		this.client = client;
-		this.medias = medias;
+		this.audios = audios;
+		this.annexes = annexes;
 	}
 	
 	public final String nom;
@@ -30,6 +31,7 @@ public class CreationConstatMessage implements Message {
 	public final String geolocalisation;
 	public final UUID utilisateur;
 	public final UUID client;
-	public final List<String> medias;
+	public final List<String> audios;
+	public final List<String> annexes;
 	
 }

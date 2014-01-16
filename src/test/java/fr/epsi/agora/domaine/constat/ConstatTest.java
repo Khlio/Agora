@@ -74,12 +74,21 @@ public class ConstatTest {
 	}
 	
 	@Test
-	public void peutDonnerUneListeDeMedias() {
+	public void peutDonnerUneListeDeMediasAudios() {
 		Constat constat = FakeFabriqueConstat.nouveau();
 		
-		assertThat(constat.getMedias()).isNotNull();
-		assertThat(constat.getMedias()).hasSize(1);
-		assertThat(constat.getMedias().get(0)).isEqualTo("\\\\medias\\audio.mp3");
+		assertThat(constat.getAudios()).isNotNull();
+		assertThat(constat.getAudios()).hasSize(1);
+		assertThat(constat.getAudios().get(0)).isEqualTo("\\\\medias\\audio.mp3");
+	}
+	
+	@Test
+	public void peutDonnerUneListeDeMediasAnnexes() {
+		Constat constat = FakeFabriqueConstat.nouveau();
+		
+		assertThat(constat.getAnnexes()).isNotNull();
+		assertThat(constat.getAnnexes()).hasSize(1);
+		assertThat(constat.getAnnexes().get(0)).isEqualTo("\\\\annexes\\photo.jpg");
 	}
 	
 }

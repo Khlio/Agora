@@ -1,6 +1,10 @@
 package fr.epsi.agora.web.ressource.constat;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +24,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
 
+import fr.epsi.agora.Constante;
 import fr.epsi.agora.commande.BusCommande;
 import fr.epsi.agora.commande.constat.CreationConstatMessage;
 import fr.epsi.agora.domaine.validateur.Erreur;
@@ -74,7 +79,8 @@ public class ConstatsRessource extends ServerResource {
 		try {
 			RestletFileUpload upload = new RestletFileUpload(new DiskFileItemFactory());
 			List<FileItem> fichiers = upload.parseRepresentation(representation);
-			List<String> medias = Lists.newArrayList();
+			List<String> audios = Lists.newArrayList();
+			List<String> annexes = Lists.newArrayList();
 			for (FileItem fichier : fichiers) {
 				if (fichier.isFormField()) {
 					String champ = fichier.getFieldName();
@@ -95,24 +101,70 @@ public class ConstatsRessource extends ServerResource {
 					}
 				} else {
 					if (0 < fichier.getInputStream().available()) {
-						if (fichier.getName().contains("mp3") || fichier.getName().contains("ogg") || fichier.getName().contains("jpg") || fichier.getName().contains("jpeg")
-								|| fichier.getName().contains("bmp") || fichier.getName().contains("png") || fichier.getName().contains("gif")) {
-							medias.add(fichier.getName()); // TODO Enregistrer le fichier sur le cloud
-						} else {
-							setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-							return ReponseRessource.get(Erreur.FORMAT_NON_SUPPORTE);
+						if (fichier.getFieldName().equals("uploadClientDesc")) {
+							if (estUnFichierAudio(fichier.getName())) {
+								audios.add(fichier.getName());
+								enregistreFichier(nom, fichier.getName(), fichier.getInputStream());
+							} else {
+								setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+								return ReponseRessource.get(Erreur.FORMAT_NON_SUPPORTE);
+							}
+						} else if (fichier.getFieldName().equals("uploadAnomalie")) {
+							if (estUnFichierAudioOuImage(fichier.getName())) {
+								annexes.add(fichier.getName());
+								enregistreFichier(nom, fichier.getName(), fichier.getInputStream());
+							} else {
+								setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+								return ReponseRessource.get(Erreur.FORMAT_NON_SUPPORTE);
+							}
 						}
 					}
 				}
 			}
 			CreationConstatMessage commande = new CreationConstatMessage(nom, adresse1, adresse2, codePostal, DateTime.now(), geolocalisation,
-					UUID.fromString(session.getNom()), UUID.fromString(idClient), medias);
+					UUID.fromString(session.getNom()), UUID.fromString(idClient), audios, annexes);
 			ListenableFuture<UUID> idConstat = busCommande.envoie(commande);
 			setStatus(Status.SUCCESS_ACCEPTED);
+			redirectSeeOther("../../../informationConstat.html?id=" + Futures.getUnchecked(idConstat).toString());
 			return ReponseRessource.get(Futures.getUnchecked(idConstat).toString());
 		} catch (Exception e) {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 			return ReponseRessource.ERREUR;
+		}
+	}
+	
+	private boolean estUnFichierAudio(String fichier) {
+		return fichier.contains("mp3") || fichier.contains("ogg") || fichier.contains("3ga") || fichier.contains("aac") || fichier.contains("wave") || fichier.contains("wav");
+	}
+	
+	private boolean estUnFichierAudioOuImage(String fichier) {
+		return estUnFichierAudio(fichier) || fichier.contains("jpg") || fichier.contains("jpeg") || fichier.contains("bmp") || fichier.contains("png") || fichier.contains("gif");
+	}
+	
+	private void enregistreFichier(String nomDossier, String nomFichier, InputStream in) {
+		File dossierACreer = new File(Constante.CHEMIN_MEDIAS + nomDossier);
+		dossierACreer.mkdir();
+		File fichierACreer = new File(Constante.CHEMIN_MEDIAS + nomDossier + "/" + nomFichier);
+		
+		FileOutputStream fos = null;
+		try {
+			fichierACreer.createNewFile();
+			fos = new FileOutputStream(fichierACreer);
+			byte[] buffer = new byte[8192];
+			int lu = 0;
+			while ((lu = in.read(buffer)) >= 0) {
+				fos.write(buffer, 0, lu);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != fos) {
+					fos.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

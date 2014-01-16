@@ -51,7 +51,9 @@ public class DetailsConstat {
 	public String getDate() {
 		try {
 			DateTime dateTime = new DateTime(Long.valueOf(date));
-			return dateTime.getDayOfMonth() + "-" + dateTime.getMonthOfYear() + "-" + dateTime.getYear();
+			String jour = ""+(10 > dateTime.getDayOfMonth() ? "0" + dateTime.getDayOfMonth() : dateTime.getDayOfMonth());
+			String mois = ""+(10 > dateTime.getMonthOfYear() ? "0" + dateTime.getMonthOfYear() : dateTime.getMonthOfYear());
+			return jour + "-" + mois + "-" + dateTime.getYear();
 		} catch (Exception e) {
 			return "";
 		}
@@ -85,12 +87,20 @@ public class DetailsConstat {
 		this.client = client;
 	}
 	
-	public List<String> getMedias() {
-		return medias;
+	public List<String> getAudios() {
+		return audios;
 	}
 	
-	public void setMedias(List<String> medias) {
-		this.medias = medias;
+	public void setAudios(List<String> audios) {
+		this.audios = audios;
+	}
+	
+	public List<String> getAnnexes() {
+		return annexes;
+	}
+	
+	public void setAnnexes(List<String> annexes) {
+		this.annexes = annexes;
 	}
 	
 	@Id
@@ -103,6 +113,7 @@ public class DetailsConstat {
 	private String geolocalisation;
 	private String utilisateur;
 	private String client;
-	private List<String> medias = Lists.newArrayList();
+	private List<String> audios = Lists.newArrayList();
+	private List<String> annexes = Lists.newArrayList();
 	
 }

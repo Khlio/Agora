@@ -14,7 +14,7 @@ public class FakeFabriqueConstat {
 	
 	public static Constat nouveau() {
 		return FabriqueConstat.nouveau("Tout cassé", "1 rue du Bordel", "bis", "87000", DateTime.now(), "", FakeFabriqueUtilisateur.nouveau().getId(),
-				FakeFabriqueClient.nouveau().getId(), Lists.newArrayList("\\\\medias\\audio.mp3"));
+				FakeFabriqueClient.nouveau().getId(), Lists.newArrayList("\\\\medias\\audio.mp3"), Lists.newArrayList("\\\\annexes\\photo.jpg"));
 	}
 	
 }

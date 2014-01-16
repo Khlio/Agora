@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/formulaire.css">
-    <link rel="stylesheet" href="http://jquery.bassistance.de/validate/demo/site-demos.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="css/site-demos.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
 
     <style> body {
         padding-top: 50px;
@@ -66,7 +66,7 @@
                 </li>
             </ul>
 			<ul class="nav navbar-nav pull-right">
-				<li><a href="javascript:;" onclick="deconnexion();">Déconnexion</a></li>
+				<li><a href="javascript:;" onclick="deconnexion();">D&eacute;connexion</a></li>
 			</ul>
         </div><!--/.navbar-collapse -->
     </div>
@@ -131,7 +131,7 @@
 
                         <div class='form-group PaddingEsc'>
                             <label for='codePostal' class='col-lg-7 col-sm-7 col-xs-7'>Code postal</label>
-                            <input type='text' class='form control ' id='codePostal' name="codePostal" placeholder='' required='true' />
+                            <input type='tel' class='form control ' id='codePostal' name="codePostal" placeholder='' required='true' />
                         </div>
                     </div>
                 </div>
@@ -149,16 +149,16 @@
                     <div class="panel-body">
                         <div class='form-group'>
                             <label for='email' class='col-lg-7 col-sm-7 col-xs-7'>Email</label>
-                            <input type='text' class='form control' id='email' name="email" placeholder='' required='true' />
+                            <input type='email' class='form control' id='email' name="email" placeholder='' required='true' />
                         </div>
                         <div class='form-group PaddingEsc'>
                             <label for='telPortable' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone portable</label>
-                            <input type='text' class='form control' id='telephonePortable' name="telephonePortable" placeholder='' required='true' />
+                            <input type='tel' class='form control' id='telephonePortable' name="telephonePortable" placeholder='' required='true' />
                         </div>
 
                         <div class='form-group PaddingEsc'>
                             <label for='telFixe' class='col-lg-7 col-sm-7 col-xs-7'>T&eacute;l&eacute;phone fixe</label>
-                            <input type='text' class='form control ' id='telephoneFixe' name="telephoneFixe" placeholder='' />
+                            <input type='tel' class='form control ' id='telephoneFixe' name="telephoneFixe" placeholder='' />
                         </div>
                     </div>
                 </div>
@@ -173,8 +173,8 @@
 
 </div>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="js/lib/jquery-2.0.3.min.js"></script>
+<script src="js/lib/jquery-ui.min.js"></script>
 <script src="js/lib/jquery.validate.min.js"></script>
 <script src="js/lib/additional-methods.min.js"></script>
 <script src="js/lib/jquery.cookie.js"></script>

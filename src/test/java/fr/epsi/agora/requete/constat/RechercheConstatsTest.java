@@ -76,7 +76,7 @@ public class RechercheConstatsTest {
 		UUID idUtilisateur = UUID.randomUUID();
 		UUID idClient = UUID.randomUUID();
 		jongo.getCollection("constat").insert("{_id: #, nom: 'Tout cassé', adresse1: '1 rue du Bordel', adresse2: 'bis', codePostal: '87000', date: #, geolocalisation: '', "
-				+ "utilisateur: #, client: #, medias: ['\\\\medias\\audio.mp3']}", idConstat, DateTime.now().getMillis(), idUtilisateur, idClient);
+				+ "utilisateur: #, client: #, audios: ['\\\\medias\\audio.mp3'], annexes: ['\\\\annexes\\photo.jpg']}", idConstat, DateTime.now().getMillis(), idUtilisateur, idClient);
 		RechercheConstats recherche = new RechercheConstats(jongo);
 		
 		DetailsConstat details = recherche.detailsDe(idConstat);
@@ -86,11 +86,14 @@ public class RechercheConstatsTest {
 		assertThat(details.getAdresse1()).isEqualTo("1 rue du Bordel");
 		assertThat(details.getAdresse2()).isEqualTo("bis");
 		assertThat(details.getCodePostal()).isEqualTo("87000");
-		assertThat(details.getDate()).isEqualTo(DateTime.now().getDayOfMonth() + "-" + DateTime.now().getMonthOfYear() + "-" + DateTime.now().getYear());
+		String jour = "" + (10 > DateTime.now().getDayOfMonth() ? "0" + DateTime.now().getDayOfMonth() : DateTime.now().getDayOfMonth());
+		String mois = "" + (10 > DateTime.now().getMonthOfYear() ? "0" + DateTime.now().getMonthOfYear() : DateTime.now().getMonthOfYear());
+		assertThat(details.getDate()).isEqualTo(jour + "-" + mois + "-" + DateTime.now().getYear());
 		assertThat(details.getGeolocalisation()).isEqualTo("");
 		assertThat(details.getUtilisateur()).isEqualTo(idUtilisateur.toString());
 		assertThat(details.getClient()).isEqualTo(idClient.toString());
-		assertThat(details.getMedias()).hasSize(1);
+		assertThat(details.getAudios()).hasSize(1);
+		assertThat(details.getAnnexes()).hasSize(1);
 	}
 	
 	private Fongo fongo;

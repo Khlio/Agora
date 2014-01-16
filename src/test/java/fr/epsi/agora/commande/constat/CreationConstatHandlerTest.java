@@ -2,10 +2,13 @@ package fr.epsi.agora.commande.constat;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 import fr.epsi.agora.commande.HandlerCommandeRegle;
 import fr.epsi.agora.domaine.Entrepots;
@@ -23,7 +26,8 @@ public class CreationConstatHandlerTest extends HandlerCommandeRegle {
 		Entrepots.utilisateurs().ajoute(utilisateur);
 		Client client = FakeFabriqueClient.nouveau();
 		Entrepots.clients().ajoute(client);
-		CreationConstatMessage commande = new CreationConstatMessage("Tout cassé", "1 rue du Bordel", "bis", "87000", DateTime.now(), "", utilisateur.getId(), client.getId(), null);
+		List<String> audios  = Lists.newArrayList();
+		CreationConstatMessage commande = new CreationConstatMessage("Tout cassé", "1 rue du Bordel", "bis", "87000", DateTime.now(), "", utilisateur.getId(), client.getId(), audios, null);
 		
 		UUID idConstat = new CreationConstatHandler().execute(commande);
 		

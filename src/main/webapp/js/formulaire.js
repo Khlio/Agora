@@ -29,9 +29,6 @@ function SubmitConstat(formulaire)
 {
 	if($("#SignupForm").valid())
     {
-	    /*outils.ajaxRequestPlus(outils.url+'/utilisateurs/' + outils.cookie + '/constats',"POST",$("#SignupForm").serialize(),function(donnees){
-	        document.location.href= "index.html";
-	    });*/
 		formulaire.action = outils.url + '/utilisateurs/' + outils.cookie + '/constats';
 		return true;
     }

@@ -11,7 +11,6 @@ public class ModificationUtilisateurHandler implements HandlerCommande<Modificat
 		Utilisateur utilisateur = Entrepots.utilisateurs().get(commande.id).get();
 		utilisateur.setNom(commande.nom);
 		utilisateur.setPrenom(commande.prenom);
-		utilisateur.setEmail(commande.email);
 		utilisateur.setMotDePasse(commande.motDePasse);
 		utilisateur.setAdresse(commande.adresse);
 		utilisateur.setCodePostal(commande.codePostal);
