@@ -123,6 +123,20 @@ public class SocieteRessourceTest {
 	}
 	
 	@Test
+	public void peutVerifierQueLEmailEstUtilise() throws IOException {
+		DetailsSociete details = laRechercheRetourne();
+		initialiseRessource(details);
+		Form formulaire = new Form();
+		formulaire.add("email", "a@a.com");
+		when(rechercheUtilisateurs.verifiePresenceEmail("a@a.com")).thenReturn(true);
+		
+		Representation represente = ressource.ajouteUtilisateur(formulaire);
+		
+		assertThat(ressource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
+		assertThat(represente.getText()).isEqualTo(Erreur.EMAIL_EXISTANT);
+	}
+	
+	@Test
 	public void peutSupprimerLaSociete() throws IOException {
 		DetailsSociete details = laRechercheRetourne();
 		initialiseRessource(details);

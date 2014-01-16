@@ -34,5 +34,9 @@ public class RechercheSocietes extends Recherche {
 	public DetailsSociete societeDuClient(UUID idClient) {
 		return jongo.getCollection("societe").findOne("{clients: #}", idClient).as(DetailsSociete.class);
 	}
+
+	public boolean verifiePresenceSiret(String siret) {
+		return (0 < jongo.getCollection("societe").count("{siret: #}", siret));
+	}
 	
 }

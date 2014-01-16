@@ -82,6 +82,16 @@ public class RechercheSocietesTest {
 		assertThat(details.getClients().get(0)).isEqualTo(idClient.toString());
 	}
 	
+	@Test
+	public void peutSavoirSiUnSiretEstDejaUtilise() {
+		jongo.getCollection("societe").insert("{siret: '552-120-222 00013'}");
+		RechercheSocietes recherche = new RechercheSocietes(jongo);
+		
+		boolean siretUtilise = recherche.verifiePresenceSiret("552-120-222 00013");
+		
+		assertThat(siretUtilise).isTrue();
+	}
+	
 	private Fongo fongo;
 	private Jongo jongo;
 	

@@ -46,6 +46,10 @@ public class SocietesRessource extends ServerResource {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 			return ReponseRessource.get(erreurSiret.premiereErreur());
 		}
+		if (recherche.verifiePresenceSiret(formulaire.getFirstValue("siret"))) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.get(Erreur.SIRET_EXISTANT);
+		}
 		try {
 			CreationSocieteMessage commande = new CreationSocieteMessage(formulaire.getFirstValue("siret"), formulaire.getFirstValue("nom"));
 			ListenableFuture<UUID> idSociete = busCommande.envoie(commande);

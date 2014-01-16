@@ -69,6 +69,10 @@ public class SocieteRessource extends ServerResource {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 			return ReponseRessource.get(erreurEmail.premiereErreur());
 		}
+		if (rechercheUtilisateurs.verifiePresenceEmail(formulaire.getFirstValue("email"))) {
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+			return ReponseRessource.get(Erreur.EMAIL_EXISTANT);
+		}
 		Erreur erreurTelephone = TelephoneValidateur.valide(formulaire.getFirstValue("telephone"));
 		if (erreurTelephone.aDesErreurs()) {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);

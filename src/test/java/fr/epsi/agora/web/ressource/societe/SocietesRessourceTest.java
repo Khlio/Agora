@@ -84,6 +84,18 @@ public class SocietesRessourceTest {
 		assertThat(represente.getText()).isEqualTo(Erreur.SIRET_INVALIDE);
 	}
 	
+	@Test
+	public void peutVerifierQueLeSiretEstUtilise() throws IOException {
+		Form formulaire = new Form();
+		formulaire.add("siret", "552-120-222 00013");
+		when(recherche.verifiePresenceSiret("552-120-222 00013")).thenReturn(true);
+		
+		Representation represente = ressource.cree(formulaire);
+		
+		assertThat(ressource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
+		assertThat(represente.getText()).isEqualTo(Erreur.SIRET_EXISTANT);
+	}
+	
 	private BusCommande busCommande;
 	private RechercheSocietes recherche;
 	private SocietesRessource ressource;

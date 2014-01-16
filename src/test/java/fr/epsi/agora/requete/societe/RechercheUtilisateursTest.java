@@ -70,6 +70,16 @@ public class RechercheUtilisateursTest {
 		assertThat(utilisateurs.get(0).getNom()).isEqualTo("Levacher");
 	}
 	
+	@Test
+	public void peutSavoirSiUnEmailEstDejaUtilise() {
+		jongo.getCollection("utilisateur").insert("{email: 'a@a.com'}");
+		RechercheUtilisateurs recherche = new RechercheUtilisateurs(jongo);
+		
+		boolean emailUtilise = recherche.verifiePresenceEmail("a@a.com");
+		
+		assertThat(emailUtilise).isTrue();
+	}
+	
 	private Fongo fongo;
 	private Jongo jongo;
 	

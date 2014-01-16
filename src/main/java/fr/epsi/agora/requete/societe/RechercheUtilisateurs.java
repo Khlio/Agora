@@ -32,5 +32,9 @@ public class RechercheUtilisateurs extends Recherche {
 		}
 		return utilisateurs;
 	}
+
+	public boolean verifiePresenceEmail(String email) {
+		return (0 < jongo.getCollection("utilisateur").count("{email: #}", email));
+	}
 	
 }
