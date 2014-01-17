@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta name="viewport" content="width=device-width">
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Agora</title>
     <meta name="description" content="">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -40,16 +40,10 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html">Accueil</a></li>
                 <li><a href="formulaire.html">Cr&eacute;er constat</a></li>
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">Constat</b></a>
-                    <div class="hidden-xs">
-                        <ul class="dropdown-menu">
-                            <li><a href="formulaire.html">Cr&eacute;er un constat</a></li>
-                            <li><a href="listeConstat.html">Voir les constats</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="dropdown">
+                <li><a href="listeConstat.html">Voir les constats</a></li>
+				<li class="visible-xs"><a href="formumlaireClient.html">Cr&eacute;er client</a></li>
+				<li class="visible-xs"><a href="listeClient.html">Clients</a></li>
+                <li class="dropdown hidden-xs">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Fichier client</b></a>
                     <div class="hidden-xs">
                         <ul class="dropdown-menu">
@@ -58,9 +52,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="profile.html" class="dropdown-toggle">Profil</b></a>
-                </li>
+                <li><a href="profile.html">Profil</b></a></li>
             </ul>
 			<ul class="nav navbar-nav pull-right">
 				<li><a href="javascript:;" onclick="deconnexion();">D&eacute;connexion</a></li>
@@ -73,7 +65,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Bienvenue sur Agora</h1>
-        <p>Agora est une application web pour gérer tous vos clients et constats. Que vous soyez chez votre client ou au bureau, sur smartphone ou sur votre ordinateur Agora sera présent.</p>
+        <p>Agora est une application web pour g&eacute;rer tous vos clients et constats. Que vous soyez chez votre client ou au bureau, sur smartphone ou sur votre ordinateur Agora sera pr&eacute;sent.</p>
       </div>
     </div>
 
@@ -81,9 +73,9 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-lg-4">
-          <h2 style="padding-bottom: 10px">Etape 1 - Création ou sélection de votre client</h2>
+          <h2 style="padding-bottom: 10px">Etape 1 - Cr&eacute;ation ou s&eacute;lection de votre client</h2>
 		  <img src="img/inscriptionClient.png">
-          <p style="padding-top: 10px">Lorsque vous créez un constat, vous devez avant tout sélectionner un client. Si celui-ci n'apparaît pas dans votre liste client, alors vous devez créer sa fiche client.</p>
+          <p style="padding-top: 10px">Lorsque vous cr&eacute;ez un constat, vous devez avant tout s&eacute;lectionner un client. Si celui-ci n'appara&icirc;t pas dans votre liste client, alors vous devez cr&eacute;er sa fiche client.</p>
         </div>
         <div class="col-lg-4">
           <h2 style="padding-bottom: 10px">Etape 2 - Renseignez les informations du constat</h2>
@@ -93,7 +85,7 @@
         <div class="col-lg-4">
           <h2 style="padding-bottom: 10px">Etape 3 - Sauvegardez votre constat</h2>
 		  <img src="img/sauvegarde.jpeg">
-          <p style="padding-top: 10px">N'ayez plus peur de perdre vos données. Une fois votre constat sauvegardé, il est accessile à partir de n'importe quel endroit.</p>
+          <p style="padding-top: 10px">N'ayez plus peur de perdre vos donn&eacute;es. Une fois votre constat sauvegard&eacute;, il est accessible &agrave; partir de n'importe quel endroit.</p>
         </div>
       </div>
       <hr>

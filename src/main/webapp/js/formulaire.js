@@ -10,8 +10,16 @@ $(document).ready
         {
             $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' });
         }
+        
+        if(navigator.geolocation)
+        	navigator.geolocation.getCurrentPosition(maPosition);
     }
 );
+
+function maPosition(position) {
+  var infopos = position.coords.longitude + " " + position.coords.latitude;
+  $("#geolocalisation").attr("value", infopos);
+}
 
 //appel ajax pour le submit du client
 function SubmitClient()
@@ -24,7 +32,6 @@ function SubmitClient()
     }
 }
 
-//appel ajax pour le submit du constat
 function SubmitConstat(formulaire)
 {
 	if($("#SignupForm").valid())

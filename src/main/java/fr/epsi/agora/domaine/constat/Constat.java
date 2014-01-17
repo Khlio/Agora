@@ -102,6 +102,22 @@ public class Constat implements Aggregat {
 	public void setAnnexes(List<String> annexes) {
 		this.annexes = annexes;
 	}
+	
+	public void ajouteAudio(String audio) {
+		audios.add(audio);
+	}
+	
+	public void supprimeAudio(String audio) {
+		audios.remove(audio);
+	}
+	
+	public void ajouteAnnexe(String annexe) {
+		annexes.add(annexe);
+	}
+	
+	public void supprimeAnnexe(String annexe) {
+		annexes.remove(annexe);
+	}
 
 	private UUID id;
 	private String nom;

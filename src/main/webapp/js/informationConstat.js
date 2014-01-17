@@ -1,4 +1,4 @@
-$(document).ready(function(){
+﻿$(document).ready(function(){
 	$.getJSON(outils.url + "/utilisateurs/" + outils.cookie + "/constats/" + outils.getUrlVars()["id"], function(json)
 	{
 		document.getElementById("nom").value = json.nom;
@@ -33,7 +33,7 @@ $(document).ready(function(){
 		else{
 			for(var i=0;i<json.audios.length;i++){
 				$('#audio').append(
-					'<p class="form control">'+json.audios[i]+'</p>'
+					'<span class="form control">'+ json.audios[i] +'</span><a href="javascript:supprimerAudio(\'' + json.audios[i] + '\');" class="btn btn-danger btn-xs" style="margin-left: 10px;"><span class="glyphicon glyphicon-remove"></span></a>'
 				);
 			}
 		}
@@ -46,7 +46,7 @@ $(document).ready(function(){
 		else{
 			for(var i=0;i<json.annexes.length;i++){
 				$('#annexes').append(
-					'<p class="form control">'+json.annexes[i]+'</p>'
+					'<span class="form control">'+json.annexes[i]+'</span><a href="javascript:supprimerAnnexe(\'' + json.annexes[i] + '\');" class="btn btn-danger btn-xs style="margin-left: 10px;""><span class="glyphicon glyphicon-remove"></span></a>'
 				);
 			}
 		}
@@ -62,4 +62,18 @@ function validerConstat(formulaire){
 	}
 	
 	return false;
+}
+
+function supprimerAudio(fichier){
+	supprimerMedia('audio',fichier);
+}
+
+function supprimerAnnexe(fichier){
+	supprimerMedia('annexe',fichier);
+}
+
+function supprimerMedia(type,fichier){
+	outils.ajaxRequestPlus(outils.url+'/utilisateurs/' + outils.cookie + '/constats/' + outils.getUrlVars()["id"]+'/'+type,"PUT",fichier,function(donnees){
+		location.reload();
+	});
 }

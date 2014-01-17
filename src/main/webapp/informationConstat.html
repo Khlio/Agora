@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width">
 
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Agora</title>
     <meta name="description" content="">
 
@@ -43,18 +43,12 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Accueil</a></li>
+                <li><a href="index.html">Accueil</a></li>
                 <li><a href="formulaire.html">Cr&eacute;er constat</a></li>
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">Constat</b></a>
-                    <div class="hidden-xs">
-                        <ul class="dropdown-menu">
-                            <li><a href="formulaire.html">Cr&eacute;er un constat</a></li>
-                            <li><a href="listeConstat.html">Voir les constats</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="dropdown">
+                <li class="active"><a href="listeConstat.html">Voir les constats</a></li>
+				<li class="visible-xs"><a href="formumlaireClient.html">Cr&eacute;er client</a></li>
+				<li class="visible-xs"><a href="listeClient.html">Clients</a></li>
+                <li class="dropdown hidden-xs">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Fichier client</b></a>
                     <div class="hidden-xs">
                         <ul class="dropdown-menu">
@@ -63,9 +57,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="profile.html" class="dropdown-toggle">Profil</b></a>
-                </li>
+                <li><a href="profile.html">Profil</b></a></li>
             </ul>
 			<ul class="nav navbar-nav pull-right">
 				<li><a href="javascript:;" onclick="deconnexion();">D&eacute;connexion</a></li>
@@ -103,7 +95,7 @@
 							<label class='col-lg-4'>Documents annexes</label>
 						</div>
 						<div class='form-group hidden'>
-							<label class='col-lg-4'>Géolocalisation</label>
+							<label class='col-lg-4'>G&eacute;olocalisation</label>
 							<p class="form control" id="geolocalisation"></p>
 						</div>
 					</div>
@@ -169,8 +161,8 @@
     jQuery.extend(jQuery.validator.messages, {
         required: "Champ requis",
         digits: "Veuillez ins&eacute;rer des chiffres",
-        maxlength: jQuery.validator.format("Veuillez ins?rer au maximum {0} caract&egrave;res."),
-        minlength: jQuery.validator.format("Veuillez ins?rer au minimum {0} caract&egrave;res.")
+        maxlength: jQuery.validator.format("Veuillez ins&eacute;rer au maximum {0} caract&egrave;res."),
+        minlength: jQuery.validator.format("Veuillez ins&eacute;rer au minimum {0} caract&egrave;res.")
     });
 
     $( "#formModificationConstat" ).validate({

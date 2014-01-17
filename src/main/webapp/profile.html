@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta name="viewport" content="width=device-width">
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Agora</title>
     <meta name="description" content="">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -39,18 +39,12 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Accueil</a></li>
+                <li><a href="index.html">Accueil</a></li>
                 <li><a href="formulaire.html">Cr&eacute;er constat</a></li>
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">Constat</b></a>
-                    <div class="hidden-xs">
-                        <ul class="dropdown-menu">
-                            <li><a href="formulaire.html">Cr&eacute;er un constat</a></li>
-                            <li><a href="listeConstat.html">Voir les constats</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="dropdown">
+                <li><a href="listeConstat.html">Voir les constats</a></li>
+				<li class="visible-xs"><a href="formumlaireClient.html">Cr&eacute;er client</a></li>
+				<li class="visible-xs"><a href="listeClient.html">Clients</a></li>
+                <li class="dropdown hidden-xs">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Fichier client</b></a>
                     <div class="hidden-xs">
                         <ul class="dropdown-menu">
@@ -59,9 +53,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="profile.html" class="dropdown-toggle">Profil</b></a>
-                </li>
+                <li class="active"><a href="profile.html">Profil</b></a></li>
             </ul>
 			<ul class="nav navbar-nav pull-right">
 				<li><a href="javascript:;" onclick="deconnexion();">D&eacute;connexion</a></li>
@@ -190,8 +182,8 @@
     jQuery.extend(jQuery.validator.messages, {
         required: "Champ requis",
         digits: "Veuillez ins&eacute;rer des chiffres",
-        maxlength: jQuery.validator.format("Veuillez inserer au maximum {0} caract&egrave;res."),
-        minlength: jQuery.validator.format("Veuillez inserer au minimum {0} caract&egrave;res."),
+        maxlength: jQuery.validator.format("Veuillez ins&eacute;rer au maximum {0} caract&egrave;res."),
+        minlength: jQuery.validator.format("Veuillez ins&eacute;rer au minimum {0} caract&egrave;res."),
         date: jQuery.validator.format("Veuillez ins&eacute;rer une date valide (mm/jj/aaaa)")
     }),
 
@@ -229,6 +221,7 @@
          if(MDP.length<8){
         return false;
 		 }
+		return true;
     },'Votre mot de passe ne respecte pas notre politique de mot de passe, une majuscule/ un chiffre/ un caract&egrave;re sp&eacute;cial et une taille de 8 minimum');
 
     jQuery.validator.addMethod("olderPassword", function(value, element) {
@@ -239,18 +232,18 @@
         {
 			$("#motDePasse").removeAttr('required');
 			$("#motDePasse").val('');
-            return false;
+            return true;
         }
 		
 		if(document.getElementById("nouveauMotDePasse").value.length == 0)
 		{
 				$("#motDePasse").removeAttr('required');
-				return false;
+				return true
 		}
 		
 
             $("#motDePasse").attr('required','1');
-            return true;
+            return false;
 
     },' ');
 

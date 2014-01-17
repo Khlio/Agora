@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width">
 
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Agora</title>
     <meta name="description" content="">
 
@@ -43,18 +43,12 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Accueil</a></li>
-                <li><a href="formulaire.html">Cr&eacute;er constat</a></li>
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">Constat</b></a>
-                    <div class="hidden-xs">
-                        <ul class="dropdown-menu">
-                            <li><a href="formulaire.html">Cr&eacute;er un constat</a></li>
-                            <li><a href="listeConstat.html">Voir les constats</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="dropdown">
+                <li><a href="index.html">Accueil</a></li>
+                <li class="active"><a href="formulaire.html">Cr&eacute;er constat</a></li>
+                <li><a href="listeConstat.html">Voir les constats</a></li>
+				<li class="visible-xs"><a href="formumlaireClient.html">Cr&eacute;er client</a></li>
+				<li class="visible-xs"><a href="listeClient.html">Clients</a></li>
+                <li class="dropdown hidden-xs">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Fichier client</b></a>
                     <div class="hidden-xs">
                         <ul class="dropdown-menu">
@@ -63,9 +57,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="profile.html" class="dropdown-toggle">Profil</b></a>
-                </li>
+                <li><a href="profile.html">Profil</b></a></li>
             </ul>
 			<ul class="nav navbar-nav pull-right">
 				<li><a href="javascript:;" onclick="deconnexion();">D&eacute;connexion</a></li>
@@ -115,15 +107,15 @@
                         	<input type='text' class='form control' id='nom' name="nom" placeholder='Ins&eacute;rer un nom' required='true' />
                     	</div>
                         <div class='form-group'>
-                            <label for="adresse1" class="col-lg-4">Adresse</label>
+                            <label for="adresse1" class="col-lg-4 col-md-4 col-xs-4">Adresse</label>
                             <input type='text' class='form control' id='adresse1' name="adresse1" placeholder="Ins&eacute;rer l'adresse" required='true' />
                         </div>
                         <div class='form-group'>
-                            <label for="adresse2" class="col-lg-4">Adresse 2</label>
+                            <label for="adresse2" class="col-lg-4 col-md-4 col-xs-4">Adresse 2</label>
                             <input type='text' class='form control' id='adresse2' name="adresse2" placeholder="Ins&eacute;rer l'adresse" />
                         </div>
                         <div class='form-group'>
-                            <label for="codePostal" class="col-lg-4">Code postal</label>
+                            <label for="codePostal" class="col-lg-4 col-md-4 col-xs-4">Code postal</label>
                             <input type='tel' class='form control' id='codePostal' name="codePostal" placeholder="Ins&eacute;rer le code postal" required='true' />
                         </div>
                         <input  type="text " class="hidden" id="geocalisation" value="">
@@ -169,9 +161,9 @@
                      <div class='panel-body'>
                         <div class='PaddingEsc'></div>
                         <div class='browse-wrap'>
-                            <span class="help-block">Fichier annexe (description audio d'un lieu, photo, etc.)</span>
+                            <span class="help-block">Fichier annexe (audio/photo)</span>
                           <div class='title'>Ajouter un document</div>
-                            <input type='file' name='uploadAnomalie' id='uploadAnomalie' class='upload' title='Choissisez un fichier' multiple='true' onchange='ShowFileUpload()'>
+                            <input type='file' name='uploadAnomalie[]' id='uploadAnomalie' class='upload' title='Choissisez un fichier' multiple='multiple' onchange='ShowFileUpload()'>
                           </div>
                         <ul class='upload-path' id='upload-path'>
                             </ul>
@@ -205,6 +197,18 @@
 <script src="js/main.js"></script>
 
 <script>
+
+function maPosition(position) {
+  var infopos = "Position déterminée :\n";
+  infopos += "Latitude : "+position.coords.latitude +"\n";
+  infopos += "Longitude: "+position.coords.longitude+"\n";
+  infopos += "Altitude : "+position.coords.altitude +"\n";
+  document.getElementById("geolocalisation").value = infopos;
+}
+
+if(navigator.geolocation)
+  navigator.geolocation.getCurrentPosition(maPosition);
+
     jQuery.validator.setDefaults({
         debug: false,
         success: "valid"

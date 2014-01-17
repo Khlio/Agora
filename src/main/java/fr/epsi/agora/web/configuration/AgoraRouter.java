@@ -7,6 +7,8 @@ import org.restlet.routing.Router;
 
 import com.google.inject.Injector;
 
+import fr.epsi.agora.web.ressource.constat.AnnexeRessource;
+import fr.epsi.agora.web.ressource.constat.AudioRessource;
 import fr.epsi.agora.web.ressource.constat.ConstatRessource;
 import fr.epsi.agora.web.ressource.constat.ConstatsClientRessource;
 import fr.epsi.agora.web.ressource.constat.ConstatsRessource;
@@ -39,6 +41,8 @@ public class AgoraRouter extends Router {
 		attach("/utilisateurs/{idUtilisateur}/constats", ConstatsRessource.class);
 		attach("/utilisateurs/{idUtilisateur}/constats/{idConstat}", ConstatRessource.class);
 		attach("/utilisateurs/{idUtilisateur}/constats/clients/{idClient}", ConstatsClientRessource.class);
+		attach("/utilisateurs/{idUtilisateur}/constats/{idConstat}/audio", AudioRessource.class);
+		attach("/utilisateurs/{idUtilisateur}/constats/{idConstat}/annexe", AnnexeRessource.class);
 		
 		attach("/connexion", ConnexionUtilisateurRessource.class);
 		attach("/deconnexion/{id}", DeconnexionUtilisateurRessource.class);

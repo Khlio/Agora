@@ -87,7 +87,7 @@ public class ConstatsRessource extends ServerResource {
 					BufferedReader buffer = new BufferedReader(new InputStreamReader(fichier.getInputStream()));
 					String ligne = buffer.readLine();
 					if (champ.equalsIgnoreCase("nom")) {
-						nom = ligne;
+						nom = ligne.replace(' ', '_');
 					} else if (champ.equalsIgnoreCase("adresse1")) {
 						adresse1 = ligne;
 					} else if (champ.equalsIgnoreCase("adresse2")) {
@@ -103,7 +103,7 @@ public class ConstatsRessource extends ServerResource {
 					if (0 < fichier.getInputStream().available()) {
 						if (fichier.getFieldName().equals("uploadClientDesc")) {
 							if (estUnFichierAudio(fichier.getName())) {
-								audios.add(fichier.getName());
+								audios.add(fichier.getName().replace(' ', '_'));
 								enregistreFichier(nom, fichier.getName(), fichier.getInputStream());
 							} else {
 								setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
@@ -111,7 +111,7 @@ public class ConstatsRessource extends ServerResource {
 							}
 						} else if (fichier.getFieldName().equals("uploadAnomalie")) {
 							if (estUnFichierAudioOuImage(fichier.getName())) {
-								annexes.add(fichier.getName());
+								annexes.add(fichier.getName().replace(' ', '_'));
 								enregistreFichier(nom, fichier.getName(), fichier.getInputStream());
 							} else {
 								setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
@@ -144,7 +144,7 @@ public class ConstatsRessource extends ServerResource {
 	private void enregistreFichier(String nomDossier, String nomFichier, InputStream in) {
 		File dossierACreer = new File(Constante.CHEMIN_MEDIAS + nomDossier);
 		dossierACreer.mkdir();
-		File fichierACreer = new File(Constante.CHEMIN_MEDIAS + nomDossier + "/" + nomFichier);
+		File fichierACreer = new File(Constante.CHEMIN_MEDIAS + nomDossier + File.separator + nomFichier);
 		
 		FileOutputStream fos = null;
 		try {
