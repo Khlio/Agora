@@ -33,6 +33,20 @@ function SubmitClient()
     }
 }
 
+function AddNewInput()
+{
+  	$(".fileUpload").each(function(i,v) 
+	{	
+		$(this).addClass("hidden");
+	});
+
+	$("#listFileUpload").append('<div id="fileUpload" class="fileUpload">' +
+							'<span class="help-block">Fichier annexe (audio/photo)</span>' + 
+                          '<div class="title">Ajouter un document</div>' +
+                            '<input type="file" name="uploadAnomalie" id="uploadAnomalie" class="upload uploadAnomalie" title="Choissisez un fichier" onclick="AddNewInput()"  onchange="ShowFileUpload()">' +
+								'</div>');
+}
+
 function SubmitConstat(formulaire)
 {
 	if($("#SignupForm").valid())
@@ -66,11 +80,12 @@ function ShowFileUploadClient()
 //permet d'afficher dynamiquement les fichier ajoutée par le file input (document annexe)
 function ShowFileUpload()
 {
-    var test =$('#uploadAnomalie');
+	var taille = parseInt($('.uploadAnomalie').length);
+	var test = $('.uploadAnomalie')[taille - 2];
 
-    for(var i=0;i < test[0].files.length;i++)
+    for(var i=0;i < test.files.length;i++)
     {
-        var ext = test[0].files[i].name.split('.').pop().toLowerCase();
+        var ext = test.files[i].name.split('.').pop().toLowerCase();
 
         if($.inArray(ext, ['mp3','ogg','png']) == -1)
         {
@@ -78,7 +93,7 @@ function ShowFileUpload()
         }
         else
         {
-            var f = test[0].files[i];
+            var f = test.files[i];
             var name = f.name;
             $('#upload-path').append("<li>"+ name +"</li>");
         }

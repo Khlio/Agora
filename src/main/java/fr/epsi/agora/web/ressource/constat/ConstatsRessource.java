@@ -102,17 +102,19 @@ public class ConstatsRessource extends ServerResource {
 				} else {
 					if (0 < fichier.getInputStream().available()) {
 						if (fichier.getFieldName().equals("uploadClientDesc")) {
-							if (estUnFichierAudio(fichier.getName())) {
-								audios.add(fichier.getName().replace(' ', '_'));
-								enregistreFichier(nom, fichier.getName(), fichier.getInputStream());
+							String nomFichier = fichier.getName().replace(' ', '_');
+							if (estUnFichierAudio(nomFichier)) {
+								audios.add(nomFichier);
+								enregistreFichier(nom, nomFichier, fichier.getInputStream());
 							} else {
 								setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 								return ReponseRessource.get(Erreur.FORMAT_NON_SUPPORTE);
 							}
 						} else if (fichier.getFieldName().equals("uploadAnomalie")) {
-							if (estUnFichierAudioOuImage(fichier.getName())) {
-								annexes.add(fichier.getName().replace(' ', '_'));
-								enregistreFichier(nom, fichier.getName(), fichier.getInputStream());
+							String nomFichier = fichier.getName().replace(' ', '_');
+							if (estUnFichierAudioOuImage(nomFichier)) {
+								annexes.add(nomFichier);
+								enregistreFichier(nom, nomFichier, fichier.getInputStream());
 							} else {
 								setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 								return ReponseRessource.get(Erreur.FORMAT_NON_SUPPORTE);

@@ -45,8 +45,8 @@
 		}
 		else{
 			for(var i=0;i<json.annexes.length;i++){
-				$('#annexes').append(
-					'<span class="form control">'+json.annexes[i]+'</span><a href="javascript:supprimerAnnexe(\'' + json.annexes[i] + '\');" class="btn btn-danger btn-xs style="margin-left: 10px;""><span class="glyphicon glyphicon-remove"></span></a>'
+				$('#listeFichiers').append(
+					'<li style="margin-top: 5px">'+json.annexes[i]+'<a href="javascript:supprimerAnnexe(\'' + json.annexes[i] + '\');" class="btn btn-danger btn-xs" style="margin-left: 10px;"><span class="glyphicon glyphicon-remove"></span></a></li>'
 				);
 			}
 		}

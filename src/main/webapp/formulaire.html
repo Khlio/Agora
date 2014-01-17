@@ -159,13 +159,16 @@
                         <h4 class='panel-title'><strong>Ajouter document annexe</strong></h4>
                         </div>
                      <div class='panel-body'>
-                        <div class='PaddingEsc'></div>
+                        <div class='PaddingEsc'></div>					
                         <div class='browse-wrap'>
+						<div id="listFileUpload">
+							<div id="fileUpload" class="fileUpload">
                             <span class="help-block">Fichier annexe (audio/photo)</span>
                           <div class='title'>Ajouter un document</div>
-                            <input type='file' name='uploadAnomalie[]' id='uploadAnomalie' class='upload' title='Choissisez un fichier' multiple='multiple' onchange='ShowFileUpload()'>
-                          </div>
-                        <ul class='upload-path' id='upload-path'>
+                            <input type='file' name='uploadAnomalie' id='uploadAnomalie' class='upload uploadAnomalie' title='Choissisez un fichier' onclick='AddNewInput()'  onchange='ShowFileUpload()'>
+						  </div>
+						</div>
+                        <ul class='upload-path' style="margin-top:10px;" id='upload-path'>
                             </ul>
                         </div>
                     </div>
@@ -191,9 +194,9 @@
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 <script src="js/formToWizard.js"></script>
+<script src="js/outils.js"></script>
 <script src="js/formulaire.js"></script>
 <script src="js/listeClientFormulaire.js"></script>
-<script src="js/outils.js"></script>
 <script src="js/main.js"></script>
 
 <script>

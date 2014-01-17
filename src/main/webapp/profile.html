@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -154,7 +154,6 @@
     </p>
 </form>
 <div id="dialog-message" class="modal fade" title="Une erreur est survenue">
-
 </div>
 
 <script src="js/lib/jquery-2.0.3.min.js"></script>
@@ -171,6 +170,9 @@
 <script src="js/main.js"></script>
 
 <script>
+
+    
+
 	jQuery.validator.setDefaults({
         debug: true,
         success: "valid"
@@ -229,6 +231,11 @@
         {
 			$("#motDePasse").removeAttr('required');
 			$("#motDePasse").val('');
+            return true;
+        }
+		
+		if(value.length != 0 && document.getElementById("nouveauMotDePasse").value.length != 0)
+        {
             return true;
         }
 		
