@@ -11,8 +11,9 @@ $(document).ready
             $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' });
         }
         
-        if(navigator.geolocation)
+        if(navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(maPosition);
+        }
     }
 );
 
