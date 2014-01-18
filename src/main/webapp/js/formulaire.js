@@ -64,7 +64,7 @@ function ShowFileUploadClient()
 
     var ext = test[0].files[0].name.split('.').pop().toLowerCase();
 
-        if($.inArray(ext, ['mp3','ogg']) == -1) {
+        if($.inArray(ext, ['mp3','ogg','wave','wav','3ga','aac']) == -1) {
         alert('Extension du fichier invalide !');
     }
     else
@@ -87,7 +87,7 @@ function ShowFileUpload()
     {
         var ext = test.files[i].name.split('.').pop().toLowerCase();
 
-        if($.inArray(ext, ['mp3','ogg','png']) == -1)
+        if($.inArray(ext, ['mp3','ogg','wave','wav','3ga','aac','png','jpg','jpeg','bmp','gif']) == -1)
         {
             alert('Extension du fichier invalide !');
         }
